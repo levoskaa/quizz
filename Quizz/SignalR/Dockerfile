@@ -5,15 +5,11 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS publish
 WORKDIR /src
-COPY ["SignalR/SignalR.csproj", "SignalR/"]
-RUN dotnet restore "SignalR/SignalR.csproj"
 COPY . .
-WORKDIR "/src/SignalR"
-RUN dotnet build "SignalR.csproj" -c Release -o /app/build
-
-FROM build AS publish
+RUN dotnet restore /ignoreprojectextensions:.dcproj
+WORKDIR /src/SignalR
 RUN dotnet publish "SignalR.csproj" -c Release -o /app/publish
 
 FROM base AS final

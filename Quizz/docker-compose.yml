@@ -6,27 +6,42 @@ services:
     build:
       context: .
       dockerfile: ApiGateway/Dockerfile
+    ports:
+      - "32000:80"
+      - "32001:443"
 
   game:
     image: ${DOCKER_REGISTRY-}game
     build:
       context: .
-      dockerfile: Game/Dockerfile    
+      dockerfile: Game/Dockerfile
+    ports:
+      - "32002:80"
+      - "32003:443"
 
   questions:
     image: ${DOCKER_REGISTRY-}questions
     build:
       context: .
       dockerfile: Questions/Dockerfile
+    ports:
+      - "32004:80"
+      - "32005:443"
 
   identity:
     image: ${DOCKER_REGISTRY-}identity
     build:
       context: .
       dockerfile: Identity/Dockerfile
+    ports:
+      - "32006:80"
+      - "32007:443"
 
   signalr:
     image: ${DOCKER_REGISTRY-}signalr
     build:
       context: .
       dockerfile: SignalR/Dockerfile
+    ports:
+      - "32008:80"
+      - "32009:443"
