@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Questions", "Questions\Questions.csproj", "{81D42090-C30D-4CCB-A7DB-69AEEF2D4F3E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR", "SignalR\SignalR.csproj", "{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{81D42090-C30D-4CCB-A7DB-69AEEF2D4F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81D42090-C30D-4CCB-A7DB-69AEEF2D4F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81D42090-C30D-4CCB-A7DB-69AEEF2D4F3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
