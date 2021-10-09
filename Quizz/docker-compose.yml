@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+
+  game:
+    image: ${DOCKER_REGISTRY-}game
+    build:
+      context: .
+      dockerfile: Game/Dockerfile    
+
+  questions:
+    image: ${DOCKER_REGISTRY-}questions
+    build:
+      context: .
+      dockerfile: Questions/Dockerfile
+
+  identity:
+    image: ${DOCKER_REGISTRY-}identity
+    build:
+      context: .
+      dockerfile: Identity/Dockerfile
+
+  signalr:
+    image: ${DOCKER_REGISTRY-}signalr
+    build:
+      context: .
+      dockerfile: SignalR/Dockerfile

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Questions", "Questions\Ques
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR", "SignalR\SignalR.csproj", "{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{AB6A4490-AC50-4F92-8305-CF486917A29A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB6A4490-AC50-4F92-8305-CF486917A29A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB6A4490-AC50-4F92-8305-CF486917A29A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB6A4490-AC50-4F92-8305-CF486917A29A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB6A4490-AC50-4F92-8305-CF486917A29A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
