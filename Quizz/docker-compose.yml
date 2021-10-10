@@ -15,27 +15,45 @@ services:
     build:
       context: .
       dockerfile: Game/Dockerfile
+    environment:
+      - ConnectionString=Server=sql-server;Database=GameDb;User Id=sa;Password=abcd!1234;
     ports:
       - "32002:80"
       - "32003:443"
+    depends_on:
+      - sql-server
+    entrypoint: ["/bin/bash"]
+    command: ["./wait-for-it.sh", "sql-server:1433", "--", "dotnet", "Game.dll"]
 
   questions:
     image: ${DOCKER_REGISTRY-}questions
     build:
       context: .
       dockerfile: Questions/Dockerfile
+    environment:
+      - ConnectionString=Server=sql-server;Database=QuestionsDb;User Id=sa;Password=abcd!1234;
     ports:
       - "32004:80"
       - "32005:443"
+    depends_on:
+      - sql-server
+    entrypoint: ["/bin/bash"]
+    command: ["./wait-for-it.sh", "sql-server:1433", "--", "dotnet", "Questions.dll"]
 
   identity:
     image: ${DOCKER_REGISTRY-}identity
     build:
       context: .
       dockerfile: Identity/Dockerfile
+    environment:
+      - ConnectionString=Server=sql-server;Database=IdentityDb;User Id=sa;Password=abcd!1234;
     ports:
       - "32006:80"
       - "32007:443"
+    depends_on:
+      - sql-server
+    entrypoint: ["/bin/bash"]
+    command: ["./wait-for-it.sh", "sql-server:1433", "--", "dotnet", "Identity.dll"]
 
   signalr:
     image: ${DOCKER_REGISTRY-}signalr
@@ -45,3 +63,17 @@ services:
     ports:
       - "32008:80"
       - "32009:443"
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2019-CU13-ubuntu-20.04
+    environment:
+      - SA_PASSWORD=abcd!1234
+      - ACCEPT_EULA=Y
+    ports:
+      - "5433:1433"
+    volumes:
+      - "quizz-data:/var/opt/mssql"
+
+volumes:
+  quizz-data:
+    external: true
