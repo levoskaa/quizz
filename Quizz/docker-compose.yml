@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   apigateway:
+    container_name: "quizz_api-gateway"
     image: ${DOCKER_REGISTRY-}apigateway
     build:
       context: .
@@ -11,6 +12,7 @@ services:
       - "32001:443"
 
   game:
+    container_name: "quizz_game"
     image: ${DOCKER_REGISTRY-}game
     build:
       context: .
@@ -26,6 +28,7 @@ services:
     command: ["./wait-for-it.sh", "sql-server:1433", "--", "dotnet", "Game.dll"]
 
   questions:
+    container_name: "quizz_questions"
     image: ${DOCKER_REGISTRY-}questions
     build:
       context: .
@@ -41,6 +44,7 @@ services:
     command: ["./wait-for-it.sh", "sql-server:1433", "--", "dotnet", "Questions.dll"]
 
   identity:
+    container_name: "quizz_identity"
     image: ${DOCKER_REGISTRY-}identity
     build:
       context: .
@@ -56,6 +60,7 @@ services:
     command: ["./wait-for-it.sh", "sql-server:1433", "--", "dotnet", "Identity.dll"]
 
   signalr:
+    container_name: "quizz_signalr"
     image: ${DOCKER_REGISTRY-}signalr
     build:
       context: .
@@ -65,6 +70,7 @@ services:
       - "32009:443"
 
   sql-server:
+    container_name: "quizz_sql-server"
     image: mcr.microsoft.com/mssql/server:2019-CU13-ubuntu-20.04
     environment:
       - SA_PASSWORD=abcd!1234
