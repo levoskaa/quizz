@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
 namespace ApiGateway
 {
@@ -18,9 +15,24 @@ namespace ApiGateway
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config
+                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                        .AddJsonFile("ocelot.json");
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .Configure(app =>
+                        {
+                            app.UseOcelot().Wait();
+                        })
+                        .UseStartup<Startup>();
+                })
+                .ConfigureServices(s =>
+                {
+                    s.AddOcelot();
                 });
     }
 }

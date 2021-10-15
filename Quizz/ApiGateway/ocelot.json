@@ -1,0 +1,6 @@
+﻿{
+  "Routes": [],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:32000"
+  }
+}
