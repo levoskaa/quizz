@@ -24,8 +24,6 @@ services:
       - "32003:443"
     depends_on:
       - sql-server
-    entrypoint: ["/bin/bash"]
-    command: ["./wait-for-it.sh", "sql-server:1433", "--", "dotnet", "Game.dll"]
 
   questions:
     container_name: "quizz_questions"
@@ -40,8 +38,6 @@ services:
       - "32005:443"
     depends_on:
       - sql-server
-    entrypoint: ["/bin/bash"]
-    command: ["./wait-for-it.sh", "sql-server:1433", "--", "dotnet", "Questions.dll"]
 
   identity:
     container_name: "quizz_identity"
@@ -56,8 +52,6 @@ services:
       - "32007:443"
     depends_on:
       - sql-server
-    entrypoint: ["/bin/bash"]
-    command: ["./wait-for-it.sh", "sql-server:1433", "--", "dotnet", "Identity.dll"]
 
   signalr:
     container_name: "quizz_signalr"
