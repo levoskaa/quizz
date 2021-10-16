@@ -1,7 +1,7 @@
 ﻿{
   "Routes": [
     {
-      "DownstreamPathTemplate": "/WeatherForecast",
+      "DownstreamPathTemplate": "/{catchAll}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -9,8 +9,44 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/WeatherForecast",
-      "UpstreamHttpMethod": ["GET"]
+      "UpstreamPathTemplate": "/api/game/{catchAll}",
+      "UpstreamHttpMethod": []
+    },
+    {
+      "DownstreamPathTemplate": "/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/identity/{catchAll}",
+      "UpstreamHttpMethod": []
+    },
+    {
+      "DownstreamPathTemplate": "/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "questions",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/questions/{catchAll}",
+      "UpstreamHttpMethod": []
+    },
+    {
+      "DownstreamPathTemplate": "/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "signalr",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/signalr/{catchAll}",
+      "UpstreamHttpMethod": []
     }
   ],
   "GlobalConfiguration": {}
