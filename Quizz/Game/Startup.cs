@@ -32,7 +32,7 @@ namespace Game
 
             services.AddDbContext<GameContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionString"],
+                options.UseSqlServer(Configuration.GetConnectionString("Default"),
                     sqlServerOptionsAction: sqlOptions =>
                     {
                         sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
