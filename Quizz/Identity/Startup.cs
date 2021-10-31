@@ -1,5 +1,4 @@
-using Identity.Configuration;
-using Identity.Infrastructure;
+using Identity.Data;
 using Identity.Quickstart.UI;
 using IdentityServer4;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +24,9 @@ namespace Identity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            var connectionString = Configuration.GetConnectionString("Default");
+
             services.AddControllersWithViews();
 
             services.AddSwaggerGen(c =>
@@ -34,19 +36,29 @@ namespace Identity
 
             services.AddDbContext<IdentityContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionString"],
-                    sqlServerOptionsAction: sqlOptions =>
-                    {
-                        sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-                    });
+                options.UseSqlServer(connectionString,
+                    sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
             });
 
             services.AddIdentityServer()
-                .AddInMemoryIdentityResources(Config.IdentityResources)
-                .AddInMemoryApiScopes(Config.ApiScopes)
-                .AddInMemoryClients(Config.Clients)
-                .AddDeveloperSigningCredential()
-                .AddTestUsers(TestUsers.Users);
+                .AddTestUsers(TestUsers.Users)
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = builder =>
+                    {
+                        builder.UseSqlServer(connectionString,
+                            sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
+                    };
+                })
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = builder =>
+                    {
+                        builder.UseSqlServer(connectionString,
+                            sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
+                    };
+                })
+                .AddDeveloperSigningCredential();
 
             services.AddAuthentication()
                 .AddGoogle("Google", options =>

@@ -6,11 +6,12 @@ using Polly;
 using System;
 using System.Data.SqlClient;
 
-namespace HostCustomizations
+namespace BuildingBlocks.HostCustomizations
 {
     public static class IHostExtensions
     {
-        public static IHost MigrateDbContext<TContext>(this IHost host, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
+        public static IHost MigrateDbContext<TContext>(this IHost host, Action<TContext, IServiceProvider> seeder)
+            where TContext : DbContext
         {
             using (var scope = host.Services.CreateScope())
             {
@@ -48,7 +49,11 @@ namespace HostCustomizations
             where TContext : DbContext
         {
             context.Database.Migrate();
-            seeder(context, services);
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            if (environment == Environments.Development)
+            {
+                seeder(context, services);
+            }
         }
     }
 }

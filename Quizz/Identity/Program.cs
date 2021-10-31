@@ -1,11 +1,8 @@
+using BuildingBlocks.HostCustomizations;
+using Identity.Data;
+using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Identity
 {
@@ -13,7 +10,27 @@ namespace Identity
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            host.MigrateDbContext<PersistedGrantDbContext>((_, __) => { })
+                .MigrateDbContext<ConfigurationDbContext>((context, services) =>
+                {
+                    new ConfigurationDbContextSeed()
+                        .SeedAsync(context)
+                        .Wait();
+                });
+            //.MigrateDbContext<IdentityContext>((context, services) =>
+            //{
+            //    var env = services.GetService<IWebHostEnvironment>();
+            //    var logger = services.GetService<ILogger<ApplicationDbContextSeed>>();
+            //    var settings = services.GetService<IOptions<AppSettings>>();
+
+            //    new ApplicationDbContextSeed()
+            //        .SeedAsync(context, env, logger, settings)
+            //        .Wait();
+            //});
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
