@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 using System.Collections.Generic;
 
 namespace Identity.Configuration
@@ -26,18 +27,40 @@ namespace Identity.Configuration
                 new Client
                 {
                     ClientId = "angular",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
 
-                    // no interactive user, use the clientid/secret for authentication
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedGrantTypes = GrantTypes.Code,
 
-                    // secret for authentication
-                    ClientSecrets =
+                    RedirectUris = { "https://localhost:5002/signin-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
+
+                    // Enable support for refresh tokens
+                    AllowOfflineAccess = true,
+
+                    AllowedScopes = new List<string>
                     {
-                        new Secret("secret".Sha256())
-                    },
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "game"
+                    }
+                },
+                new Client
+                {
+                    ClientId = "js",
+                    ClientName = "JavaScript Client",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequireClientSecret = false,
 
-                    // scopes that client has access to
-                    AllowedScopes = { "game" }
+                    RedirectUris =           { "https://localhost:5003/callback.html" },
+                    PostLogoutRedirectUris = { "https://localhost:5003/index.html" },
+                    AllowedCorsOrigins =     { "https://localhost:5003" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "game"
+                    }
                 }
             };
     }
