@@ -1,8 +1,10 @@
 using Identity.Data;
-using Identity.Quickstart.UI;
+using Identity.Models;
 using IdentityServer4;
+using Identity.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,14 +36,17 @@ namespace Identity
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity", Version = "v1" });
             });
 
-            services.AddDbContext<IdentityContext>(options =>
+            services.AddDbContext<IdentityDbContext>(options =>
             {
                 options.UseSqlServer(connectionString,
                     sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
             });
 
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddIdentityServer()
-                .AddTestUsers(TestUsers.Users)
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
@@ -58,6 +63,7 @@ namespace Identity
                             sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
                     };
                 })
+                .AddAspNetIdentity<ApplicationUser>()
                 .AddDeveloperSigningCredential();
 
             services.AddAuthentication()
