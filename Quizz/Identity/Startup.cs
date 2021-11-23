@@ -1,7 +1,6 @@
 using Identity.Data;
 using Identity.Models;
 using IdentityServer4;
-using Identity.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

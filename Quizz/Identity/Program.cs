@@ -18,17 +18,13 @@ namespace Identity
                     new ConfigurationDbContextSeed()
                         .SeedAsync(context)
                         .Wait();
+                })
+                .MigrateDbContext<IdentityDbContext>((context, services) =>
+                {
+                    new IdentityDbContextSeed()
+                        .SeedAsync(context)
+                        .Wait();
                 });
-            //.MigrateDbContext<IdentityContext>((context, services) =>
-            //{
-            //    var env = services.GetService<IWebHostEnvironment>();
-            //    var logger = services.GetService<ILogger<ApplicationDbContextSeed>>();
-            //    var settings = services.GetService<IOptions<AppSettings>>();
-
-            //    new ApplicationDbContextSeed()
-            //        .SeedAsync(context, env, logger, settings)
-            //        .Wait();
-            //});
 
             host.Run();
         }
