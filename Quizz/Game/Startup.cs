@@ -39,10 +39,10 @@ namespace Game
                     });
             });
 
-            services.AddAuthentication("Bearer")
+            services.AddAuthentication()
                 .AddJwtBearer("Bearer", options =>
                 {
-                    options.Authority = "https://localhost:5001";
+                    options.Authority = "http://identity:80";
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {

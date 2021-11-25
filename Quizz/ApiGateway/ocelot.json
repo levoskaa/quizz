@@ -10,7 +10,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/game/{catchAll}",
-      "UpstreamHttpMethod": []
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/{catchAll}",
@@ -22,7 +26,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/identity/{catchAll}",
-      "UpstreamHttpMethod": []
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/{catchAll}",
@@ -34,7 +42,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/questions/{catchAll}",
-      "UpstreamHttpMethod": []
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/{catchAll}",
@@ -46,7 +58,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/signalr/{catchAll}",
-      "UpstreamHttpMethod": []
+      "UpstreamHttpMethod": [],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": []
+      }
     }
   ],
   "GlobalConfiguration": {}
