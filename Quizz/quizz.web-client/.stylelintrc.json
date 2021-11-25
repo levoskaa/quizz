@@ -1,0 +1,7 @@
+{
+    "extends": "stylelint-config-standard-scss",
+    "rules": {
+        "no-empty-source": true,
+        "custom-property-no-missing-var-function": null
+    }
+}
