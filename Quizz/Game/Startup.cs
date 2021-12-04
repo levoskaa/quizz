@@ -1,5 +1,3 @@
-using Quizz.Game.Infrastructure;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Quizz.Game.Infrastructure;
 using System.Reflection;
 
 namespace Quizz.Game
@@ -40,18 +39,14 @@ namespace Quizz.Game
                     });
             });
 
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
+            services.AddAuthentication("Bearer")
                .AddJwtBearer("Bearer", options =>
                {
-                   options.Authority = "http://identity:80";
+                   options.Authority = Configuration["Identity:Authority"];
                    options.RequireHttpsMetadata = false;
                    options.TokenValidationParameters = new TokenValidationParameters
                    {
-                       ValidateAudience = false
+                       ValidateAudience = false,
                    };
                });
 

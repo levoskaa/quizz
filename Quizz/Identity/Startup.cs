@@ -45,7 +45,10 @@ namespace Quizz.Identity
                 .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddIdentityServer()
+            services.AddIdentityServer(options =>
+                {
+                    options.IssuerUri = Configuration["Identity:Issuer"];
+                })
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
