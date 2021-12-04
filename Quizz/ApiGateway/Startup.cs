@@ -13,20 +13,33 @@ namespace ApiGateway
         {
             var authenticationProviderKey = "IdentityApiKey";
             services.AddAuthentication()
-                .AddJwtBearer(authenticationProviderKey, options =>
+               .AddJwtBearer(authenticationProviderKey, options =>
+               {
+                   options.Authority = "http://identity:80";
+                   options.RequireHttpsMetadata = false;
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateAudience = false
+                   };
+               });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("default", policy =>
                 {
-                    options.Authority = "http://identity:80";
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false
-                    };
+                    policy.WithOrigins("https://localhost:5003")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
                 });
+            });
 
             services.AddOcelot();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("default");
+
             app.UseOcelot().Wait();
         }
     }
