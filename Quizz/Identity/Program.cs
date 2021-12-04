@@ -3,6 +3,7 @@ using Identity.Data;
 using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Identity
 {
@@ -10,7 +11,13 @@ namespace Identity
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
+            var host = CreateHostBuilder(args)
+                .ConfigureLogging(builder =>
+                {
+                    builder.SetMinimumLevel(LogLevel.Debug);
+                    builder.AddFilter("IdentityServer4", LogLevel.Debug);
+                })
+                .Build();
 
             host.MigrateDbContext<PersistedGrantDbContext>((_, __) => { })
                 .MigrateDbContext<ConfigurationDbContext>((context, services) =>
