@@ -1,4 +1,4 @@
-using Game.Infrastructure;
+using Quizz.Game.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
-namespace Game
+namespace Quizz.Game
 {
     public class Startup
     {

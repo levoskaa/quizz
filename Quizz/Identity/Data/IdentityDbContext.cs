@@ -1,8 +1,8 @@
-﻿using Identity.Models;
+﻿using Quizz.Identity.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.Data
+namespace Quizz.Identity.Data
 {
     public class IdentityDbContext : IdentityDbContext<ApplicationUser>
     {

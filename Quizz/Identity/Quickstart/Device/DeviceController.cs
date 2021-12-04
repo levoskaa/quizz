@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Identity.Quickstart.UI
+namespace Quizz.Identity.Quickstart.UI
 {
     [Authorize]
     [SecurityHeaders]

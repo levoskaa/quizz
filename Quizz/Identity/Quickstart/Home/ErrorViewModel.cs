@@ -4,7 +4,7 @@
 
 using IdentityServer4.Models;
 
-namespace Identity.Quickstart.UI
+namespace Quizz.Identity.Quickstart.UI
 {
     public class ErrorViewModel
     {

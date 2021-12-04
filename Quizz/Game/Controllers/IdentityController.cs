@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
-namespace Game.Controllers
+namespace Quizz.Game.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

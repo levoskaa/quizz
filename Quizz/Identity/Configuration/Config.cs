@@ -2,7 +2,7 @@
 using IdentityServer4.Models;
 using System.Collections.Generic;
 
-namespace Identity.Configuration
+namespace Quizz.Identity.Configuration
 {
     public static class Config
     {

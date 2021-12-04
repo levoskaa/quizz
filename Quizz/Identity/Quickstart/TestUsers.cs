@@ -7,7 +7,7 @@ using IdentityServer4.Test;
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Identity.Quickstart.UI
+namespace Quizz.Identity.Quickstart.UI
 {
     public class TestUsers
     {

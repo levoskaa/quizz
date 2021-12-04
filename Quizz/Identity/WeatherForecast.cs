@@ -1,6 +1,6 @@
 using System;
 
-namespace Identity
+namespace Quizz.Identity
 {
     public class WeatherForecast
     {

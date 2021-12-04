@@ -1,10 +1,10 @@
-﻿using Identity.Configuration;
+﻿using Quizz.Identity.Configuration;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Identity.Data
+namespace Quizz.Identity.Data
 {
     public class ConfigurationDbContextSeed
     {

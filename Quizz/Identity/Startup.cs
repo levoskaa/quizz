@@ -1,5 +1,5 @@
-using Identity.Data;
-using Identity.Models;
+using Quizz.Identity.Data;
+using Quizz.Identity.Models;
 using IdentityServer4;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
-namespace Identity
+namespace Quizz.Identity
 {
     public class Startup
     {

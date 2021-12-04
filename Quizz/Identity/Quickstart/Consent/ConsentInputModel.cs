@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace Identity.Quickstart.UI
+namespace Quizz.Identity.Quickstart.UI
 {
     public class ConsentInputModel
     {

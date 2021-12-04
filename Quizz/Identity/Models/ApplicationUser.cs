@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Identity.Models
+namespace Quizz.Identity.Models
 {
     public class ApplicationUser : IdentityUser
     {

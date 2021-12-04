@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace Identity.Quickstart.UI
+namespace Quizz.Identity.Quickstart.UI
 {
     [SecurityHeaders]
     [AllowAnonymous]

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Identity.Migrations
+namespace Quizz.Identity.Migrations
 {
     public partial class InitialMigration : Migration
     {

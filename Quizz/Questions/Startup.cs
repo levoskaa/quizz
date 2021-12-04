@@ -5,10 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Questions.Infrastructure;
+using Quizz.Questions.Infrastructure;
 using System.Reflection;
 
-namespace Questions
+namespace Quizz.Questions
 {
     public class Startup
     {

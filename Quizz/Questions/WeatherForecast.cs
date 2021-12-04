@@ -1,6 +1,6 @@
 using System;
 
-namespace Questions
+namespace Quizz.Questions
 {
     public class WeatherForecast
     {

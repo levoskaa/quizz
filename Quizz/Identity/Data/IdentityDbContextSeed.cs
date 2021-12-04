@@ -1,10 +1,10 @@
-﻿using Identity.Models;
+﻿using Quizz.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Identity.Data
+namespace Quizz.Identity.Data
 {
     public class IdentityDbContextSeed
     {

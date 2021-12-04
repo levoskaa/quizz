@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Game.Infrastructure
+namespace Quizz.Game.Infrastructure
 {
     public class GameContext : DbContext
     {

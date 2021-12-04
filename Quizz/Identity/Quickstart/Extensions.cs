@@ -2,7 +2,7 @@ using System;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Identity.Quickstart.UI
+namespace Quizz.Identity.Quickstart.UI
 {
     public static class Extensions
     {

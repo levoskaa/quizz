@@ -1,4 +1,4 @@
-using Identity.Models;
+using Quizz.Identity.Models;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Events;
@@ -16,7 +16,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Identity.Quickstart.UI
+namespace Quizz.Identity.Quickstart.UI
 {
     [SecurityHeaders]
     [AllowAnonymous]
