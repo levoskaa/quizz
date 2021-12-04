@@ -1,4 +1,5 @@
 using Game.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -39,16 +40,20 @@ namespace Game
                     });
             });
 
-            services.AddAuthentication()
-                .AddJwtBearer("Bearer", options =>
+            services.AddAuthentication(options =>
                 {
-                    options.Authority = "http://identity:80";
-
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false
-                    };
-                });
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+               .AddJwtBearer("Bearer", options =>
+               {
+                   options.Authority = "http://identity:80";
+                   options.RequireHttpsMetadata = false;
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateAudience = false
+                   };
+               });
 
             services.AddAuthorization(options =>
             {
