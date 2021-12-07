@@ -1,0 +1,3 @@
+# TLS keys and certificates
+*.pem
+*.srl
