@@ -1,5 +1,3 @@
-using Quizz.Identity.Data;
-using Quizz.Identity.Models;
 using IdentityServer4;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,9 +5,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Quizz.Identity.Data;
+using Quizz.Identity.Models;
+using System.IO;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Quizz.Identity
 {
@@ -45,6 +46,9 @@ namespace Quizz.Identity
                 .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();
 
+            var certPem = File.ReadAllText("Certificates/idserver_signed_cert.pem");
+            var keyPem = File.ReadAllText("Certificates/idserver_private_key.pem");
+            var cert = X509Certificate2.CreateFromPem(certPem, keyPem);
             services.AddIdentityServer(options =>
                 {
                     options.IssuerUri = Configuration["Identity:Issuer"];
@@ -66,7 +70,7 @@ namespace Quizz.Identity
                     };
                 })
                 .AddAspNetIdentity<ApplicationUser>()
-                .AddDeveloperSigningCredential();
+                .AddSigningCredential(cert);
 
             services.AddAuthentication()
                 .AddGoogle("Google", options =>

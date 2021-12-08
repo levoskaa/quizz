@@ -7,7 +7,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Quizz.Game.Infrastructure;
+using System.IO;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Quizz.Game
 {
@@ -39,6 +41,9 @@ namespace Quizz.Game
                     });
             });
 
+            var idserverCertPem = File.ReadAllText("Certificates/idserver_signed_cert.pem");
+            var idserverKeyPem = File.ReadAllText("Certificates/idserver_private_key.pem");
+            var idserverCert = X509Certificate2.CreateFromPem(idserverCertPem, idserverKeyPem);
             services.AddAuthentication("Bearer")
                .AddJwtBearer("Bearer", options =>
                {
@@ -47,6 +52,8 @@ namespace Quizz.Game
                    options.TokenValidationParameters = new TokenValidationParameters
                    {
                        ValidateAudience = false,
+                       IssuerSigningKey = new X509SecurityKey(idserverCert),
+                       ValidIssuers = new string[] { Configuration["Identity:Authority"], "https://localhost:32007" }
                    };
                });
 
