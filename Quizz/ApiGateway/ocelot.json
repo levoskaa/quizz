@@ -23,7 +23,6 @@
       ],
       "UpstreamPathTemplate": "/api/identity/{catchAll}",
       "UpstreamHttpMethod": []
-      
     },
     {
       "DownstreamPathTemplate": "/{catchAll}",
@@ -36,7 +35,6 @@
       ],
       "UpstreamPathTemplate": "/api/questions/{catchAll}",
       "UpstreamHttpMethod": []
-      
     },
     {
       "DownstreamPathTemplate": "/{catchAll}",
@@ -49,7 +47,6 @@
       ],
       "UpstreamPathTemplate": "/api/signalr/{catchAll}",
       "UpstreamHttpMethod": []
-      
     }
   ],
   "GlobalConfiguration": {}
