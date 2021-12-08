@@ -26,41 +26,24 @@ namespace Quizz.Identity.Configuration
             {
                 new Client
                 {
-                    ClientId = "angular",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
-
-                    AllowedGrantTypes = GrantTypes.Code,
-
-                    RedirectUris = { "https://localhost:5002/signin-oidc" },
-                    PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
-
-                    // Enable support for refresh tokens
-                    AllowOfflineAccess = true,
-
-                    AllowedScopes = new List<string>
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "game"
-                    }
-                },
-                new Client
-                {
-                    ClientId = "js",
-                    ClientName = "JavaScript Client",
+                    ClientId = "angular-web",
+                    ClientName = "Quizz",
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireClientSecret = false,
 
-                    RedirectUris =           { "https://localhost:5003/callback.html" },
-                    PostLogoutRedirectUris = { "https://localhost:5003/index.html" },
-                    AllowedCorsOrigins =     { "https://localhost:5003" },
+                    RedirectUris = { "http://localhost:4200/signin-callback",
+                                     "http://localhost:4200/assets/silent-callback.html" },
+                    PostLogoutRedirectUris = { "http://localhost:4200/signout-callback" },
+                    AllowedCorsOrigins = { "http://localhost:4200" },
 
+                    AllowAccessTokensViaBrowser = true,
+                    AccessTokenLifetime = 600,
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "game"
-                    }
+                    },
                 }
             };
     }
