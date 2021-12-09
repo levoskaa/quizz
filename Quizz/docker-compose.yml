@@ -18,8 +18,8 @@ services:
       context: .
       dockerfile: Game/Dockerfile
     environment:
-      - ConnectionStrings:Default=Server=sql-server;Database=GameDb;User Id=sa;Password=abcd!1234;
-      - Identity:Authority=http://identity:80
+      - ConnectionStrings__Default=Server=sql-server;Database=GameDb;User Id=sa;Password=abcd!1234;
+      - Identity__Authority=http://identity:80
     ports:
       - "32002:80"
       - "32003:443"
@@ -48,7 +48,7 @@ services:
       dockerfile: Identity/Dockerfile
     environment:
       - ConnectionStrings:Default=Server=sql-server;Database=IdentityDb;User Id=sa;Password=abcd!1234;
-      - Identity:Issuer=http://identity:80
+      - Identity__Issuer=http://identity:80
     ports:
       - "32006:80"
       - "32007:443"
