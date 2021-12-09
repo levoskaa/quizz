@@ -53,18 +53,18 @@ namespace Quizz.Game
                    {
                        ValidateAudience = false,
                        IssuerSigningKey = new X509SecurityKey(idserverCert),
-                       ValidIssuers = new string[] { Configuration["Identity:Authority"], "https://localhost:32007" }
                    };
                });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ApiScope", policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("scope", "game");
-                });
-            });
+            // TODO: fix authorization
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("ApiScope", policy =>
+            //    {
+            //        policy.RequireAuthenticatedUser();
+            //        policy.RequireClaim("scope", "game");
+            //    });
+            //});
 
             services.AddCors(options =>
             {
@@ -96,8 +96,8 @@ namespace Quizz.Game
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers()
-                    .RequireAuthorization("ApiScope"); ;
+                endpoints.MapControllers();
+                // TODO: .RequireAuthorization("ApiScope");
             });
         }
     }
