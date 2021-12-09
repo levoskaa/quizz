@@ -31,10 +31,10 @@ namespace Quizz.Identity.Configuration
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireClientSecret = false,
 
-                    RedirectUris = { "http://localhost:4200/signin-callback",
-                                     "http://localhost:4200/assets/silent-callback.html" },
-                    PostLogoutRedirectUris = { "http://localhost:4200/signout-callback" },
-                    AllowedCorsOrigins = { "http://localhost:4200" },
+                    RedirectUris = { "https://localhost:4200/signin-callback",
+                                     "https://localhost:4200/assets/silent-callback.html" },
+                    PostLogoutRedirectUris = { "https://localhost:4200/signout-callback" },
+                    AllowedCorsOrigins = { "https://localhost:4200" },
 
                     AllowAccessTokensViaBrowser = true,
                     AccessTokenLifetime = 600,

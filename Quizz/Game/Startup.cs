@@ -70,7 +70,7 @@ namespace Quizz.Game
             {
                 options.AddPolicy("default", policy =>
                 {
-                    policy.WithOrigins("https://localhost:5003")
+                    policy.WithOrigins("https://localhost:4200")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });

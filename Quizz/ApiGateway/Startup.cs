@@ -11,23 +11,11 @@ namespace ApiGateway
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            //var authenticationProviderKey = "IdentityApiKey";
-            //services.AddAuthentication()
-            //   .AddJwtBearer(authenticationProviderKey, options =>
-            //   {
-            //       options.Authority = "http://identity:80";
-            //       options.RequireHttpsMetadata = false;
-            //       options.TokenValidationParameters = new TokenValidationParameters
-            //       {
-            //           ValidateAudience = false
-            //       };
-            //   });
-
             services.AddCors(options =>
             {
                 options.AddPolicy("default", policy =>
                 {
-                    policy.WithOrigins("https://localhost:5003")
+                    policy.WithOrigins("https://localhost:4200")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
