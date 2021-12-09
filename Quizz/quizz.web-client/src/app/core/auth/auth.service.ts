@@ -61,6 +61,11 @@ export class AuthService {
     return this.checkUser(user);
   }
 
+  async getAccessToken(): Promise<string> {
+    const user = await this.userManager.getUser();
+    return !!user && !user.expired ? user.access_token : '';
+  }
+
   private checkUser(user: User | undefined): boolean {
     return !!user && !user.expired;
   }
