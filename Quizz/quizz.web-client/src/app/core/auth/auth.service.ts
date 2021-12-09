@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Globals } from '@globals';
-import { User, UserManager, UserManagerSettings } from 'oidc-client';
+import { SignoutResponse, User, UserManager, UserManagerSettings } from 'oidc-client';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -34,8 +34,23 @@ export class AuthService {
     this.userManager = new UserManager(this.idpSettings);
   }
 
-  login(): void {
+  startAuthentication(): void {
     this.userManager.signinRedirect();
+  }
+
+  async completeAuthentication(): Promise<void> {
+    const user = await this.userManager.signinRedirectCallback();
+    this.userSubject.next(user);
+    this.isAuthenticatedSubject.next(this.checkUser(user));
+  }
+
+  startLogout(): void {
+    this.userManager.signoutRedirect();
+  }
+
+  completeLogout(): Promise<SignoutResponse> {
+    this.userSubject.next(undefined);
+    return this.userManager.signoutRedirectCallback();
   }
 
   async isAuthenticated(): Promise<boolean> {

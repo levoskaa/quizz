@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './core/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'quizz-web-client';
+
+  constructor(private readonly authService: AuthService) {}
+
+  login(): void {
+    this.authService.startAuthentication();
+  }
+
+  logout(): void {
+    this.authService.startLogout();
+  }
 }
