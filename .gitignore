@@ -1,0 +1,6 @@
+# TLS keys and certificates
+certificates
+*.pem
+*.srl
+*.crt
+*.pfx

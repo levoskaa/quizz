@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Identity.Controllers
+namespace Quizz.Identity.Controllers
 {
     [ApiController]
     [Route("[controller]")]

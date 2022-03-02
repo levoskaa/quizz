@@ -19,7 +19,7 @@ namespace ApiGateway
                 {
                     config
                         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
-                        .AddJsonFile("ocelot.json", true, true);
+                        .AddJsonFile("ocelot.json", false, true);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

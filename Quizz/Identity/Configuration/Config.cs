@@ -1,39 +1,50 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 using System.Collections.Generic;
 
-namespace Identity.Configuration
+namespace Quizz.Identity.Configuration
 {
     public static class Config
     {
-        // Resources in the system
-        public static IEnumerable<ApiScope> GetApiScopes()
-        {
-            return new List<ApiScope>
+        public static IEnumerable<ApiScope> ApiScopes =>
+            new List<ApiScope>
             {
                 new ApiScope("game", "Game Service"),
                 new ApiScope("questions", "Questions Service"),
                 new ApiScope("api-gateway", "Api Gateway"),
-                new ApiScope("game.signalr-hub", "Game SignalR Hub"),
             };
-        }
 
-        // Clients wanting access to the resources
-        public static IEnumerable<Client> GetClients()
-        {
-            return new List<Client>
+        public static IEnumerable<IdentityResource> IdentityResources =>
+            new List<IdentityResource>
             {
-                // Angular Client
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
+            };
+
+        public static IEnumerable<Client> Clients =>
+            new List<Client>
+            {
                 new Client
                 {
-                    ClientId = "angular",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets =
+                    ClientId = "angular-web",
+                    ClientName = "Quizz",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequireClientSecret = false,
+
+                    RedirectUris = { "https://localhost:4200/signin-callback",
+                                     "https://localhost:4200/assets/silent-callback.html" },
+                    PostLogoutRedirectUris = { "https://localhost:4200/signout-callback" },
+                    AllowedCorsOrigins = { "https://localhost:4200" },
+
+                    AllowAccessTokensViaBrowser = true,
+                    AccessTokenLifetime = 600,
+                    AllowedScopes =
                     {
-                        new Secret("secret".Sha256())
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "game"
                     },
-                    AllowedScopes = { "game" }
                 }
             };
-        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Questions.Infrastructure
+namespace Quizz.Questions.Infrastructure
 {
     public class QuestionsContext : DbContext
     {

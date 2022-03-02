@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalR", "SignalR\SignalR.
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{AB6A4490-AC50-4F92-8305-CF486917A29A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{0892366F-3A5B-4FE6-9BE6-B04F2101F8E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{0892366F-3A5B-4FE6-9BE6-B04F2101F8E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{8C82B1B7-1368-4392-A806-3C3B450778F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostCustomizations", "BuildingBlocks\HostCustomizations\HostCustomizations.csproj", "{3DB45CA0-7B47-4040-9699-B67FFE37BBC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +49,16 @@ Global
 		{0892366F-3A5B-4FE6-9BE6-B04F2101F8E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0892366F-3A5B-4FE6-9BE6-B04F2101F8E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0892366F-3A5B-4FE6-9BE6-B04F2101F8E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DB45CA0-7B47-4040-9699-B67FFE37BBC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DB45CA0-7B47-4040-9699-B67FFE37BBC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DB45CA0-7B47-4040-9699-B67FFE37BBC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DB45CA0-7B47-4040-9699-B67FFE37BBC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3DB45CA0-7B47-4040-9699-B67FFE37BBC9} = {8C82B1B7-1368-4392-A806-3C3B450778F9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80473D55-E6A1-485E-BC69-0FD70CCA9197}

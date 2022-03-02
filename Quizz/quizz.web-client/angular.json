@@ -73,7 +73,11 @@
               "browserTarget": "quizz-web-client:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "sslKey": "./certificates/angular_private_key.pem",
+            "sslCert": "./certificates/angular_signed_cert.pem"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

@@ -5,10 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Questions.Infrastructure;
+using Quizz.Questions.Infrastructure;
 using System.Reflection;
 
-namespace Questions
+namespace Quizz.Questions
 {
     public class Startup
     {
@@ -31,7 +31,7 @@ namespace Questions
 
             services.AddDbContext<QuestionsContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionString"],
+                options.UseSqlServer(Configuration.GetConnectionString("Default"),
                     sqlServerOptionsAction: sqlOptions =>
                     {
                         sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
