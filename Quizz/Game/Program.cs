@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 using System.IO;
 
@@ -9,6 +8,7 @@ namespace Quizz.Game
 {
     public class Program
     {
+        // TODO: switch to minimal hosting
         public static void Main(string[] args)
         {
             Log.Logger = CreateSerilogLogger(GetConfiguration());
