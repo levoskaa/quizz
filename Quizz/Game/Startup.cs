@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Quizz.GameService.Application.Commands;
+using Quizz.GameService.Data;
 using Quizz.GameService.Infrastructure;
 using Quizz.GameService.Infrastructure.Exceptions;
 using Quizz.GameService.Infrastructure.Mapper;

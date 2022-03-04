@@ -6,7 +6,7 @@ using Quizz.GameService.Infrastructure.Extensions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Quizz.GameService.Infrastructure
+namespace Quizz.GameService.Data
 {
     public class GameContext : DbContext, IUnitOfWork
     {

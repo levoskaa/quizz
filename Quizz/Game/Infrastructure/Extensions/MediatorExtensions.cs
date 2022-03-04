@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Quizz.Common.DataAccess;
+using Quizz.GameService.Data;
 using System.Linq;
 using System.Threading.Tasks;
 

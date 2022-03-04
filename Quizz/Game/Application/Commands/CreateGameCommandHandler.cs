@@ -2,7 +2,7 @@
 using MediatR;
 using Quizz.Common.Services;
 using Quizz.GameService.Application.Models;
-using Quizz.GameService.Infrastructure.Repositories;
+using Quizz.GameService.Data.Repositories;
 using System.Threading;
 using System.Threading.Tasks;
 

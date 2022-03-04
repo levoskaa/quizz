@@ -5,7 +5,7 @@ using Quizz.Common.DataAccess;
 using Quizz.Common.Services;
 using Quizz.GameService.Application.Behaviors;
 using Quizz.GameService.Application.Validators;
-using Quizz.GameService.Infrastructure.Repositories;
+using Quizz.GameService.Data.Repositories;
 
 namespace Quizz.GameService.Infrastructure
 {

@@ -1,7 +1,7 @@
 ﻿using Quizz.Common.DataAccess;
 using Quizz.GameService.Application.Models;
 
-namespace Quizz.GameService.Infrastructure.Repositories
+namespace Quizz.GameService.Data.Repositories
 {
     public class GameRepository : IGameRepository
     {
