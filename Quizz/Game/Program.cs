@@ -1,10 +1,11 @@
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.IO;
 
-namespace Quizz.Game
+namespace Quizz.GameService
 {
     public class Program
     {
@@ -23,9 +24,10 @@ namespace Quizz.Game
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-                .UseSerilog();
+                .UseSerilog()
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-        private static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
+        private static ILogger CreateSerilogLogger(IConfiguration configuration)
         {
             var Namespace = typeof(Startup).Namespace;
             var AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
