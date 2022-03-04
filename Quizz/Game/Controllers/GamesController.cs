@@ -1,35 +1,32 @@
-﻿using Dapper;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using System;
+using Quizz.Common.ViewModels;
+using Quizz.GameService.Application.Commands;
+using System.Threading.Tasks;
 
-namespace Quizz.Game.Controllers
+namespace Quizz.GameService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class GamesController : ControllerBase
     {
-        private readonly IConfiguration configuration;
+        private readonly IMediator mediator;
 
-        public GamesController(IConfiguration configuration)
+        public GamesController(IMediator mediator)
         {
-            this.configuration = configuration;
+            this.mediator = mediator;
         }
 
         [HttpPost]
-        public void CreateGame()
+        public async Task<EntityCreatedViewModel<int>> CreateGame([FromBody] CreateGameCommand createGameCommand)
         {
-            string sql = "INSERT INTO Games (Name) Values (@Name);";
-            var connstr = configuration.GetConnectionString("Default");
-            using (var connection = new SqlConnection(connstr))
+            var createdId = await mediator.Send(createGameCommand);
+            return new EntityCreatedViewModel<int>
             {
-                var affectedRows = connection.Execute(sql, new { Name = "Game 1" });
-
-                Console.WriteLine(affectedRows);
-            }
+                Id = createdId
+            };
         }
     }
 }

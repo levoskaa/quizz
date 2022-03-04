@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31702.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity", "Identity\Identity.csproj", "{F8C65307-0847-46E5-93AB-D6410DB5B07D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game", "Game\Game.csproj", "{14E0A1A9-51E4-46D8-9EFB-F0943458F835}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameService", "Game\GameService.csproj", "{14E0A1A9-51E4-46D8-9EFB-F0943458F835}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Questions", "Questions\Questions.csproj", "{81D42090-C30D-4CCB-A7DB-69AEEF2D4F3E}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{8C82B1B7-1368-4392-A806-3C3B450778F9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostCustomizations", "BuildingBlocks\HostCustomizations\HostCustomizations.csproj", "{3DB45CA0-7B47-4040-9699-B67FFE37BBC9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "BuildingBlocks\Common\Common.csproj", "{0C91F86E-C668-4076-9A71-D25D20E285A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,12 +55,17 @@ Global
 		{3DB45CA0-7B47-4040-9699-B67FFE37BBC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DB45CA0-7B47-4040-9699-B67FFE37BBC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DB45CA0-7B47-4040-9699-B67FFE37BBC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C91F86E-C668-4076-9A71-D25D20E285A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C91F86E-C668-4076-9A71-D25D20E285A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C91F86E-C668-4076-9A71-D25D20E285A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C91F86E-C668-4076-9A71-D25D20E285A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3DB45CA0-7B47-4040-9699-B67FFE37BBC9} = {8C82B1B7-1368-4392-A806-3C3B450778F9}
+		{0C91F86E-C668-4076-9A71-D25D20E285A5} = {8C82B1B7-1368-4392-A806-3C3B450778F9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80473D55-E6A1-485E-BC69-0FD70CCA9197}

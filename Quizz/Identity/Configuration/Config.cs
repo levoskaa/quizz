@@ -44,6 +44,24 @@ namespace Quizz.Identity.Configuration
                         IdentityServerConstants.StandardScopes.Profile,
                         "game"
                     },
+                },
+                new Client
+                {
+                    ClientId = "postman",
+                    ClientName = "postman",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowAccessTokensViaBrowser =true,
+                    RequireClientSecret = false,
+
+                    RedirectUris = { "https://www.getpostman.com/oauth2/callback" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "game"
+                    },
+                    AllowOfflineAccess = true,
                 }
             };
     }

@@ -1,3 +1,5 @@
+using Autofac;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,30 +8,52 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Quizz.Game.Infrastructure;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
+using Quizz.GameService.Application.Commands;
+using Quizz.GameService.Data;
+using Quizz.GameService.Infrastructure;
+using Quizz.GameService.Infrastructure.Exceptions;
+using Quizz.GameService.Infrastructure.Mapper;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
-using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Quizz.Game
+namespace Quizz.GameService
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new GameServiceModule());
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddAutoMapper(typeof(AutoMapperProfile));
+
+            services.AddMediatR(typeof(CreateGameCommandHandler).Assembly);
+
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                });
+
+            services.AddHttpContextAccessor();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Game", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "GameService", Version = "v1" });
             });
 
             services.AddDbContext<GameContext>(options =>
@@ -37,9 +61,12 @@ namespace Quizz.Game
                 options.UseSqlServer(Configuration.GetConnectionString("Default"),
                     sqlServerOptionsAction: sqlOptions =>
                     {
-                        sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                        sqlOptions.MigrationsAssembly(typeof(GameContext).Assembly.GetName().Name);
                     });
             });
+
+            // Don't override JWT claim names
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             var idserverCertPem = File.ReadAllText("Certificates/idserver_signed_cert.pem");
             var idserverKeyPem = File.ReadAllText("Certificates/idserver_private_key.pem");
@@ -75,6 +102,8 @@ namespace Quizz.Game
                         .AllowAnyMethod();
                 });
             });
+
+            services.AddRouting(options => options.LowercaseUrls = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +115,8 @@ namespace Quizz.Game
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Game v1"));
             }
+
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseRouting();
 
