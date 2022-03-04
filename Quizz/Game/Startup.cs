@@ -14,6 +14,7 @@ using Quizz.GameService.Application.Commands;
 using Quizz.GameService.Infrastructure;
 using Quizz.GameService.Infrastructure.Exceptions;
 using Quizz.GameService.Infrastructure.Mapper;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 
@@ -47,6 +48,8 @@ namespace Quizz.GameService
                     options.SerializerSettings.Converters.Add(new StringEnumConverter());
                 });
 
+            services.AddHttpContextAccessor();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GameService", Version = "v1" });
@@ -60,6 +63,9 @@ namespace Quizz.GameService
                         sqlOptions.MigrationsAssembly(typeof(GameContext).Assembly.GetName().Name);
                     });
             });
+
+            // Don't override JWT claim names
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             var idserverCertPem = File.ReadAllText("Certificates/idserver_signed_cert.pem");
             var idserverKeyPem = File.ReadAllText("Certificates/idserver_private_key.pem");
