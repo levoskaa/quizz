@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Quizz.Common.DataAccess
 {
-    public abstract class Entity<T>
+    public abstract class Entity<T> : IEntity
     {
         private T id;
 
