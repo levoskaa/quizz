@@ -19,11 +19,12 @@ namespace Quizz.GameService.Data.Configuration
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Map list to string
-            var converter = new ValueConverter<List<int>, string>(
+            var converter = new ValueConverter<IReadOnlyCollection<int>, string>(
                 v => string.Join(',', v),
                 v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)
                       .Select(x => int.Parse(x))
                       .ToList()
+                      .AsReadOnly()
             );
             builder.Property(question => question.CorrectIdOrder)
                 .HasConversion(converter);

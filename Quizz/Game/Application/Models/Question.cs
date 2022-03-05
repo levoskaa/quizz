@@ -7,7 +7,7 @@ namespace Quizz.GameService.Application.Models
     {
         public string Text { get; set; }
 
-        public abstract QuestionType Type { get; }
+        public virtual QuestionType Type { get; private set; }
 
         public int Index { get; set; }
 

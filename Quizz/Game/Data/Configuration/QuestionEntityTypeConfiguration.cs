@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Quizz.GameService.Application.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Quizz.GameService.Data.Configuration
 {
@@ -9,12 +10,16 @@ namespace Quizz.GameService.Data.Configuration
         public void Configure(EntityTypeBuilder<Question> builder)
         {
             builder.ToTable("Question")
-                .HasDiscriminator(question => question.Type);
+                .HasDiscriminator(question => question.Type)
+                .HasValue<FindCorrectOrderQuestion>(QuestionType.FindCorrectOrder)
+                .HasValue<MultipleChoiceQuestion>(QuestionType.MultipleChoice)
+                .HasValue<TrueOrFalseQuestion>(QuestionType.TrueOrFalse)
+                .HasValue<TypeInAnswerQuestion>(QuestionType.TypeInAnswer);
 
             builder.HasKey(question => question.Id);
 
             builder.Property(question => question.Id)
-                .HasDefaultValue("newsequentialid()");
+                .ValueGeneratedOnAdd();
         }
     }
 }
