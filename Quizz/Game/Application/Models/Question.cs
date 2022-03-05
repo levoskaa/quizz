@@ -1,8 +1,9 @@
 ﻿using Quizz.Common.DataAccess;
+using System;
 
 namespace Quizz.GameService.Application.Models
 {
-    public abstract class Question : Entity<string>
+    public abstract class Question : Entity<Guid>
     {
         public string Text { get; set; }
 

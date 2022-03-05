@@ -1,4 +1,5 @@
 ﻿using Quizz.Common.DataAccess;
+using System;
 
 namespace Quizz.GameService.Application.Models
 {
@@ -6,6 +7,6 @@ namespace Quizz.GameService.Application.Models
     {
         public string Text { get; set; }
 
-        public string QuestionId { get; set; }
+        public Guid QuestionId { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace Quizz.GameService.Application.Models
         public IReadOnlyCollection<Answer> AnswerPossibilities => answerPossibilites.AsReadOnly();
 
         private readonly List<int> correctIdOrder;
-        public IReadOnlyCollection<int> CorrectIdmOrder => correctIdOrder.AsReadOnly();
+        public IReadOnlyCollection<int> CorrectIdOrder => correctIdOrder.AsReadOnly();
 
         public FindCorrectOrderQuestion()
         {

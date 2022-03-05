@@ -6,12 +6,12 @@ namespace Quizz.GameService.Application.Models
     {
         public override QuestionType Type => QuestionType.TypeInAnswer;
 
-        private readonly List<string> acceptedAnswers;
-        public IReadOnlyCollection<string> AcceptedAnswers => acceptedAnswers.AsReadOnly();
+        private readonly List<Answer> acceptedAnswers;
+        public IReadOnlyCollection<Answer> AcceptedAnswers => acceptedAnswers.AsReadOnly();
 
         public TypeInAnswerQuestion()
         {
-            acceptedAnswers = new List<string>();
+            acceptedAnswers = new List<Answer>();
         }
     }
 }

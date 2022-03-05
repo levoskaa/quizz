@@ -14,6 +14,7 @@ namespace Quizz.GameService.Application.Models
         public DateTime UpdatedAt { get; set; }
 
         private readonly List<GameQuestion> gameQuestions;
+        public IReadOnlyCollection<GameQuestion> GameQuestions => gameQuestions.AsReadOnly();
 
         public IReadOnlyCollection<Question> Questions
         {
@@ -25,7 +26,7 @@ namespace Quizz.GameService.Application.Models
             }
         }
 
-        public IReadOnlyCollection<string> QuestionIds
+        public IReadOnlyCollection<Guid> QuestionIds
         {
             get
             {
