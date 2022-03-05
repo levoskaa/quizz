@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Quizz.GameService.Application.Models
 {
-    public class Game : Entity, IAggregateRoot
+    public class Game : Entity<int>, IAggregateRoot
     {
         public string Name { get; set; }
 

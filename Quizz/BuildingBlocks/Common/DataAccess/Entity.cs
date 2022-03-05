@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Quizz.Common.DataAccess
 {
-    public abstract class Entity
+    public abstract class Entity<T>
     {
-        private int id;
+        private T id;
 
-        public virtual int Id
+        public virtual T Id
         {
             get
             {
