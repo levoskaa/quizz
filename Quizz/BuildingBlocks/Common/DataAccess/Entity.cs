@@ -19,23 +19,27 @@ namespace Quizz.Common.DataAccess
             }
         }
 
-        private List<INotification> domainEvents;
-        public IReadOnlyCollection<INotification> DomainEvents => domainEvents?.AsReadOnly();
+        private readonly List<INotification> domainEvents;
+        public IReadOnlyCollection<INotification> DomainEvents => domainEvents.AsReadOnly();
+
+        public Entity()
+        {
+            domainEvents = new List<INotification>();
+        }
 
         public void AddDomainEvent(INotification eventItem)
         {
-            domainEvents ??= new List<INotification>();
             domainEvents.Add(eventItem);
         }
 
         public void RemoveDomainEvent(INotification eventItem)
         {
-            domainEvents?.Remove(eventItem);
+            domainEvents.Remove(eventItem);
         }
 
         public void ClearDomainEvents()
         {
-            domainEvents?.Clear();
+            domainEvents.Clear();
         }
     }
 }
