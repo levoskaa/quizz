@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Quizz.Common;
 using Quizz.GameService.Application.Commands;
 
 namespace Quizz.GameService.Application.Validators
@@ -8,7 +9,7 @@ namespace Quizz.GameService.Application.Validators
         public CreateGameCommandValidator()
         {
             RuleFor(command => command.Name).NotEmpty()
-                .WithMessage("game_name_required");
+                .WithMessage(ValidationError.GameNameRequired);
         }
     }
 }

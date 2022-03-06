@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Quizz.Common.ErrorHandling;
 
 namespace Quizz.GameService.Infrastructure.Exceptions
 {
-    public class GameServiceDomainException : Exception
+    public class GameServiceDomainException : QuizzException
     {
-        public IEnumerable<string> ErrorCodes { get; set; }
-
         public GameServiceDomainException()
         { }
 
@@ -14,10 +11,8 @@ namespace Quizz.GameService.Infrastructure.Exceptions
             : base(message)
         { }
 
-        public GameServiceDomainException(string message, IEnumerable<string> errorCodes)
-            : base(message)
-        {
-            ErrorCodes = errorCodes;
-        }
+        public GameServiceDomainException(string message, params string[] errorCodes)
+            : base(message, errorCodes)
+        { }
     }
 }

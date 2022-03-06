@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Quizz.Common
+namespace Quizz.Common.ErroHandling
 {
     public class ErrorContractResolver : CamelCasePropertyNamesContractResolver
     {

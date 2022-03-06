@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-using Quizz.Common;
+using Quizz.Common.ErroHandling;
+using Quizz.Common.ErrorHandling;
 using Quizz.Common.ViewModels;
 using System;
 using System.Net;
@@ -38,16 +39,26 @@ namespace Quizz.GameService.Infrastructure.Exceptions
                     HttpStatusCode.BadRequest,
                     mapper.Map<ErrorViewModel>(e));
             }
+            catch (EntityNotFoundException e)
+            {
+                await SendResponseAsync(
+                    httpContext,
+                    HttpStatusCode.NotFound,
+                    mapper.Map<ErrorViewModel>(e));
+            }
+            catch (ForbiddenException e)
+            {
+                await SendResponseAsync(
+                    httpContext,
+                    HttpStatusCode.Forbidden,
+                    mapper.Map<ErrorViewModel>(e));
+            }
             catch (Exception e)
             {
                 await SendResponseAsync(
                     httpContext,
                     HttpStatusCode.InternalServerError,
-                    new ErrorViewModel
-                    {
-                        Message = "Unexpected error occured",
-                        StackTrace = e.StackTrace,
-                    });
+                    mapper.Map<ErrorViewModel>(e));
             }
         }
 
