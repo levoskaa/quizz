@@ -11,5 +11,7 @@ namespace Quizz.GameService.Data.Repositories
         Task<Game> GetAsync(int id);
 
         void Update(Game game);
+
+        void Remove(Game game);
     }
 }

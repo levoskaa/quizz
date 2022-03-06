@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Quizz.Common;
 using Quizz.Common.DataAccess;
 using Quizz.Common.ErroHandling;
+using Quizz.Common.ErrorHandling;
 using Quizz.GameService.Application.Models;
 using System.Threading.Tasks;
 
@@ -41,6 +41,11 @@ namespace Quizz.GameService.Data.Repositories
         public void Update(Game game)
         {
             context.Games.Update(game);
+        }
+
+        public void Remove(Game game)
+        {
+            context.Games.Remove(game);
         }
     }
 }

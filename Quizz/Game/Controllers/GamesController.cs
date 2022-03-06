@@ -40,10 +40,10 @@ namespace Quizz.GameService.Controllers
         [ProducesResponseType(typeof(ErrorViewModel), (int)HttpStatusCode.BadRequest)]
         public async Task<EntityCreatedViewModel<int>> CreateGame([FromBody] CreateGameDto createGameDto)
         {
+            contextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.Created;
             var createGameCommand = mapper.Map<CreateGameCommand>(createGameDto);
             createGameCommand.UserId = identityService.GetUserIdentity();
             var createdId = await mediator.Send(createGameCommand);
-            contextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.Created;
             return new EntityCreatedViewModel<int>
             {
                 Id = createdId
@@ -60,6 +60,18 @@ namespace Quizz.GameService.Controllers
             updateGameCommand.GameId = gameId;
             updateGameCommand.UserId = identityService.GetUserIdentity();
             return mediator.Send(updateGameCommand);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(ErrorViewModel), (int)HttpStatusCode.BadRequest)]
+        public Task DeleteGame([FromRoute(Name = "id")] int gameId)
+        {
+            contextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.NoContent;
+            var userId = identityService.GetUserIdentity();
+            var deleteGameCommand = new DeleteGameCommand(gameId, userId);
+            return mediator.Send(deleteGameCommand);
         }
     }
 }
