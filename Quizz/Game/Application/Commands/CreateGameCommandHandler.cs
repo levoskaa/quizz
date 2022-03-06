@@ -14,7 +14,10 @@ namespace Quizz.GameService.Application.Commands
         private readonly IMapper mapper;
         private readonly IIdentityService identityService;
 
-        public CreateGameCommandHandler(IGameRepository gameRepository, IMapper mapper, IIdentityService identityService)
+        public CreateGameCommandHandler(
+            IGameRepository gameRepository,
+            IMapper mapper,
+            IIdentityService identityService)
         {
             this.gameRepository = gameRepository;
             this.mapper = mapper;
@@ -24,8 +27,7 @@ namespace Quizz.GameService.Application.Commands
         public async Task<int> Handle(CreateGameCommand createGameCommand, CancellationToken cancellationToken)
         {
             var game = mapper.Map<Game>(createGameCommand);
-            game.OwnerId = identityService.GetUserIdentity();
-            var createdId = gameRepository.AddGame(game);
+            var createdId = gameRepository.Add(game);
             await gameRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             return createdId;
         }
