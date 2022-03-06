@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Quizz.Common;
+using Quizz.Common.ErrorHandling;
 using Quizz.GameService.Application.Commands;
 
 namespace Quizz.GameService.Application.Validators

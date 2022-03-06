@@ -13,9 +13,7 @@ namespace Quizz.GameService.Application.Commands
         private readonly IGameRepository gameRepository;
         private readonly IMapper mapper;
 
-        public UpdateGameCommandHandler(
-            IGameRepository gameRepository,
-            IMapper mapper)
+        public UpdateGameCommandHandler(IGameRepository gameRepository, IMapper mapper)
         {
             this.gameRepository = gameRepository;
             this.mapper = mapper;
