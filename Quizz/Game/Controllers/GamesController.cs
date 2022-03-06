@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Dapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,10 @@ using Quizz.Common.Services;
 using Quizz.Common.ViewModels;
 using Quizz.GameService.Application.Commands;
 using Quizz.GameService.Application.Dtos;
+using Quizz.GameService.Application.Models;
+using Quizz.GameService.Application.ViewModels;
+using Quizz.GameService.Data;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -22,17 +27,20 @@ namespace Quizz.GameService.Controllers
         private readonly IHttpContextAccessor contextAccessor;
         private readonly IMapper mapper;
         private readonly IIdentityService identityService;
+        private readonly DapperContext dapper;
 
         public GamesController(
             IMediator mediator,
             IHttpContextAccessor contextAccessor,
             IMapper mapper,
-            IIdentityService identityService)
+            IIdentityService identityService,
+            DapperContext dapper)
         {
             this.mediator = mediator;
             this.contextAccessor = contextAccessor;
             this.mapper = mapper;
             this.identityService = identityService;
+            this.dapper = dapper;
         }
 
         [HttpPost]
@@ -48,6 +56,30 @@ namespace Quizz.GameService.Controllers
             {
                 Id = createdId
             };
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(PaginatedItemsViewModel<GameViewModel>), (int)HttpStatusCode.OK)]
+        public async Task<PaginatedItemsViewModel<GameViewModel>> GetGames([FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0)
+        {
+            var userId = identityService.GetUserIdentity();
+            var offset = pageSize * pageIndex;
+            var gamesQuery = @"SELECT * FROM Game
+                             WHERE OwnerId=@userId
+                             ORDER BY (SELECT NULL)
+                             OFFSET @offset ROWS FETCH NEXT @pageSize ROWS ONLY;";
+            var gameCountQuery = @"SELECT COUNT(*) FROM Game
+                                 WHERE OwnerId=@userId;";
+            using (var connection = dapper.CreateConnection())
+            {
+                var games = await connection.QueryAsync<Game>(gamesQuery, new { userId, offset, pageSize });
+                var totalCount = await connection.QuerySingleAsync<long>(gameCountQuery, new { userId });
+                return new PaginatedItemsViewModel<GameViewModel>(
+                    pageIndex,
+                    pageSize,
+                    totalCount,
+                    mapper.Map<IEnumerable<GameViewModel>>(games));
+            }
         }
 
         [HttpPut]

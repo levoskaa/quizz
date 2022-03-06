@@ -5,6 +5,7 @@ using Quizz.Common.ViewModels;
 using Quizz.GameService.Application.Commands;
 using Quizz.GameService.Application.Dtos;
 using Quizz.GameService.Application.Models;
+using Quizz.GameService.Application.ViewModels;
 using Quizz.GameService.Infrastructure.Exceptions;
 using System;
 
@@ -20,6 +21,9 @@ namespace Quizz.GameService.Infrastructure.Mapper
             CreateMap<CreateGameCommand, Game>()
                 .ForMember(game => game.OwnerId, options => options.MapFrom(command => command.UserId))
                 .ForMember(game => game.UpdatedAt, options => options.MapFrom(_ => DateTime.Now));
+
+            // Get Games
+            CreateMap<Game, GameViewModel>();
 
             // Update Game
             CreateMap<UpdateGameDto, UpdateGameCommand>();
