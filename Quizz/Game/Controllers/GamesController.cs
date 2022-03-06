@@ -66,7 +66,7 @@ namespace Quizz.GameService.Controllers
             var offset = pageSize * pageIndex;
             var gamesQuery = @"SELECT * FROM Game
                              WHERE OwnerId=@userId
-                             ORDER BY (SELECT NULL)
+                             ORDER BY UpdatedAt DESC
                              OFFSET @offset ROWS FETCH NEXT @pageSize ROWS ONLY;";
             var gameCountQuery = @"SELECT COUNT(*) FROM Game
                                  WHERE OwnerId=@userId;";
