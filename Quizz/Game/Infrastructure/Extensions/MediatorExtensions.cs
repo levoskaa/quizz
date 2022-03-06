@@ -11,7 +11,7 @@ namespace Quizz.GameService.Infrastructure.Extensions
         public static async Task DispatchDomainEventsAsync(this IMediator mediator, GameContext context)
         {
             var domainEntities = context.ChangeTracker
-                .Entries<Entity>()
+                .Entries<IEntity>()
                 .Where(x => x.Entity.DomainEvents != null && x.Entity.DomainEvents.Any());
 
             var domainEvents = domainEntities

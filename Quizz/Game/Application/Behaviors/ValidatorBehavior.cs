@@ -28,7 +28,7 @@ namespace Quizz.GameService.Application.Behaviors
 
             if (failures.Any())
             {
-                var errorCodes = failures.Select(failure => failure.ErrorMessage);
+                var errorCodes = failures.Select(failure => failure.ErrorMessage).ToArray();
                 throw new GameServiceDomainException(
                     $"Command validation errors for type {typeof(TRequest).Name}",
                     errorCodes);

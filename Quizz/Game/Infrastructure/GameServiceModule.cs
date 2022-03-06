@@ -5,6 +5,7 @@ using Quizz.Common.DataAccess;
 using Quizz.Common.Services;
 using Quizz.GameService.Application.Behaviors;
 using Quizz.GameService.Application.Validators;
+using Quizz.GameService.Data;
 using Quizz.GameService.Data.Repositories;
 
 namespace Quizz.GameService.Infrastructure
@@ -34,6 +35,11 @@ namespace Quizz.GameService.Infrastructure
             builder.RegisterGeneric(typeof(ValidatorBehavior<,>))
                 .As(typeof(IPipelineBehavior<,>))
                 .InstancePerDependency();
+
+            // Dapper
+            builder.RegisterType<DapperContext>()
+                .AsSelf()
+                .SingleInstance();
         }
     }
 }
