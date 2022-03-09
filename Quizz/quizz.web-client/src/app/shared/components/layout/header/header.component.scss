@@ -1,0 +1,19 @@
+@import 'variables';
+
+.toolbar {
+  font-size: 4rem;
+  height: 4rem;
+  background-color: $primary;
+
+  &-title {
+    font-family: $logo-font;
+    font-size: 0.7em;
+    line-height: 1em;
+    transform: skewX(-15deg);
+  }
+
+  &-auth {
+    margin-left: auto;
+    font-size: 0.2em;
+  }
+}
