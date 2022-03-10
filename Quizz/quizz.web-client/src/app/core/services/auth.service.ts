@@ -1,23 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Globals } from '@globals';
-import { SignoutResponse, User, UserManager, UserManagerSettings } from 'oidc-client';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Store } from '@ngxs/store';
+import { SignoutResponse, UserManager, UserManagerSettings } from 'oidc-client';
+import { UserLoggedIn, UserLoggedout } from '../actions/auth.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private userManager: UserManager;
-  private userSubject = new BehaviorSubject<User | undefined>(undefined);
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
-
-  get isAuthenticated$(): Observable<boolean> {
-    return this.isAuthenticatedSubject.asObservable();
-  }
-
-  get user$(): Observable<User | undefined> {
-    return this.userSubject.asObservable();
-  }
 
   private get idpSettings(): UserManagerSettings {
     return {
@@ -30,7 +21,7 @@ export class AuthService {
     };
   }
 
-  constructor() {
+  constructor(private readonly store: Store) {
     this.userManager = new UserManager(this.idpSettings);
   }
 
@@ -40,8 +31,7 @@ export class AuthService {
 
   async completeAuthentication(): Promise<void> {
     const user = await this.userManager.signinRedirectCallback();
-    this.userSubject.next(user);
-    this.isAuthenticatedSubject.next(this.checkUser(user));
+    this.store.dispatch(new UserLoggedIn(user));
   }
 
   startLogout(): void {
@@ -49,24 +39,7 @@ export class AuthService {
   }
 
   completeLogout(): Promise<SignoutResponse> {
-    this.userSubject.next(undefined);
+    this.store.dispatch(new UserLoggedout());
     return this.userManager.signoutRedirectCallback();
-  }
-
-  async isAuthenticated(): Promise<boolean> {
-    const user = (await this.userManager.getUser()) ?? undefined;
-    if (this.userSubject.value !== user) {
-      this.userSubject.next(user);
-    }
-    return this.checkUser(user);
-  }
-
-  async getAccessToken(): Promise<string> {
-    const user = await this.userManager.getUser();
-    return !!user && !user.expired ? user.access_token : '';
-  }
-
-  private checkUser(user: User | undefined): boolean {
-    return !!user && !user.expired;
   }
 }

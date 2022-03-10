@@ -5,10 +5,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsModule } from '@ngxs/store';
+import { environment } from 'src/environments/environment';
 import { SigninCallbackComponent } from './auth/signin-callback/signin-callback.component';
 import { SignoutCallbackComponent } from './auth/signout-callback/signout-callback.component';
 import { TRANSLATE_INITIALIZER } from './initializers/translate.initializer';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { AuthState } from './states/auth.state';
 
 const appInitializers = [TRANSLATE_INITIALIZER];
 
@@ -28,6 +33,11 @@ function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    NgxsModule.forRoot([AuthState], {
+      developmentMode: !environment.production,
+    }),
+    NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
+    NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
   ],
   exports: [BrowserModule, HttpClientModule, BrowserAnimationsModule],
 })
