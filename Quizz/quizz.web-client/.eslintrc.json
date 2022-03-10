@@ -18,7 +18,9 @@
   "plugins": ["@typescript-eslint", "prettier", "jasmine"],
   "rules": {
     "prettier/prettier": "error",
-    "no-console": "warn"
+    "no-console": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
   },
   "ignorePatterns": ["*.conf.js"]
 }
