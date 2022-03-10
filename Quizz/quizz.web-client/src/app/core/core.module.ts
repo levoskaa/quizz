@@ -7,6 +7,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsModule } from '@ngxs/store';
 import { environment } from 'src/environments/environment';
 import { SigninCallbackComponent } from './auth/signin-callback/signin-callback.component';
@@ -37,6 +38,7 @@ function HttpLoaderFactory(http: HttpClient) {
       developmentMode: !environment.production,
     }),
     NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
+    NgxsStoragePluginModule.forRoot({ key: [AuthState] }),
     NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
   ],
   exports: [BrowserModule, HttpClientModule, BrowserAnimationsModule],
