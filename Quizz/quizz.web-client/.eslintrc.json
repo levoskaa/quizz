@@ -20,5 +20,5 @@
     "prettier/prettier": "error",
     "no-console": "warn"
   },
-  "ignorePatterns": ["*.conf.js", "**/main.ts"]
+  "ignorePatterns": ["*.conf.js"]
 }
