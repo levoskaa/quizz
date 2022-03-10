@@ -2,5 +2,8 @@
   "common": {
     "signIn": "Bejelentkezés",
     "signOut": "Kijelentkezés"
+  },
+  "game": {
+    "myGames": "Játékaim"
   }
 }
