@@ -1,17 +1,12 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SigninCallbackComponent } from './core/auth/signin-callback/signin-callback.component';
-import { SignoutCallbackComponent } from './core/auth/signout-callback/signout-callback.component';
-import { TokenInterceptor } from './core/auth/token.interceptor';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent, SigninCallbackComponent, SignoutCallbackComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
+  declarations: [AppComponent],
+  imports: [AppRoutingModule, CoreModule, SharedModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
