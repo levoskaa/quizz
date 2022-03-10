@@ -7,8 +7,13 @@ import { LayoutContainerComponent } from './shared/components/layout/layout-cont
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: LayoutContainerComponent,
+    children: [
+      {
+        path: 'games',
+        loadChildren: () => import('./features/game/game.module').then((m) => m.GameModule),
+      },
+    ],
   },
   { path: 'signin-callback', component: SigninCallbackComponent },
   { path: 'signout-callback', component: SignoutCallbackComponent },
