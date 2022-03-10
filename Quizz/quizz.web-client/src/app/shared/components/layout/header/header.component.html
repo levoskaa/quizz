@@ -1,7 +1,17 @@
 <mat-toolbar class="toolbar app-flex-box center-items">
     <p class="toolbar-title">Quizz!</p>
-    <div class="toolbar-auth app-flex-box center-items">
-        <span class="mr-2">Bejelentkezés</span>
-        <i class="fa-solid fa-right-to-bracket"></i>
+
+    <div class="toolbar-menu">
+        <i class="fa-solid fa-bars" [matMenuTriggerFor]="menu"></i>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <i class="fa-solid fa-right-to-bracket mr-2"></i>
+                <span>Bejelentkezés</span>
+            </button>
+            <button mat-menu-item>
+                <i class="fa-solid fa-circle-user mr-2"></i>
+                <span>Fiók</span>
+            </button>
+        </mat-menu>
     </div>
 </mat-toolbar>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,7 +10,7 @@ import { LayoutContainerComponent } from './components/layout/layout-container/l
 
 const components = [LayoutContainerComponent, HeaderComponent];
 
-const commonModules = [MatToolbarModule, MatSidenavModule, NgScrollbarModule, TranslateModule];
+const commonModules = [MatToolbarModule, NgScrollbarModule, TranslateModule, MatMenuModule];
 
 @NgModule({
   declarations: [...components],

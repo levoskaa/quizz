@@ -12,8 +12,14 @@
     transform: skewX(-15deg);
   }
 
-  &-auth {
+  &-menu {
     margin-left: auto;
-    font-size: 0.2em;
+    font-size: 0.4em;
+
+    &:hover,
+    &:focus,
+    &:active {
+      cursor: pointer;
+    }
   }
 }
