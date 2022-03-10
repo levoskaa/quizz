@@ -4,13 +4,13 @@
     <div class="toolbar-menu">
         <i class="fa-solid fa-bars" [matMenuTriggerFor]="menu"></i>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button *ngIf="!(isAuthenticated$ | async)" mat-menu-item (click)="login()">
                 <i class="fa-solid fa-right-to-bracket mr-2"></i>
-                <span>{{ 'Hello' | translate }}</span>
+                <span>{{ 'common.signIn' | translate }}</span>
             </button>
-            <button mat-menu-item>
+            <button *ngIf="isAuthenticated$ | async" mat-menu-item (click)="logout()">
                 <i class="fa-solid fa-circle-user mr-2"></i>
-                <span>Fiók</span>
+                <span>{{ 'common.signOut' | translate }}</span>
             </button>
         </mat-menu>
     </div>
