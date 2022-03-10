@@ -1,3 +1,6 @@
 {
-  "Hello": "Szia Világ!"
+  "common": {
+    "signIn": "Bejelentkezés",
+    "signOut": "Kijelentkezés"
+  }
 }
