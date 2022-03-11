@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -24,7 +24,11 @@ function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [SigninCallbackComponent, SignoutCallbackComponent],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }, ...appInitializers],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'hu' },
+    ...appInitializers,
+  ],
   imports: [
     CommonModule,
     TranslateModule.forRoot({

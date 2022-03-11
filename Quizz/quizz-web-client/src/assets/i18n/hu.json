@@ -1,7 +1,9 @@
 {
   "common": {
     "signIn": "Bejelentkezés",
-    "signOut": "Kijelentkezés"
+    "signOut": "Kijelentkezés",
+    "edit": "Módosítás",
+    "delete": "Törlés"
   },
   "game": {
     "myGames": "Játékaim"
