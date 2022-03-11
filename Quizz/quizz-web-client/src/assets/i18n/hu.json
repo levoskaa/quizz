@@ -3,7 +3,13 @@
     "signIn": "Bejelentkezés",
     "signOut": "Kijelentkezés",
     "edit": "Módosítás",
-    "delete": "Törlés"
+    "delete": "Törlés",
+    "updatedAt": "Frissítve",
+    "formats": {
+      "date": {
+        "shortWithTime": "yyyy.MM.dd. HH:mm"
+      }
+    }
   },
   "game": {
     "myGames": "Játékaim"

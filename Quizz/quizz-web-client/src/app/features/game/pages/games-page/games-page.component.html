@@ -1,0 +1,4 @@
+<ng-container *ngIf="games$ | async as games">
+    <app-game-card *ngFor="let game of games" [title]="game.name" [subtitle]="getGameSubtitle(game)">
+    </app-game-card>
+</ng-container>
