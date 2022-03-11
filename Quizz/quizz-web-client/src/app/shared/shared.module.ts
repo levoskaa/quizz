@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
@@ -11,7 +13,15 @@ import { LayoutContainerComponent } from './components/layout/layout-container/l
 
 const components = [LayoutContainerComponent, HeaderComponent];
 
-const commonModules = [MatToolbarModule, NgScrollbarModule, TranslateModule, MatMenuModule, MatCardModule];
+const commonModules = [
+  MatToolbarModule,
+  NgScrollbarModule,
+  TranslateModule,
+  MatMenuModule,
+  MatCardModule,
+  MatButtonModule,
+  MatIconModule,
+];
 
 @NgModule({
   declarations: [...components],
