@@ -5,10 +5,13 @@ namespace Quizz.Common.ViewModels
 {
     public class PaginatedItemsViewModel<T>
     {
+        [Required]
         public int PageIndex { get; private set; }
 
+        [Required]
         public int PageSize { get; private set; }
 
+        [Required]
         public long Count { get; private set; }
 
         [Required]
