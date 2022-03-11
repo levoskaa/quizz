@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Globals } from '@globals';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { AuthState } from '../states/auth.state';
 
 @Injectable()
@@ -22,14 +23,4 @@ export class TokenInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
   }
-}
-function tap(
-  arg0: (token: any) => Promise<HttpEvent<any>>
-): import('rxjs').OperatorFunction<string | undefined, HttpEvent<unknown>> {
-  throw new Error('Function not implemented.');
-}
-function switchMap(
-  arg0: (token: any) => Observable<HttpEvent<any>>
-): import('rxjs').OperatorFunction<string | undefined, HttpEvent<unknown>> {
-  throw new Error('Function not implemented.');
 }
