@@ -20,12 +20,9 @@
 
   &-menu {
     margin-left: auto;
-    font-size: 0.4em;
 
-    &:hover,
-    &:focus,
-    &:active {
-      cursor: pointer;
+    &-button {
+      transform: scale(1.4);
     }
   }
 }

@@ -1,8 +1,10 @@
 <mat-toolbar class="toolbar app-flex-box center-items">
     <p class="toolbar-title" routerLink="/">Quizz!</p>
 
-    <div class="toolbar-menu">
-        <i class="fa-solid fa-bars" [matMenuTriggerFor]="menu"></i>
+    <div class="toolbar-menu app-flex-box center-items">
+        <button class="toolbar-menu-button" matButton mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
         <mat-menu #menu="matMenu">
             <ng-container *ngIf="!(isAuthenticated$ | async) as isAuthenticated; else authenticatedItems">
                 <button mat-menu-item (click)="login()">
