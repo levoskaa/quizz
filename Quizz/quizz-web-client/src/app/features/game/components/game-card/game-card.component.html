@@ -1,11 +1,13 @@
 <div class="game-card">
     <mat-card>
-        <mat-card-title>{{ title }}</mat-card-title>
-        <mat-card-subtitle>{{ subtitle }}</mat-card-subtitle>
+        <mat-card-title>{{ game.name }}</mat-card-title>
+        <mat-card-subtitle>{{ getSubtitle() }}</mat-card-subtitle>
         <mat-card-actions align="end">
-            <button mat-button mat-stroked-button color="accent">{{ 'common.edit' | translate
+            <button mat-button mat-stroked-button color="accent" (click)="editClick.emit(game.id)">{{ 'common.edit' |
+                translate
                 }}</button>
-            <button mat-button mat-stroked-button color="warn">{{ 'common.delete' | translate }}</button>
+            <button mat-button mat-stroked-button color="warn" (click)="deleteClick.emit(game.id)">{{ 'common.delete' |
+                translate }}</button>
         </mat-card-actions>
     </mat-card>
 </div>
