@@ -10,8 +10,5 @@
         "shortWithTime": "yyyy.MM.dd. HH:mm"
       }
     }
-  },
-  "game": {
-    "myGames": "Játékaim"
   }
 }
