@@ -8,35 +8,33 @@
 /* eslint-disable */
 // ReSharper disable InconsistentNaming
 
-
-
 export interface CreateGameDto {
-    name: string;
+  name: string;
 }
 
 export interface ErrorViewModel {
-    message?: string | undefined;
-    errors?: string[] | undefined;
-    stackTrace?: string | undefined;
+  message?: string | undefined;
+  errors?: string[] | undefined;
+  stackTrace?: string | undefined;
 }
 
 export interface GameViewModel {
-    id: number;
-    name: string;
-    updatedAt: Date;
+  id: number;
+  name: string;
+  updatedAt: Date;
 }
 
 export interface GameViewModelPaginatedItemsViewModel {
-    pageIndex: number;
-    pageSize: number;
-    count: number;
-    data: GameViewModel[];
+  pageIndex: number;
+  pageSize: number;
+  count: number;
+  data: GameViewModel[];
 }
 
 export interface Int32EntityCreatedViewModel {
-    id: number;
+  id: number;
 }
 
 export interface UpdateGameDto {
-    name: string;
+  name: string;
 }

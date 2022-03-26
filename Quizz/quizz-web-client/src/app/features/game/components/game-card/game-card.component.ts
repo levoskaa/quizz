@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { GameViewModel } from 'src/app/shared/models/game-generated.models';
+import { GameViewModel } from 'src/app/shared/models/generated/game-generated.models';
 
 @Component({
   selector: 'app-game-card',
@@ -12,7 +12,7 @@ export class GameCardComponent {
   @Input() game: GameViewModel;
 
   @Output() editClick = new EventEmitter<number>();
-  @Output() deleteClick = new EventEmitter<number>();
+  @Output() deleteClick = new EventEmitter<GameViewModel>();
 
   constructor(private readonly translate: TranslateService, private readonly datePipe: DatePipe) {}
 
@@ -20,13 +20,5 @@ export class GameCardComponent {
     const format = this.translate.instant('common.formats.date.shortWithTime');
     const formattedDate = this.datePipe.transform(this.game.updatedAt, format);
     return `${this.translate.instant('common.updatedAt')}: ${formattedDate}`;
-  }
-
-  edit(): void {
-    this.editClick.emit(this.game.id);
-  }
-
-  delete(): void {
-    this.deleteClick.emit(this.game.id);
   }
 }

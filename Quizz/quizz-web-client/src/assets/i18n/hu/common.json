@@ -5,6 +5,8 @@
     "edit": "Módosítás",
     "delete": "Törlés",
     "updatedAt": "Frissítve",
+    "cancel": "Mégse",
+    "ok": "Ok",
     "formats": {
       "date": {
         "shortWithTime": "yyyy.MM.dd. HH:mm"
