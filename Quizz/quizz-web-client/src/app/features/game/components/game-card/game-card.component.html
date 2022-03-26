@@ -3,7 +3,8 @@
         <mat-card-title>{{ game.name }}</mat-card-title>
         <mat-card-subtitle>{{ getSubtitle() }}</mat-card-subtitle>
         <mat-card-actions align="end">
-            <button mat-button mat-stroked-button color="accent" (click)="editClick.emit(game.id)">{{ 'common.edit' |
+            <button mat-button mat-stroked-button color="accent" (click)="detailsClick.emit(game.id)">{{
+                'common.details' |
                 translate
                 }}</button>
             <button mat-button mat-stroked-button color="warn" (click)="deleteClick.emit(game)">{{ 'common.delete' |

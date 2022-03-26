@@ -6,7 +6,7 @@
         <ng-container *ngIf="games$ | async as games">
             <div class="app-card-container">
                 <app-game-card *ngFor="let game of games" class="mb-2 mr-3" [game]="game"
-                    (editClick)="onGameEdit($event)" (deleteClick)="onGameDelete($event)">
+                    (detailsClick)="onGameDetails($event)" (deleteClick)="onGameDelete($event)">
                 </app-game-card>
             </div>
         </ng-container>

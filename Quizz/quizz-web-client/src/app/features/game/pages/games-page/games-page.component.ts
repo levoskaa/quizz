@@ -29,7 +29,7 @@ export class GamesPageComponent extends UnsubscribeOnDestroy implements OnInit {
     this.getGames();
   }
 
-  onGameEdit(gameId: number): void {
+  onGameDetails(gameId: number): void {
     this.router.navigate([gameId], { relativeTo: this.route });
   }
 

@@ -11,7 +11,7 @@ import { GameViewModel } from 'src/app/shared/models/generated/game-generated.mo
 export class GameCardComponent {
   @Input() game: GameViewModel;
 
-  @Output() editClick = new EventEmitter<number>();
+  @Output() detailsClick = new EventEmitter<number>();
   @Output() deleteClick = new EventEmitter<GameViewModel>();
 
   constructor(private readonly translate: TranslateService, private readonly datePipe: DatePipe) {}
