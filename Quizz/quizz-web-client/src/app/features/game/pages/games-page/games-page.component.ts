@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map, switchMapTo, tap } from 'rxjs/operators';
@@ -17,7 +18,9 @@ export class GamesPageComponent extends UnsubscribeOnDestroy implements OnInit {
   constructor(
     private readonly gameService: GameService,
     private readonly dialogService: DialogService,
-    private readonly translate: TranslateService
+    private readonly translate: TranslateService,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
   ) {
     super();
   }
@@ -27,7 +30,7 @@ export class GamesPageComponent extends UnsubscribeOnDestroy implements OnInit {
   }
 
   onGameEdit(gameId: number): void {
-    // TODO
+    this.router.navigate([gameId], { relativeTo: this.route });
   }
 
   onGameDelete(game: GameViewModel): void {
