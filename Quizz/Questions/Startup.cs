@@ -1,4 +1,5 @@
 using Autofac;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Questions.Infrastructure.Mapper;
+using Quizz.Questions.Application.Behaviors;
 using Quizz.Questions.Data;
 using Quizz.Questions.Infrastructure;
 using Quizz.Questions.Infrastructure.Exceptions;
@@ -38,8 +40,7 @@ namespace Quizz.Questions
         {
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
-            // TODO
-            // services.AddMediatR(typeof(CreateGameCommandHandler).Assembly);
+            services.AddMediatR(typeof(ValidatorBehavior<,>).Assembly);
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
