@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Quizz.GameService.Application.Models
+namespace Quizz.Common.Models
 {
     public class FindCorrectOrderQuestion : Question
     {

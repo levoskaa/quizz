@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Quizz.Common.Models;
 using Quizz.GameService.Application.Models;
 
 namespace Quizz.GameService.Data.Configuration

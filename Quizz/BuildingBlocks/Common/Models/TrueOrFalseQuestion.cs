@@ -1,4 +1,4 @@
-﻿namespace Quizz.GameService.Application.Models
+﻿namespace Quizz.Common.Models
 {
     public class TrueOrFalseQuestion : Question
     {

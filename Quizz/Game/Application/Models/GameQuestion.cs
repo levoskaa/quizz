@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quizz.Common.Models;
+using System;
 
 namespace Quizz.GameService.Application.Models
 {

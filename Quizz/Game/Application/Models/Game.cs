@@ -1,4 +1,5 @@
 ﻿using Quizz.Common.DataAccess;
+using Quizz.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

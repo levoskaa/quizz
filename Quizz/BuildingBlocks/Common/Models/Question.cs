@@ -1,7 +1,7 @@
 ﻿using Quizz.Common.DataAccess;
 using System;
 
-namespace Quizz.GameService.Application.Models
+namespace Quizz.Common.Models
 {
     public abstract class Question : Entity<Guid>
     {
