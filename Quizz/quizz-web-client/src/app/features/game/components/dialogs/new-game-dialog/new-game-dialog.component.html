@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{ 'game.addDialog.title' | translate }}</h1>
+<div mat-dialog-content>
+    <app-game-form [formControl]="form"></app-game-form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-flat-button (click)="cancel()">{{'common.cancel' | translate}}</button>
+    <button mat-flat-button (click)="submit()" color="accent"
+        [disabled]="form.invalid || form.untouched">{{'common.save' | translate}}</button>
+</div>

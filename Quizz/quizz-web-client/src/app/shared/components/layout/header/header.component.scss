@@ -1,0 +1,28 @@
+@import 'variables';
+
+.toolbar {
+  font-size: 4rem;
+  height: 4rem;
+  background-color: $primary;
+
+  &-title {
+    font-family: $logo-font;
+    font-size: 0.7em;
+    line-height: 4rem;
+    transform: skewX(-15deg);
+
+    &:hover,
+    &:focus,
+    &:active {
+      cursor: pointer;
+    }
+  }
+
+  &-menu {
+    margin-left: auto;
+
+    &-button {
+      transform: scale(1.4);
+    }
+  }
+}

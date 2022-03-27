@@ -1,0 +1,20 @@
+{
+  "common": {
+    "signIn": "Bejelentkezés",
+    "signOut": "Kijelentkezés",
+    "edit": "Módosítás",
+    "delete": "Törlés",
+    "updatedAt": "Frissítve",
+    "cancel": "Mégse",
+    "ok": "Ok",
+    "details": "Részletek",
+    "save": "Mentés",
+    "name": "Név",
+    "add": "Új hozzáadása",
+    "formats": {
+      "date": {
+        "shortWithTime": "yyyy.MM.dd. HH:mm"
+      }
+    }
+  }
+}

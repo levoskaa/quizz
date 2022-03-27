@@ -1,0 +1,27 @@
+<mat-toolbar class="toolbar app-flex-box center-items">
+    <p class="toolbar-title" routerLink="/">Quizz!</p>
+
+    <div class="toolbar-menu app-flex-box center-items">
+        <button class="toolbar-menu-button" matButton mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <ng-container *ngIf="!(isAuthenticated$ | async) as isAuthenticated; else authenticatedItems">
+                <button mat-menu-item (click)="login()">
+                    <i class="fa-solid fa-right-to-bracket mr-2"></i>
+                    <span>{{ 'common.signIn' | translate }}</span>
+                </button>
+            </ng-container>
+            <ng-template #authenticatedItems>
+                <button mat-menu-item routerLink="games">
+                    <i class="fa-solid fa-book mr-2"></i>
+                    <span>{{ 'shared.header.myGames' | translate }}</span>
+                </button>
+                <button mat-menu-item (click)="logout()">
+                    <i class="fa-solid fa-right-from-bracket mr-2"></i>
+                    <span>{{ 'common.signOut' | translate }}</span>
+                </button>
+            </ng-template>
+        </mat-menu>
+    </div>
+</mat-toolbar>

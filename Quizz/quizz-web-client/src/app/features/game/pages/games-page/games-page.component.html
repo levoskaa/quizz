@@ -1,0 +1,18 @@
+<div class="app-page">
+    <div class="app-page-header app-flex-box space-between start-items">
+        <h2 class="app-page-header-title">{{'game.myGames' | translate}}</h2>
+        <button mat-flat-button color="accent" (click)="onGameAdd()">
+            <i class="fa-solid fa-plus mr-2"></i>
+            <span>{{ 'common.add' | translate }}</span>
+        </button>
+    </div>
+    <div class="app-page-content">
+        <ng-container *ngIf="games$ | async as games">
+            <div class="app-card-container">
+                <app-game-card *ngFor="let game of games" class="mb-2 mr-3" [game]="game"
+                    (detailsClick)="onGameDetails($event)" (deleteClick)="onGameDelete($event)">
+                </app-game-card>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -4,6 +4,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Quizz.Common.ErroHandling;
+using Quizz.Common.ErrorHandling;
 using Quizz.Common.Services;
 using Quizz.Common.ViewModels;
 using Quizz.GameService.Application.Commands;
@@ -82,8 +84,27 @@ namespace Quizz.GameService.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("{id}")]
+        [HttpGet("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<GameViewModel> GetGame([FromRoute] int id)
+        {
+            var userId = identityService.GetUserIdentity();
+            var gameQuery = @"SELECT * FROM Game
+                              WHERE OwnerId=@userId
+                              AND Id=@gameId;";
+            using (var connection = dapper.CreateConnection())
+            {
+                var game = await connection.QuerySingleOrDefaultAsync<Game>(gameQuery, new { userId, gameId = id });
+                if (game == null)
+                {
+                    throw new EntityNotFoundException($"Game with id {id} not found", ValidationError.GameNotFound);
+                }
+                return mapper.Map<GameViewModel>(game);
+            }
+        }
+
+        [HttpPut("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorViewModel), (int)HttpStatusCode.BadRequest)]
         public Task UpdateGame([FromBody] UpdateGameDto updateGameDto, [FromRoute(Name = "id")] int gameId)
@@ -94,8 +115,7 @@ namespace Quizz.GameService.Controllers
             return mediator.Send(updateGameCommand);
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        [HttpDelete("{id}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(ErrorViewModel), (int)HttpStatusCode.BadRequest)]
         public Task DeleteGame([FromRoute(Name = "id")] int gameId)
