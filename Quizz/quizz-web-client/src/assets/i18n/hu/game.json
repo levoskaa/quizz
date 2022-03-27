@@ -1,6 +1,7 @@
 {
   "game": {
     "myGames": "Játékaim",
+    "gameDetails": "Játék részletei",
     "deleteDialog": {
       "title": "Játék törlése",
       "text": "Biztosan törölni akarod a(z) \"{{gameName}}\" játékot?"

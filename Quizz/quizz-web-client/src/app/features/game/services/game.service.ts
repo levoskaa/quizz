@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppHttpClient } from 'src/app/core/services/app-http-client';
-import { GameViewModelPaginatedItemsViewModel } from 'src/app/shared/models/generated/game-generated.models';
+import {
+  GameViewModel,
+  GameViewModelPaginatedItemsViewModel,
+  UpdateGameDto,
+} from 'src/app/shared/models/generated/game-generated.models';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +22,15 @@ export class GameService {
     return this.httpClient.get(this.gameApiUrl, { pageSize, pageIndex });
   }
 
-  deleteGame(gameId: number): Observable<void> {
-    return this.httpClient.delete(`${this.gameApiUrl}/${gameId}`);
+  getGame(id: number): Observable<GameViewModel> {
+    return this.httpClient.get(`${this.gameApiUrl}/${id}`);
+  }
+
+  updateGame(id: number, dto: UpdateGameDto): Observable<void> {
+    return this.httpClient.put(`${this.gameApiUrl}/${id}`, dto);
+  }
+
+  deleteGame(id: number): Observable<void> {
+    return this.httpClient.delete(`${this.gameApiUrl}/${id}`);
   }
 }

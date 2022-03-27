@@ -5,8 +5,16 @@
     align-items: center;
   }
 
+  &.start-items {
+    align-items: flex-start;
+  }
+
   &.column-direction {
     flex-direction: column;
+  }
+
+  &.space-between {
+    justify-content: space-between;
   }
 }
 

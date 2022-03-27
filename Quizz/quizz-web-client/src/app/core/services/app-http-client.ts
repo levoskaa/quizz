@@ -13,15 +13,17 @@ export class AppHttpClient {
   constructor(private readonly httpClient: HttpClient) {}
 
   post<TResponse, TBody>(url: string, body: TBody): Observable<TResponse> {
-    return this.httpClient.post<TResponse>(`${this.apiBaseUrl}${url}`, { body });
+    return this.httpClient.post<TResponse>(`${this.apiBaseUrl}${url}`, body);
   }
 
   get<TResponse, TParams>(url: string, params?: TParams): Observable<TResponse> {
-    return this.httpClient.get<TResponse>(`${this.apiBaseUrl}${url}`, { params: objectToHttpParams(params) });
+    return this.httpClient.get<TResponse>(`${this.apiBaseUrl}${url}`, {
+      params: objectToHttpParams(params),
+    });
   }
 
   put<TResponse, TBody>(url: string, body: TBody): Observable<TResponse> {
-    return this.httpClient.put<TResponse>(`${this.apiBaseUrl}${url}`, { body });
+    return this.httpClient.put<TResponse>(`${this.apiBaseUrl}${url}`, body);
   }
 
   delete<TResponse>(url: string): Observable<TResponse> {

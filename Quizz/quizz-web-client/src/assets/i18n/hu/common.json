@@ -8,6 +8,8 @@
     "cancel": "Mégse",
     "ok": "Ok",
     "details": "Részletek",
+    "save": "Mentés",
+    "name": "Név",
     "formats": {
       "date": {
         "shortWithTime": "yyyy.MM.dd. HH:mm"
