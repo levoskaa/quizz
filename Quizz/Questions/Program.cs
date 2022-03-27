@@ -25,7 +25,7 @@ namespace Quizz.Questions
                     webBuilder.UseStartup<Startup>();
                 })
                 .UseSerilog()
-            .UseServiceProviderFactory(new AutofacServiceProviderFactory());
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
         private static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
         {
