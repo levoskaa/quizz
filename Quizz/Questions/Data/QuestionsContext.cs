@@ -11,11 +11,12 @@ namespace Quizz.Questions.Data
 {
     public class QuestionsContext : DbContext, IUnitOfWork
     {
-        private readonly IMediator mediator;
-
         public DbSet<Question> Questions { get; set; }
 
-        public QuestionsContext(IMediator mediator)
+        private readonly IMediator mediator;
+
+        public QuestionsContext(DbContextOptions<QuestionsContext> options, IMediator mediator)
+            : base(options)
         {
             this.mediator = mediator;
         }

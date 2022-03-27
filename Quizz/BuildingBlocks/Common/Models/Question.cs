@@ -3,7 +3,7 @@ using System;
 
 namespace Quizz.Common.Models
 {
-    public abstract class Question : Entity<Guid>
+    public abstract class Question : Entity<Guid>, IAggregateRoot
     {
         public string Text { get; set; }
 
