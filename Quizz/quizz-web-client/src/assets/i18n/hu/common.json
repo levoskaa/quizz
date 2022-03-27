@@ -10,6 +10,7 @@
     "details": "Részletek",
     "save": "Mentés",
     "name": "Név",
+    "add": "Új hozzáadása",
     "formats": {
       "date": {
         "shortWithTime": "yyyy.MM.dd. HH:mm"

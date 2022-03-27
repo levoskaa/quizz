@@ -1,3 +1,8 @@
+export interface DialogConfig {
+  autoFocus?: boolean;
+  data?: any;
+}
+
 export interface ConfirmDialogData {
   title: string;
   text: string;

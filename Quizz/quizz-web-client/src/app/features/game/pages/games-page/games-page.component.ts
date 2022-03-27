@@ -7,6 +7,7 @@ import { successfulDialogCloseFilter } from 'src/app/core/utils/successfulDialog
 import { UnsubscribeOnDestroy } from 'src/app/shared/classes/unsubscribe-on-destroy';
 import { GameViewModel } from 'src/app/shared/models/generated/game-generated.models';
 import { DialogService } from 'src/app/shared/services/dialog.service';
+import { NewGameDialogComponent } from '../../components/dialogs/new-game-dialog/new-game-dialog.component';
 import { GameService } from '../../services/game.service';
 
 @Component({
@@ -27,6 +28,16 @@ export class GamesPageComponent extends UnsubscribeOnDestroy implements OnInit {
 
   ngOnInit(): void {
     this.getGames();
+  }
+
+  onGameAdd(): void {
+    const dialogRef = this.dialogService.open(NewGameDialogComponent);
+    this.subscribe(
+      dialogRef.afterClosed().pipe(
+        successfulDialogCloseFilter(),
+        tap(() => this.getGames())
+      )
+    );
   }
 
   onGameDetails(gameId: number): void {

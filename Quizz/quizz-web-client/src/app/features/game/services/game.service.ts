@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppHttpClient } from 'src/app/core/services/app-http-client';
 import {
+  CreateGameDto,
   GameViewModel,
   GameViewModelPaginatedItemsViewModel,
+  Int32EntityCreatedViewModel,
   UpdateGameDto,
 } from 'src/app/shared/models/generated/game-generated.models';
 
@@ -14,6 +16,10 @@ export class GameService {
   private readonly gameApiUrl = '/game/games';
 
   constructor(private readonly httpClient: AppHttpClient) {}
+
+  createGame(dto: CreateGameDto): Observable<Int32EntityCreatedViewModel> {
+    return this.httpClient.post(this.gameApiUrl, dto);
+  }
 
   getGames(
     pageSize?: number,
