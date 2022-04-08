@@ -1,7 +1,6 @@
-﻿namespace Quizz.Common.Services
+﻿namespace Quizz.Common.Services;
+
+public interface IIdentityService
 {
-    public interface IIdentityService
-    {
-        string GetUserIdentity();
-    }
+    string GetUserIdentity();
 }

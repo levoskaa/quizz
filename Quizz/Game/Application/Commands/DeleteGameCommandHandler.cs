@@ -5,33 +5,32 @@ using Quizz.GameService.Data.Repositories;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Quizz.GameService.Application.Commands
+namespace Quizz.GameService.Application.Commands;
+
+public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand>
 {
-    public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand>
+    private readonly IGameRepository gameRepository;
+
+    public DeleteGameCommandHandler(IGameRepository gameRepository)
     {
-        private readonly IGameRepository gameRepository;
+        this.gameRepository = gameRepository;
+    }
 
-        public DeleteGameCommandHandler(IGameRepository gameRepository)
-        {
-            this.gameRepository = gameRepository;
-        }
+    public async Task<Unit> Handle(DeleteGameCommand deleteGameCommand, CancellationToken cancellationToken)
+    {
+        // TODO: fire Integration Event to delete related questions
+        var game = await gameRepository.GetAsync(deleteGameCommand.GameId);
+        ValidateCommand(deleteGameCommand, game);
+        gameRepository.Remove(game);
+        await gameRepository.UnitOfWork.SaveEntitiesAsync();
+        return Unit.Value;
+    }
 
-        public async Task<Unit> Handle(DeleteGameCommand deleteGameCommand, CancellationToken cancellationToken)
+    private void ValidateCommand(DeleteGameCommand command, Game game)
+    {
+        if (command.UserId != game.OwnerId)
         {
-            // TODO: fire Integration Event to delete related questions
-            var game = await gameRepository.GetAsync(deleteGameCommand.GameId);
-            ValidateCommand(deleteGameCommand, game);
-            gameRepository.Remove(game);
-            await gameRepository.UnitOfWork.SaveEntitiesAsync();
-            return Unit.Value;
-        }
-
-        private void ValidateCommand(DeleteGameCommand command, Game game)
-        {
-            if (command.UserId != game.OwnerId)
-            {
-                throw new ForbiddenException();
-            }
+            throw new ForbiddenException();
         }
     }
 }

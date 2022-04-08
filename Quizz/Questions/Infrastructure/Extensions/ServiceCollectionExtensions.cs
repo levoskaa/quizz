@@ -7,43 +7,42 @@ using Quizz.BuildingBlocks.EventBus.Abstractions;
 using Quizz.BuildingBlocks.EventBusRabbitMQ;
 using RabbitMQ.Client;
 
-namespace Quizz.Questions.Infrastructure.Extensions
+namespace Quizz.Questions.Infrastructure.Extensions;
+
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
+    // TODO: move to Autofac module
+    public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
     {
-        // TODO: move to Autofac module
-        public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
+        services.AddSingleton<IEventBus>(sp =>
         {
-            services.AddSingleton<IEventBus>(sp =>
+            var subscriptionClientName = configuration["SubscriptionClientName"];
+            var retryCount = int.Parse(configuration["EventBusRetryCount"]);
+            var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
+            var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
+            var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+            var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+
+            return new EventBusRabbitMQ(rabbitMQPersistentConnection, logger, iLifetimeScope, eventBusSubcriptionsManager, subscriptionClientName, retryCount);
+        });
+
+        services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
+        {
+            var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+
+            var factory = new ConnectionFactory()
             {
-                var subscriptionClientName = configuration["SubscriptionClientName"];
-                var retryCount = int.Parse(configuration["EventBusRetryCount"]);
-                var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
-                var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
-                var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-                var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+                HostName = configuration["EventBusConnection"],
+                DispatchConsumersAsync = true
+            };
 
-                return new EventBusRabbitMQ(rabbitMQPersistentConnection, logger, iLifetimeScope, eventBusSubcriptionsManager, subscriptionClientName, retryCount);
-            });
+            var retryCount = int.Parse(configuration["EventBusRetryCount"]);
 
-            services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
-            {
-                var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+            return new DefaultRabbitMQPersistentConnection(factory, logger, retryCount);
+        });
 
-                var factory = new ConnectionFactory()
-                {
-                    HostName = configuration["EventBusConnection"],
-                    DispatchConsumersAsync = true
-                };
+        services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 
-                var retryCount = int.Parse(configuration["EventBusRetryCount"]);
-
-                return new DefaultRabbitMQPersistentConnection(factory, logger, retryCount);
-            });
-
-            services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-
-            return services;
-        }
+        return services;
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Quizz.GameService.Application.Dtos
+namespace Quizz.GameService.Application.Dtos;
+
+public class CreateGameDto
 {
-    public class CreateGameDto
-    {
-        [Required]
-        public string Name { get; set; }
-    }
+    [Required]
+    public string Name { get; set; }
 }

@@ -4,30 +4,29 @@ using Microsoft.Extensions.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
-namespace Quizz.ApiGateway
+namespace Quizz.ApiGateway;
+
+public class Startup
 {
-    public class Startup
+    public void ConfigureServices(IServiceCollection services)
     {
-        public void ConfigureServices(IServiceCollection services)
+        services.AddCors(options =>
         {
-            services.AddCors(options =>
+            options.AddPolicy("default", policy =>
             {
-                options.AddPolicy("default", policy =>
-                {
-                    policy.WithOrigins("https://localhost:4200")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
+                policy.WithOrigins("https://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
             });
+        });
 
-            services.AddOcelot();
-        }
+        services.AddOcelot();
+    }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.UseCors("default");
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        app.UseCors("default");
 
-            app.UseOcelot().Wait();
-        }
+        app.UseOcelot().Wait();
     }
 }

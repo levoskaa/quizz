@@ -2,20 +2,19 @@
 using Microsoft.Extensions.Configuration;
 using System.Data;
 
-namespace Quizz.GameService.Data
+namespace Quizz.GameService.Data;
+
+public class DapperContext
 {
-    public class DapperContext
+    private readonly IConfiguration configuration;
+
+    public DapperContext(IConfiguration configuration)
     {
-        private readonly IConfiguration configuration;
+        this.configuration = configuration;
+    }
 
-        public DapperContext(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
-
-        public IDbConnection CreateConnection()
-        {
-            return new SqlConnection(configuration.GetConnectionString("Default"));
-        }
+    public IDbConnection CreateConnection()
+    {
+        return new SqlConnection(configuration.GetConnectionString("Default"));
     }
 }

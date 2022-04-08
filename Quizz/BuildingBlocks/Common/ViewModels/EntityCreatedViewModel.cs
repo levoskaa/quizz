@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Quizz.Common.ViewModels
+namespace Quizz.Common.ViewModels;
+
+public class EntityCreatedViewModel<T>
 {
-    public class EntityCreatedViewModel<T>
-    {
-        [Required]
-        public T Id { get; set; }
-    }
+    [Required]
+    public T Id { get; set; }
 }

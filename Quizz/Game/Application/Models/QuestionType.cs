@@ -1,10 +1,9 @@
-﻿namespace Quizz.GameService.Application.Models
+﻿namespace Quizz.GameService.Application.Models;
+
+public enum QuestionType
 {
-    public enum QuestionType
-    {
-        TrueOrFalse,
-        MultipleChoice,
-        FindCorrectOrder,
-        TypeInAnswer,
-    }
+    TrueOrFalse,
+    MultipleChoice,
+    FindCorrectOrder,
+    TypeInAnswer,
 }

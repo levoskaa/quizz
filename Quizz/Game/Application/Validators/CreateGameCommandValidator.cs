@@ -2,14 +2,13 @@
 using Quizz.Common.ErrorHandling;
 using Quizz.GameService.Application.Commands;
 
-namespace Quizz.GameService.Application.Validators
+namespace Quizz.GameService.Application.Validators;
+
+public class CreateGameCommandValidator : AbstractValidator<CreateGameCommand>
 {
-    public class CreateGameCommandValidator : AbstractValidator<CreateGameCommand>
+    public CreateGameCommandValidator()
     {
-        public CreateGameCommandValidator()
-        {
-            RuleFor(command => command.Name).NotEmpty()
-                .WithMessage(ValidationError.GameNameRequired);
-        }
+        RuleFor(command => command.Name).NotEmpty()
+            .WithMessage(ValidationError.GameNameRequired);
     }
 }

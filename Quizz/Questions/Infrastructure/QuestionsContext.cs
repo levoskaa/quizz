@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Quizz.Questions.Infrastructure
+namespace Quizz.Questions.Infrastructure;
+
+public class QuestionsContext : DbContext
 {
-    public class QuestionsContext : DbContext
-    {
-        public QuestionsContext(DbContextOptions<QuestionsContext> options) : base(options)
-        { }
-    }
+    public QuestionsContext(DbContextOptions<QuestionsContext> options) : base(options)
+    { }
 }

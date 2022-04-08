@@ -2,12 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Quizz.Common.DataAccess
-{
-    public interface IUnitOfWork : IDisposable
-    {
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+namespace Quizz.Common.DataAccess;
 
-        Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default);
-    }
+public interface IUnitOfWork : IDisposable
+{
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
+    Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default);
 }
