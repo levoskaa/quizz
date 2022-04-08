@@ -1,3 +1,4 @@
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,11 @@ public class Startup
     }
 
     public IConfiguration Configuration { get; }
+
+    public void ConfigureContainer(ContainerBuilder builder)
+    {
+        builder.RegisterModule(new QuestionsModule());
+    }
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)

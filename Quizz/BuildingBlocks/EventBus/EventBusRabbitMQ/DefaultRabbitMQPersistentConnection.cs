@@ -30,13 +30,7 @@ public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
         this.retryCount = retryCount;
     }
 
-    public bool IsConnected
-    {
-        get
-        {
-            return connection != null && connection.IsOpen && !disposed;
-        }
-    }
+    public bool IsConnected => connection != null && connection.IsOpen && !disposed;
 
     public IModel CreateModel()
     {
@@ -86,8 +80,7 @@ public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
 
             policy.Execute(() =>
             {
-                connection = connectionFactory
-                        .CreateConnection();
+                connection = connectionFactory.CreateConnection();
             });
 
             if (IsConnected)

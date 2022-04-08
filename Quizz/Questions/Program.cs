@@ -1,3 +1,4 @@
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +23,8 @@ public class Program
             {
                 webBuilder.UseStartup<Startup>();
             })
-            .UseSerilog();
+            .UseSerilog()
+            .UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
     private static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
     {
