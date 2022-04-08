@@ -35,13 +35,13 @@ public class EventBusRabbitMQ : IEventBus, IDisposable
         IRabbitMQPersistentConnection persistentConnection,
         ILogger<EventBusRabbitMQ> logger,
         ILifetimeScope autofac,
-        IEventBusSubscriptionsManager subsManager,
+        IEventBusSubscriptionsManager subscriptionManager,
         string queueName = null,
         int retryCount = 5)
     {
         this.persistentConnection = persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
         this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        this.subsManager = subsManager ?? new InMemoryEventBusSubscriptionsManager();
+        this.subsManager = subscriptionManager ?? new InMemoryEventBusSubscriptionsManager();
         this.queueName = queueName;
         consumerChannel = CreateConsumerChannel();
         this.autofac = autofac;

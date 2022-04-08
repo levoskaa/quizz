@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Quizz.Questions.Infrastructure;
+using Quizz.Questions.Infrastructure.Extensions;
 using System.Reflection;
 
 namespace Quizz.Questions
@@ -37,6 +38,8 @@ namespace Quizz.Questions
                         sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
                     });
             });
+
+            services.AddEventBus(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
