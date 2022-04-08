@@ -1,9 +1,8 @@
-﻿namespace Quizz.GameService.Application.Models
-{
-    public class TrueOrFalseQuestion : Question
-    {
-        public override QuestionType Type => QuestionType.TrueOrFalse;
+﻿namespace Quizz.GameService.Application.Models;
 
-        public bool CorrectAnswer { get; set; }
-    }
+public class TrueOrFalseQuestion : Question
+{
+    public override QuestionType Type => QuestionType.TrueOrFalse;
+
+    public bool CorrectAnswer { get; set; }
 }

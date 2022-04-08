@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+	  <RootNamespace>Quizz.BuildingBlocks.HostCustomizations</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

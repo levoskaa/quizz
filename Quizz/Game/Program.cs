@@ -5,48 +5,47 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.IO;
 
-namespace Quizz.GameService
+namespace Quizz.GameService;
+
+public class Program
 {
-    public class Program
+    // TODO: switch to minimal hosting
+    public static void Main(string[] args)
     {
-        // TODO: switch to minimal hosting
-        public static void Main(string[] args)
-        {
-            Log.Logger = CreateSerilogLogger(GetConfiguration());
-            var host = CreateHostBuilder(args)
-                .Build();
-            host.Run();
-        }
+        Log.Logger = CreateSerilogLogger(GetConfiguration());
+        var host = CreateHostBuilder(args)
+            .Build();
+        host.Run();
+    }
 
-        private static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                })
-                .UseSerilog()
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory());
+    private static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            })
+            .UseSerilog()
+            .UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-        private static ILogger CreateSerilogLogger(IConfiguration configuration)
-        {
-            var Namespace = typeof(Startup).Namespace;
-            var AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
-            return new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .Enrich.WithProperty("ApplicationContext", AppName)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();
-        }
+    private static ILogger CreateSerilogLogger(IConfiguration configuration)
+    {
+        var Namespace = typeof(Startup).Namespace;
+        var AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
+        return new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .Enrich.WithProperty("ApplicationContext", AppName)
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .ReadFrom.Configuration(configuration)
+            .CreateLogger();
+    }
 
-        private static IConfiguration GetConfiguration()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddEnvironmentVariables();
-            return builder.Build();
-        }
+    private static IConfiguration GetConfiguration()
+    {
+        var builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddEnvironmentVariables();
+        return builder.Build();
     }
 }

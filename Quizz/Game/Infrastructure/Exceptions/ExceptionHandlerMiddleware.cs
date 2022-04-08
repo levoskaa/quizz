@@ -10,72 +10,71 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Quizz.GameService.Infrastructure.Exceptions
+namespace Quizz.GameService.Infrastructure.Exceptions;
+
+public class ExceptionHandlerMiddleware
 {
-    public class ExceptionHandlerMiddleware
+    private readonly RequestDelegate next;
+    private readonly IWebHostEnvironment env;
+    private readonly IMapper mapper;
+
+    public ExceptionHandlerMiddleware(RequestDelegate next, IWebHostEnvironment env, IMapper mapper)
     {
-        private readonly RequestDelegate next;
-        private readonly IWebHostEnvironment env;
-        private readonly IMapper mapper;
+        this.next = next;
+        this.env = env;
+        this.mapper = mapper;
+    }
 
-        public ExceptionHandlerMiddleware(RequestDelegate next, IWebHostEnvironment env, IMapper mapper)
+    public async Task InvokeAsync(HttpContext httpContext)
+    {
+        try
         {
-            this.next = next;
-            this.env = env;
-            this.mapper = mapper;
+            // Call the next delegate/middleware in the pipeline.
+            await next(httpContext);
         }
-
-        public async Task InvokeAsync(HttpContext httpContext)
+        catch (GameServiceDomainException e)
         {
-            try
-            {
-                // Call the next delegate/middleware in the pipeline.
-                await next(httpContext);
-            }
-            catch (GameServiceDomainException e)
-            {
-                await SendResponseAsync(
-                    httpContext,
-                    HttpStatusCode.BadRequest,
-                    mapper.Map<ErrorViewModel>(e));
-            }
-            catch (EntityNotFoundException e)
-            {
-                await SendResponseAsync(
-                    httpContext,
-                    HttpStatusCode.NotFound,
-                    mapper.Map<ErrorViewModel>(e));
-            }
-            catch (ForbiddenException e)
-            {
-                await SendResponseAsync(
-                    httpContext,
-                    HttpStatusCode.Forbidden,
-                    mapper.Map<ErrorViewModel>(e));
-            }
-            catch (Exception e)
-            {
-                await SendResponseAsync(
-                    httpContext,
-                    HttpStatusCode.InternalServerError,
-                    mapper.Map<ErrorViewModel>(e));
-            }
+            await SendResponseAsync(
+                httpContext,
+                HttpStatusCode.BadRequest,
+                mapper.Map<ErrorViewModel>(e));
         }
-
-        private async Task SendResponseAsync(HttpContext httpContext, HttpStatusCode statusCode, ErrorViewModel errorViewModel)
+        catch (EntityNotFoundException e)
         {
-            httpContext.Response.Clear();
-            httpContext.Response.StatusCode = (int)statusCode;
-            httpContext.Response.ContentType = "application/json";
-
-            var json = JsonConvert.SerializeObject(
-                errorViewModel,
-                new JsonSerializerSettings
-                {
-                    ContractResolver = new ErrorContractResolver(env.IsDevelopment()),
-                });
-
-            await httpContext.Response.WriteAsync(json);
+            await SendResponseAsync(
+                httpContext,
+                HttpStatusCode.NotFound,
+                mapper.Map<ErrorViewModel>(e));
         }
+        catch (ForbiddenException e)
+        {
+            await SendResponseAsync(
+                httpContext,
+                HttpStatusCode.Forbidden,
+                mapper.Map<ErrorViewModel>(e));
+        }
+        catch (Exception e)
+        {
+            await SendResponseAsync(
+                httpContext,
+                HttpStatusCode.InternalServerError,
+                mapper.Map<ErrorViewModel>(e));
+        }
+    }
+
+    private async Task SendResponseAsync(HttpContext httpContext, HttpStatusCode statusCode, ErrorViewModel errorViewModel)
+    {
+        httpContext.Response.Clear();
+        httpContext.Response.StatusCode = (int)statusCode;
+        httpContext.Response.ContentType = "application/json";
+
+        var json = JsonConvert.SerializeObject(
+            errorViewModel,
+            new JsonSerializerSettings
+            {
+                ContractResolver = new ErrorContractResolver(env.IsDevelopment()),
+            });
+
+        await httpContext.Response.WriteAsync(json);
     }
 }

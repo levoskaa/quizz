@@ -2,18 +2,17 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Quizz.GameService.Application.Models;
 
-namespace Quizz.GameService.Data.Configuration
+namespace Quizz.GameService.Data.Configuration;
+
+public class AnswerEntityTypeConfiguration : IEntityTypeConfiguration<Answer>
 {
-    public class AnswerEntityTypeConfiguration : IEntityTypeConfiguration<Answer>
+    public void Configure(EntityTypeBuilder<Answer> builder)
     {
-        public void Configure(EntityTypeBuilder<Answer> builder)
-        {
-            builder.ToTable("Answer");
+        builder.ToTable("Answer");
 
-            builder.HasKey(answer => answer.Id);
+        builder.HasKey(answer => answer.Id);
 
-            builder.Property(c => c.Id)
-               .UseHiLo("answerseq");
-        }
+        builder.Property(c => c.Id)
+           .UseHiLo("answerseq");
     }
 }

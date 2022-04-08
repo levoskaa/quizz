@@ -1,7 +1,6 @@
-﻿namespace Quizz.Common.DataAccess
+﻿namespace Quizz.Common.DataAccess;
+
+public interface IRepository<T> where T : IAggregateRoot
 {
-    public interface IRepository<T> where T: IAggregateRoot
-    {
-        IUnitOfWork UnitOfWork { get; }
-    }
+    IUnitOfWork UnitOfWork { get; }
 }

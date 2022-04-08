@@ -1,11 +1,10 @@
 ﻿using MediatR;
 
-namespace Quizz.GameService.Application.Commands
-{
-    public class CreateGameCommand : IRequest<int>
-    {
-        public string Name { get; set; }
+namespace Quizz.GameService.Application.Commands;
 
-        public string UserId { get; set; }
-    }
+public class CreateGameCommand : IRequest<int>
+{
+    public string Name { get; set; }
+
+    public string UserId { get; set; }
 }

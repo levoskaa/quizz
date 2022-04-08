@@ -1,5 +1,4 @@
-﻿namespace Quizz.Common.DataAccess
-{
-    public interface IAggregateRoot
-    {}
-}
+﻿namespace Quizz.Common.DataAccess;
+
+public interface IAggregateRoot
+{ }

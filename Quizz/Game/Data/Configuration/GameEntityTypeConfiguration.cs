@@ -2,23 +2,22 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Quizz.GameService.Application.Models;
 
-namespace Quizz.GameService.Data.Configuration
+namespace Quizz.GameService.Data.Configuration;
+
+public class GameEntityTypeConfiguration : IEntityTypeConfiguration<Game>
 {
-    public class GameEntityTypeConfiguration : IEntityTypeConfiguration<Game>
+    public void Configure(EntityTypeBuilder<Game> builder)
     {
-        public void Configure(EntityTypeBuilder<Game> builder)
-        {
-            builder.ToTable("Game");
+        builder.ToTable("Game");
 
-            builder.HasKey(game => game.Id);
+        builder.HasKey(game => game.Id);
 
-            builder.Property(game => game.Id)
-                .UseHiLo("gameseq");
+        builder.Property(game => game.Id)
+            .UseHiLo("gameseq");
 
-            builder.HasMany(game => game.GameQuestions)
-                .WithOne()
-                .HasForeignKey(gameQuestion => gameQuestion.GameId)
-                .OnDelete(DeleteBehavior.Cascade);
-        }
+        builder.HasMany(game => game.GameQuestions)
+            .WithOne()
+            .HasForeignKey(gameQuestion => gameQuestion.GameId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
