@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Ocelot.DependencyInjection;
-using Ocelot.Middleware;
 
-namespace ApiGateway
+namespace Quizz.ApiGateway
 {
     public class Program
     {

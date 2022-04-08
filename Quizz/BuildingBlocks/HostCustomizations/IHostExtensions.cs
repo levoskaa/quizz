@@ -6,7 +6,7 @@ using Polly;
 using System;
 using System.Data.SqlClient;
 
-namespace BuildingBlocks.HostCustomizations
+namespace Quizz.BuildingBlocks.HostCustomizations
 {
     public static class IHostExtensions
     {

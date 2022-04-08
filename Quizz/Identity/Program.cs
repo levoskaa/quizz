@@ -1,9 +1,9 @@
-using BuildingBlocks.HostCustomizations;
 using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Quizz.BuildingBlocks.HostCustomizations;
 using Quizz.Identity.Data;
 using Serilog;
 using System.IO;
