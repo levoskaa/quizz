@@ -9,6 +9,9 @@ namespace Quizz.Questions;
 
 public class Program
 {
+    public static readonly string Namespace = typeof(Startup).Namespace;
+    public static readonly string AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
+
     public static void Main(string[] args)
     {
         Log.Logger = CreateSerilogLogger(GetConfiguration());

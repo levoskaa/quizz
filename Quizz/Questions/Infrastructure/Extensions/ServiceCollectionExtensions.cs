@@ -1,10 +1,14 @@
 ﻿using Autofac;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Quizz.BuildingBlocks.EventBus;
 using Quizz.BuildingBlocks.EventBus.Abstractions;
 using Quizz.BuildingBlocks.EventBusRabbitMQ;
+using Quizz.BuildingBlocks.IntegrationEventLog.Services;
+using Quizz.Questions.Application.IntegrationEvents;
+using Quizz.Questions.Data;
 using RabbitMQ.Client;
 
 namespace Quizz.Questions.Infrastructure.Extensions;
@@ -42,6 +46,19 @@ public static class ServiceCollectionExtensions
         });
 
         services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddIntegrations(this IServiceCollection services)
+    {
+        services.AddTransient<IIntegrationEventLogService>(sp =>
+        {
+            var dbContext = sp.GetRequiredService<QuestionsContext>();
+            return new IntegrationEventLogService(dbContext.Database.GetDbConnection());
+        });
+
+        services.AddTransient<IQuestionsIntegrationEventService, QuestionsIntegrationEventService>();
 
         return services;
     }
