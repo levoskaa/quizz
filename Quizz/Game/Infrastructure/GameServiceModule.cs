@@ -8,38 +8,37 @@ using Quizz.GameService.Application.Validators;
 using Quizz.GameService.Data;
 using Quizz.GameService.Data.Repositories;
 
-namespace Quizz.GameService.Infrastructure
+namespace Quizz.GameService.Infrastructure;
+
+public class GameServiceModule : Module
 {
-    public class GameServiceModule : Module
+    protected override void Load(ContainerBuilder builder)
     {
-        protected override void Load(ContainerBuilder builder)
-        {
-            // Repositories
-            builder.RegisterAssemblyTypes(typeof(GameRepository).Assembly)
-                .Where(type => type.IsClosedTypeOf(typeof(IRepository<>)))
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
+        // Repositories
+        builder.RegisterAssemblyTypes(typeof(GameRepository).Assembly)
+            .Where(type => type.IsClosedTypeOf(typeof(IRepository<>)))
+            .AsImplementedInterfaces()
+            .InstancePerLifetimeScope();
 
-            // Services
-            builder.RegisterType<IdentityService>()
-                .As<IIdentityService>()
-                .InstancePerLifetimeScope();
+        // Services
+        builder.RegisterType<IdentityService>()
+            .As<IIdentityService>()
+            .InstancePerLifetimeScope();
 
-            // Validators
-            builder.RegisterAssemblyTypes(typeof(CreateGameCommandValidator).Assembly)
-                .Where(type => type.IsClosedTypeOf(typeof(IValidator<>)))
-                .AsImplementedInterfaces()
-                .InstancePerDependency();
+        // Validators
+        builder.RegisterAssemblyTypes(typeof(CreateGameCommandValidator).Assembly)
+            .Where(type => type.IsClosedTypeOf(typeof(IValidator<>)))
+            .AsImplementedInterfaces()
+            .InstancePerDependency();
 
-            // Behaviors
-            builder.RegisterGeneric(typeof(ValidatorBehavior<,>))
-                .As(typeof(IPipelineBehavior<,>))
-                .InstancePerDependency();
+        // Behaviors
+        builder.RegisterGeneric(typeof(ValidatorBehavior<,>))
+            .As(typeof(IPipelineBehavior<,>))
+            .InstancePerDependency();
 
-            // Dapper
-            builder.RegisterType<DapperContext>()
-                .AsSelf()
-                .SingleInstance();
-        }
+        // Dapper
+        builder.RegisterType<DapperContext>()
+            .AsSelf()
+            .SingleInstance();
     }
 }

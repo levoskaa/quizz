@@ -1,45 +1,44 @@
 ﻿using MediatR;
 using System.Collections.Generic;
 
-namespace Quizz.Common.DataAccess
+namespace Quizz.Common.DataAccess;
+
+public abstract class Entity<T> : IEntity
 {
-    public abstract class Entity<T> : IEntity
+    private T id;
+
+    public virtual T Id
     {
-        private T id;
-
-        public virtual T Id
+        get
         {
-            get
-            {
-                return id;
-            }
-            protected set
-            {
-                id = value;
-            }
+            return id;
         }
-
-        private readonly List<INotification> domainEvents;
-        public IReadOnlyCollection<INotification> DomainEvents => domainEvents.AsReadOnly();
-
-        public Entity()
+        protected set
         {
-            domainEvents = new List<INotification>();
+            id = value;
         }
+    }
 
-        public void AddDomainEvent(INotification eventItem)
-        {
-            domainEvents.Add(eventItem);
-        }
+    private readonly List<INotification> domainEvents;
+    public IReadOnlyCollection<INotification> DomainEvents => domainEvents.AsReadOnly();
 
-        public void RemoveDomainEvent(INotification eventItem)
-        {
-            domainEvents.Remove(eventItem);
-        }
+    public Entity()
+    {
+        domainEvents = new List<INotification>();
+    }
 
-        public void ClearDomainEvents()
-        {
-            domainEvents.Clear();
-        }
+    public void AddDomainEvent(INotification eventItem)
+    {
+        domainEvents.Add(eventItem);
+    }
+
+    public void RemoveDomainEvent(INotification eventItem)
+    {
+        domainEvents.Remove(eventItem);
+    }
+
+    public void ClearDomainEvents()
+    {
+        domainEvents.Clear();
     }
 }

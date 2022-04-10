@@ -1,16 +1,15 @@
 ﻿using MediatR;
 using System.Collections.Generic;
 
-namespace Quizz.Common.DataAccess
+namespace Quizz.Common.DataAccess;
+
+public interface IEntity
 {
-    public interface IEntity
-    {
-        IReadOnlyCollection<INotification> DomainEvents { get; }
+    IReadOnlyCollection<INotification> DomainEvents { get; }
 
-        void AddDomainEvent(INotification eventItem);
+    void AddDomainEvent(INotification eventItem);
 
-        void RemoveDomainEvent(INotification eventItem);
+    void RemoveDomainEvent(INotification eventItem);
 
-        void ClearDomainEvents();
-    }
+    void ClearDomainEvents();
 }

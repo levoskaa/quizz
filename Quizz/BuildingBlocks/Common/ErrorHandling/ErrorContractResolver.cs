@@ -5,27 +5,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Quizz.Common.ErroHandling
+namespace Quizz.Common.ErroHandling;
+
+public class ErrorContractResolver : CamelCasePropertyNamesContractResolver
 {
-    public class ErrorContractResolver : CamelCasePropertyNamesContractResolver
+    private readonly bool isDevelopment;
+
+    public ErrorContractResolver(bool isDevelopment)
     {
-        private readonly bool isDevelopment;
+        this.isDevelopment = isDevelopment;
+    }
 
-        public ErrorContractResolver(bool isDevelopment)
+    protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
+    {
+        IList<JsonProperty> properties = base.CreateProperties(type, memberSerialization);
+        var propertiesToExclude = new string[] { nameof(ErrorViewModel.StackTrace) };
+
+        if (!isDevelopment)
         {
-            this.isDevelopment = isDevelopment;
+            properties = properties.Where(property => !propertiesToExclude.Contains(property.PropertyName)).ToList();
         }
-
-        protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
-        {
-            IList<JsonProperty> properties = base.CreateProperties(type, memberSerialization);
-            var propertiesToExclude = new string[] { nameof(ErrorViewModel.StackTrace) };
-
-            if (!isDevelopment)
-            {
-                properties = properties.Where(property => !propertiesToExclude.Contains(property.PropertyName)).ToList();
-            }
-            return properties;
-        }
+        return properties;
     }
 }

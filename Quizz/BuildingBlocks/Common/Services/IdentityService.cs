@@ -1,19 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Quizz.Common.Services
+namespace Quizz.Common.Services;
+
+public class IdentityService : IIdentityService
 {
-    public class IdentityService : IIdentityService
+    private readonly IHttpContextAccessor httpContext;
+
+    public IdentityService(IHttpContextAccessor httpContext)
     {
-        private readonly IHttpContextAccessor httpContext;
+        this.httpContext = httpContext;
+    }
 
-        public IdentityService(IHttpContextAccessor httpContext)
-        {
-            this.httpContext = httpContext;
-        }
-
-        public string GetUserIdentity()
-        {
-            return httpContext.HttpContext.User.FindFirst("sub").Value;
-        }
+    public string GetUserIdentity()
+    {
+        return httpContext.HttpContext.User.FindFirst("sub").Value;
     }
 }

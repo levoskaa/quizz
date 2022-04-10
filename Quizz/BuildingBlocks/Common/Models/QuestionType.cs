@@ -1,10 +1,9 @@
-﻿namespace Quizz.Common.Models
+namespace Quizz.Common.Models;
+
+public enum QuestionType
 {
-    public enum QuestionType
-    {
-        TrueOrFalse,
-        MultipleChoice,
-        FindCorrectOrder,
-        TypeInAnswer,
-    }
+    TrueOrFalse,
+    MultipleChoice,
+    FindCorrectOrder,
+    TypeInAnswer,
 }
