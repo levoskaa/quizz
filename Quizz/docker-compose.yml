@@ -33,7 +33,7 @@ services:
       context: .
       dockerfile: Questions/Dockerfile
     environment:
-      - ConnectionStrings:Default=Server=sql-server;Database=QuestionsDb;User Id=sa;Password=abcd!1234;
+      - ConnectionStrings__Default=Server=sql-server;Database=QuestionsDb;User Id=sa;Password=abcd!1234;
     ports:
       - "32004:80"
       - "32005:443"
@@ -47,7 +47,7 @@ services:
       context: .
       dockerfile: Identity/Dockerfile
     environment:
-      - ConnectionStrings:Default=Server=sql-server;Database=IdentityDb;User Id=sa;Password=abcd!1234;
+      - ConnectionStrings__Default=Server=sql-server;Database=IdentityDb;User Id=sa;Password=abcd!1234;
       - Identity__Issuer=http://identity:80
     ports:
       - "32006:80"
