@@ -8,6 +8,7 @@ using Quizz.GameService.Application.Models;
 using Quizz.GameService.Application.ViewModels;
 using Quizz.GameService.Infrastructure.Exceptions;
 using System;
+using System.Collections.Generic;
 
 namespace Quizz.GameService.Infrastructure.Mapper;
 
@@ -43,5 +44,19 @@ public class AutoMapperProfile : Profile
         CreateMap<ForbiddenException, ErrorViewModel>();
 
         CreateMap<Exception, ErrorViewModel>();
+
+        // Get Questions
+        CreateMap<Questions.Protos.Question, QuestionViewModel>();
+
+        // TODO: probably not needed
+        //CreateMap<Common.Models.Question, QuestionViewModel>()
+        //    .IncludeAllDerived();
+        //CreateMap<FindCorrectOrderQuestion, QuestionViewModel>();
+        //CreateMap<MultipleChoiceQuestion, QuestionViewModel>();
+        //CreateMap<TrueOrFalseQuestion, QuestionViewModel>();
+        //CreateMap<TypeInAnswerQuestion, QuestionViewModel>();
+
+        CreateMap<IEnumerable<Questions.Protos.Question>, QuestionsListViewModel>()
+            .ForMember(vm => vm.Data, options => options.MapFrom(questions => questions));
     }
 }
