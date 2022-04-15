@@ -20,6 +20,7 @@ services:
     environment:
       - ConnectionStrings__Default=Server=sql-server;Database=GameDb;User Id=sa;Password=abcd!1234;
       - Identity__Authority=http://identity:80
+      - Questions__GrpcAddress=http://questions:80
     ports:
       - "32002:80"
       - "32003:443"
@@ -34,6 +35,7 @@ services:
       dockerfile: Questions/Dockerfile
     environment:
       - ConnectionStrings__Default=Server=sql-server;Database=QuestionsDb;User Id=sa;Password=abcd!1234;
+      - Kestrel__Endpoints__gRPC__Url=http://+80
     ports:
       - "32004:80"
       - "32005:443"

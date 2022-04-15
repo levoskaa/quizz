@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option csharp_namespace = "Quizz.Questions.Protos";
+
+service Questions {
+    rpc GetQuestions (GetQuestionsRequest) returns (GetQuestionsReply);
+}
+
+message Question {
+    string id = 1;
+    string text = 2;
+    QuestionType type = 3;
+    int32 index = 4;
+    int32 timeLimitInSeconds = 5;
+
+    repeated Answer answerPossibilites = 6;
+    repeated int32 correctIdOrder = 7;
+    repeated int32 correctAnswerIds = 8;
+
+    bool correctAnswer = 9;
+
+    repeated Answer acceptedAnswers = 10;
+}
+
+enum QuestionType {
+    TrueOrFalse = 0;
+    MultipleChoice = 1;
+    FindCorrectOrder = 2;
+    TypeInAnswer = 3;
+}
+
+message Answer {
+    int32 id = 1;
+    string text = 2;
+    string questionId = 3;
+}
+
+message GetQuestionsRequest {
+  repeated string questionIds = 1;
+}
+
+message GetQuestionsReply {
+  repeated Question questions = 1;
+}

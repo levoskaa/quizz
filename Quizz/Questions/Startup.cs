@@ -13,6 +13,7 @@ using Newtonsoft.Json.Serialization;
 using Questions.Infrastructure.Mapper;
 using Quizz.Questions.Application.Behaviors;
 using Quizz.Questions.Data;
+using Quizz.Questions.gRPC;
 using Quizz.Questions.Infrastructure;
 using Quizz.Questions.Infrastructure.Exceptions;
 using Quizz.Questions.Infrastructure.Extensions;
@@ -39,6 +40,8 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddGrpc();
+
         services.AddAutoMapper(typeof(AutoMapperProfile));
 
         services.AddMediatR(typeof(ValidatorBehavior<,>).Assembly);
@@ -121,6 +124,7 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
+            endpoints.MapGrpcService<QuestionsService>();
         });
     }
 }
