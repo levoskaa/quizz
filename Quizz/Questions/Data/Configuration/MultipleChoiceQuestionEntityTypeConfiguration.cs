@@ -13,7 +13,7 @@ namespace Quizz.GameService.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<MultipleChoiceQuestion> builder)
         {
-            builder.HasMany(question => question.PossibleAnswers)
+            builder.HasMany(question => question.AnswerPossibilites)
                 .WithOne()
                 .HasForeignKey(answer => answer.QuestionId)
                 .OnDelete(DeleteBehavior.Cascade);
