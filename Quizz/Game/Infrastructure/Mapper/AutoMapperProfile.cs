@@ -67,5 +67,8 @@ public class AutoMapperProfile : Profile
 
         CreateMap<IEnumerable<Common.Models.Question>, QuestionsListViewModel>()
             .ForMember(vm => vm.Data, options => options.MapFrom(questions => questions));
+
+        // Get Answer
+        CreateMap<Answer, AnswerViewModel>();
     }
 }

@@ -15,9 +15,9 @@ public class QuestionViewModel
     public int Index { get; init; }
     [Required]
     public int TimeLimitInSeconds { get; init; }
-    public Answer AnswerPossibilites { get; init; }
+    public AnswerViewModel AnswerPossibilites { get; init; }
     public int CorrectIdOrder { get; init; }
     public int CorrectAnswerIds { get; init; }
     public bool CorrectAnswer { get; init; }
-    public Answer AcceptedAnswers { get; init; }
+    public AnswerViewModel AcceptedAnswers { get; init; }
 }
