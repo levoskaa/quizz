@@ -8,6 +8,12 @@
 /* eslint-disable */
 // ReSharper disable InconsistentNaming
 
+export interface AnswerViewModel {
+  id: number;
+  text: string;
+  questionId: string;
+}
+
 export interface CreateGameDto {
   name: string;
 }
@@ -33,6 +39,25 @@ export interface GameViewModelPaginatedItemsViewModel {
 
 export interface Int32EntityCreatedViewModel {
   id: number;
+}
+
+export type QuestionType = 'TrueOrFalse' | 'MultipleChoice' | 'FindCorrectOrder' | 'TypeInAnswer';
+
+export interface QuestionViewModel {
+  id: string;
+  text: string;
+  type: QuestionType;
+  index: number;
+  timeLimitInSeconds: number;
+  answerPossibilites?: AnswerViewModel | undefined;
+  correctIdOrder?: number | undefined;
+  correctAnswerIds?: number | undefined;
+  correctAnswer?: boolean | undefined;
+  acceptedAnswers?: AnswerViewModel | undefined;
+}
+
+export interface QuestionsListViewModel {
+  data: QuestionViewModel[];
 }
 
 export interface UpdateGameDto {
