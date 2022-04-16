@@ -59,6 +59,7 @@ public class Startup
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Questions", Version = "v1" });
         });
+        services.AddSwaggerGenNewtonsoftSupport();
 
         services.AddDbContext<QuestionsContext>(options =>
         {

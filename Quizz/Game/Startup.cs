@@ -61,6 +61,7 @@ public class Startup
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "GameService", Version = "v1" });
         });
+        services.AddSwaggerGenNewtonsoftSupport();
 
         services.AddDbContext<GameContext>(options =>
         {
