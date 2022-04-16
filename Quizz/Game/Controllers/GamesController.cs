@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Dapper;
+using Grpc.Net.Client;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,9 +14,11 @@ using Quizz.GameService.Application.Dtos;
 using Quizz.GameService.Application.Models;
 using Quizz.GameService.Application.ViewModels;
 using Quizz.GameService.Data;
+using Quizz.Questions.Protos;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using static Quizz.Questions.Protos.Questions;
 
 namespace Quizz.GameService.Controllers;
 
@@ -30,19 +33,22 @@ public class GamesController : ControllerBase
     private readonly IMapper mapper;
     private readonly IIdentityService identityService;
     private readonly DapperContext dapper;
+    private readonly QuestionsClient questionsClient;
 
     public GamesController(
         IMediator mediator,
         IHttpContextAccessor contextAccessor,
         IMapper mapper,
         IIdentityService identityService,
-        DapperContext dapper)
+        DapperContext dapper,
+        QuestionsClient questionsClient)
     {
         this.mediator = mediator;
         this.contextAccessor = contextAccessor;
         this.mapper = mapper;
         this.identityService = identityService;
         this.dapper = dapper;
+        this.questionsClient = questionsClient;
     }
 
     [HttpPost]
@@ -67,11 +73,11 @@ public class GamesController : ControllerBase
         var userId = identityService.GetUserIdentity();
         var offset = pageSize * pageIndex;
         var gamesQuery = @"SELECT * FROM Game
-                             WHERE OwnerId=@userId
-                             ORDER BY UpdatedAt DESC
-                             OFFSET @offset ROWS FETCH NEXT @pageSize ROWS ONLY;";
+                           WHERE OwnerId=@userId
+                           ORDER BY UpdatedAt DESC
+                           OFFSET @offset ROWS FETCH NEXT @pageSize ROWS ONLY;";
         var gameCountQuery = @"SELECT COUNT(*) FROM Game
-                                 WHERE OwnerId=@userId;";
+                               WHERE OwnerId=@userId;";
         using (var connection = dapper.CreateConnection())
         {
             var games = await connection.QueryAsync<Game>(gamesQuery, new { userId, offset, pageSize });
@@ -91,8 +97,8 @@ public class GamesController : ControllerBase
     {
         var userId = identityService.GetUserIdentity();
         var gameQuery = @"SELECT * FROM Game
-                              WHERE OwnerId=@userId
-                              AND Id=@gameId;";
+                          WHERE OwnerId=@userId
+                          AND Id=@gameId;";
         using (var connection = dapper.CreateConnection())
         {
             var game = await connection.QuerySingleOrDefaultAsync<Game>(gameQuery, new { userId, gameId = id });
@@ -124,5 +130,14 @@ public class GamesController : ControllerBase
         var userId = identityService.GetUserIdentity();
         var deleteGameCommand = new DeleteGameCommand(gameId, userId);
         return mediator.Send(deleteGameCommand);
+    }
+
+    [HttpGet("{id}/questions")]
+    public async Task<QuestionsListViewModel> GetGameQuestions([FromRoute(Name = "id")] int gameId)
+    {
+        var userId = identityService.GetUserIdentity();
+        var getGameQuestionsCommand = new GetGameQuestionsCommand(gameId, userId);
+        var questions = await mediator.Send(getGameQuestionsCommand);
+        return mapper.Map<QuestionsListViewModel>(questions);
     }
 }

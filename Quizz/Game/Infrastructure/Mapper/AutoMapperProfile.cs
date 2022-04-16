@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Quizz.Common.ErroHandling;
 using Quizz.Common.ErrorHandling;
+using Quizz.Common.Models;
 using Quizz.Common.ViewModels;
 using Quizz.GameService.Application.Commands;
 using Quizz.GameService.Application.Dtos;
@@ -47,6 +48,14 @@ public class AutoMapperProfile : Profile
 
         // Get Questions
         CreateMap<Questions.Protos.Question, QuestionViewModel>();
+        CreateMap<Common.Models.Question, Questions.Protos.Question>()
+            .IncludeAllDerived()
+            .ReverseMap();
+
+        CreateMap<FindCorrectOrderQuestion, Questions.Protos.Question>();
+        CreateMap<MultipleChoiceQuestion, Questions.Protos.Question>();
+        CreateMap<TrueOrFalseQuestion, Questions.Protos.Question>();
+        CreateMap<TypeInAnswerQuestion, Questions.Protos.Question>();
 
         // TODO: probably not needed
         //CreateMap<Common.Models.Question, QuestionViewModel>()
@@ -56,7 +65,7 @@ public class AutoMapperProfile : Profile
         //CreateMap<TrueOrFalseQuestion, QuestionViewModel>();
         //CreateMap<TypeInAnswerQuestion, QuestionViewModel>();
 
-        CreateMap<IEnumerable<Questions.Protos.Question>, QuestionsListViewModel>()
+        CreateMap<IEnumerable<Common.Models.Question>, QuestionsListViewModel>()
             .ForMember(vm => vm.Data, options => options.MapFrom(questions => questions));
     }
 }
