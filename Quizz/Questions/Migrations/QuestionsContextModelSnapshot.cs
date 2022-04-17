@@ -33,6 +33,12 @@ namespace Questions.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "answerseq");
 
+                    b.Property<int>("Index")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
@@ -75,9 +81,6 @@ namespace Questions.Migrations
                 {
                     b.HasBaseType("Quizz.Common.Models.Question");
 
-                    b.Property<string>("CorrectIdOrder")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasDiscriminator().HasValue(2);
                 });
 
@@ -85,18 +88,12 @@ namespace Questions.Migrations
                 {
                     b.HasBaseType("Quizz.Common.Models.Question");
 
-                    b.Property<string>("CorrectAnswerIds")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasDiscriminator().HasValue(1);
                 });
 
             modelBuilder.Entity("Quizz.Common.Models.TrueOrFalseQuestion", b =>
                 {
                     b.HasBaseType("Quizz.Common.Models.Question");
-
-                    b.Property<bool>("CorrectAnswer")
-                        .HasColumnType("bit");
 
                     b.HasDiscriminator().HasValue(0);
                 });
@@ -110,38 +107,16 @@ namespace Questions.Migrations
 
             modelBuilder.Entity("Quizz.Common.Models.Answer", b =>
                 {
-                    b.HasOne("Quizz.Common.Models.FindCorrectOrderQuestion", null)
+                    b.HasOne("Quizz.Common.Models.Question", null)
                         .WithMany("AnswerPossibilities")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Quizz.Common.Models.MultipleChoiceQuestion", null)
-                        .WithMany("PossibleAnswers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Quizz.Common.Models.TypeInAnswerQuestion", null)
-                        .WithMany("AcceptedAnswers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Quizz.Common.Models.FindCorrectOrderQuestion", b =>
+            modelBuilder.Entity("Quizz.Common.Models.Question", b =>
                 {
                     b.Navigation("AnswerPossibilities");
-                });
-
-            modelBuilder.Entity("Quizz.Common.Models.MultipleChoiceQuestion", b =>
-                {
-                    b.Navigation("PossibleAnswers");
-                });
-
-            modelBuilder.Entity("Quizz.Common.Models.TypeInAnswerQuestion", b =>
-                {
-                    b.Navigation("AcceptedAnswers");
                 });
 #pragma warning restore 612, 618
         }

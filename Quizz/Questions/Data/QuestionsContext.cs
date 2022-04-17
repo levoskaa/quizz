@@ -80,10 +80,7 @@ namespace Quizz.Questions.Data
         private static void ApplyEntityConfigurations(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AnswerEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new FindCorrectOrderQuestionEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new MultipleChoiceQuestionEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new QuestionEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new TypeInAnswerQuestionEntityTypeConfiguration());
         }
     }
 }

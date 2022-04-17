@@ -6,18 +6,16 @@ namespace Quizz.Common.ViewModels;
 public class QuestionViewModel
 {
     [Required]
-    public string Id { get; init; }
-    [Required]
     public string Text { get; init; }
+
     [Required]
     public QuestionType Type { get; init; }
+
     [Required]
     public int Index { get; init; }
+
     [Required]
     public int TimeLimitInSeconds { get; init; }
+
     public AnswerViewModel AnswerPossibilites { get; init; }
-    public int CorrectIdOrder { get; init; }
-    public int CorrectAnswerIds { get; init; }
-    public bool CorrectAnswer { get; init; }
-    public AnswerViewModel AcceptedAnswers { get; init; }
 }

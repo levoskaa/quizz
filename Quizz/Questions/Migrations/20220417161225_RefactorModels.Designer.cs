@@ -3,17 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Quizz.GameService.Data;
+using Quizz.Questions.Data;
 
 #nullable disable
 
-namespace GameService.Migrations
+namespace Questions.Migrations
 {
-    [DbContext(typeof(GameContext))]
-    partial class GameContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(QuestionsContext))]
+    [Migration("20220417161225_RefactorModels")]
+    partial class RefactorModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,9 +25,6 @@ namespace GameService.Migrations
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.HasSequence("answerseq")
-                .IncrementsBy(10);
-
-            modelBuilder.HasSequence("gameseq")
                 .IncrementsBy(10);
 
             modelBuilder.Entity("Quizz.Common.Models.Answer", b =>
@@ -61,9 +60,6 @@ namespace GameService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("GameId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Index")
                         .HasColumnType("int");
 
@@ -78,54 +74,9 @@ namespace GameService.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GameId");
-
                     b.ToTable("Question", (string)null);
 
                     b.HasDiscriminator<int>("Type");
-                });
-
-            modelBuilder.Entity("Quizz.GameService.Application.Models.Game", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "gameseq");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OwnerId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Game", (string)null);
-                });
-
-            modelBuilder.Entity("Quizz.GameService.Application.Models.GameQuestion", b =>
-                {
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("GameId1")
-                        .HasColumnType("int");
-
-                    b.HasKey("GameId", "QuestionId");
-
-                    b.HasIndex("GameId1");
-
-                    b.HasIndex("QuestionId")
-                        .IsUnique();
-
-                    b.ToTable("GameQuestion", (string)null);
                 });
 
             modelBuilder.Entity("Quizz.Common.Models.FindCorrectOrderQuestion", b =>
@@ -167,44 +118,7 @@ namespace GameService.Migrations
 
             modelBuilder.Entity("Quizz.Common.Models.Question", b =>
                 {
-                    b.HasOne("Quizz.GameService.Application.Models.Game", null)
-                        .WithMany("Questions")
-                        .HasForeignKey("GameId");
-                });
-
-            modelBuilder.Entity("Quizz.GameService.Application.Models.GameQuestion", b =>
-                {
-                    b.HasOne("Quizz.GameService.Application.Models.Game", null)
-                        .WithMany("GameQuestions")
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Quizz.GameService.Application.Models.Game", "Game")
-                        .WithMany()
-                        .HasForeignKey("GameId1");
-
-                    b.HasOne("Quizz.Common.Models.Question", "Question")
-                        .WithOne()
-                        .HasForeignKey("Quizz.GameService.Application.Models.GameQuestion", "QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-
-                    b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("Quizz.Common.Models.Question", b =>
-                {
                     b.Navigation("AnswerPossibilities");
-                });
-
-            modelBuilder.Entity("Quizz.GameService.Application.Models.Game", b =>
-                {
-                    b.Navigation("GameQuestions");
-
-                    b.Navigation("Questions");
                 });
 #pragma warning restore 612, 618
         }

@@ -79,11 +79,8 @@ public class GameContext : DbContext, IUnitOfWork
     private static void ApplyEntityConfigurations(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new AnswerEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new FindCorrectOrderQuestionEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new GameEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new GameQuestionEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new MultipleChoiceQuestionEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new QuestionEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new TypeInAnswerQuestionEntityTypeConfiguration());
     }
 }

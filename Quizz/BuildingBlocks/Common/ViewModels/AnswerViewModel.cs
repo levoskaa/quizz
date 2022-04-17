@@ -5,11 +5,11 @@ namespace Quizz.Common.ViewModels;
 public class AnswerViewModel
 {
     [Required]
-    public int Id { get; set; }
-
-    [Required]
     public string Text { get; set; }
 
     [Required]
-    public string QuestionId { get; set; }
+    public bool IsCorrect { get; set; }
+
+    [Required]
+    public int Index { get; set; }
 }

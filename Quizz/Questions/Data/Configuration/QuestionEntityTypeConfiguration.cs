@@ -19,6 +19,11 @@ namespace Quizz.GameService.Data.Configuration
 
             builder.Property(question => question.Id)
                 .ValueGeneratedOnAdd();
+
+            builder.HasMany(question => question.AnswerPossibilities)
+                .WithOne()
+                .HasForeignKey(answer => answer.QuestionId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
