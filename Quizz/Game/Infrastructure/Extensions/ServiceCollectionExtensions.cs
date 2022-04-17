@@ -7,8 +7,8 @@ using Quizz.BuildingBlocks.EventBus;
 using Quizz.BuildingBlocks.EventBus.Abstractions;
 using Quizz.BuildingBlocks.EventBusRabbitMQ;
 using Quizz.BuildingBlocks.IntegrationEventLog.Services;
-using Quizz.Questions.Application.IntegrationEvents;
-using Quizz.Questions.Data;
+using Quizz.GameService.Application.IntegrationEvents;
+using Quizz.GameService.Data;
 using RabbitMQ.Client;
 
 namespace Quizz.Questions.Infrastructure.Extensions;
@@ -54,11 +54,11 @@ public static class ServiceCollectionExtensions
     {
         services.AddTransient<IIntegrationEventLogService>(sp =>
         {
-            var dbContext = sp.GetRequiredService<QuestionsContext>();
+            var dbContext = sp.GetRequiredService<GameContext>();
             return new IntegrationEventLogService(dbContext.Database.GetDbConnection());
         });
 
-        services.AddTransient<IQuestionsIntegrationEventService, QuestionsIntegrationEventService>();
+        services.AddTransient<IGameServiceIntegrationEventService, GameServiceIntegrationEventService>();
 
         return services;
     }
