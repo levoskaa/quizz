@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Dapper;
 using MediatR;
-using Quizz.Common.ErroHandling;
-using Quizz.Common.ErrorHandling;
 using Quizz.GameService.Data;
+using Quizz.GameService.Infrastructure.Services;
 using Quizz.Questions.Protos;
 using System.Collections.Generic;
 using System.Threading;
@@ -17,20 +16,23 @@ public class GetGameQuestionsCommandHandler : IRequestHandler<GetGameQuestionsCo
     private readonly DapperContext dapper;
     private readonly QuestionsClient questionsClient;
     private readonly IMapper mapper;
+    private readonly IGameValidatorService gameValidatorService;
 
     public GetGameQuestionsCommandHandler(
         DapperContext dapper,
         QuestionsClient questionsClient,
-        IMapper mapper)
+        IMapper mapper,
+        IGameValidatorService gameValidatorService)
     {
         this.dapper = dapper;
         this.questionsClient = questionsClient;
         this.mapper = mapper;
+        this.gameValidatorService = gameValidatorService;
     }
 
     public async Task<IEnumerable<Common.Models.Question>> Handle(GetGameQuestionsCommand request, CancellationToken cancellationToken)
     {
-        await CheckGameOwnership(request);
+        await gameValidatorService.CheckGameOwnershipAsync(request.GameId, request.UserId);
         var query = @"SELECT QuestionId FROM GameQuestion
                       WHERE GameId=@gameId";
         IEnumerable<string> questionIds = new List<string>();
@@ -43,22 +45,5 @@ public class GetGameQuestionsCommandHandler : IRequestHandler<GetGameQuestionsCo
         var grpcReply = await questionsClient.GetQuestionsAsync(grpcRequest, cancellationToken: cancellationToken);
         var questions = mapper.Map<IEnumerable<Common.Models.Question>>(grpcReply.Questions);
         return questions;
-    }
-
-    private async Task CheckGameOwnership(GetGameQuestionsCommand request)
-    {
-        var query = @"SELECT COUNT(*) FROM Game
-                      LEFT JOIN GameQuestion
-                      ON Game.Id=GameQuestion.GameId
-                      WHERE Game.OwnerId=@userId AND Game.Id=@gameId;";
-        int queryResult = 0;
-        using (var connection = dapper.CreateConnection())
-        {
-            queryResult = await connection.ExecuteScalarAsync<int>(query, new { gameId = request.GameId, userId = request.UserId });
-        }
-        if (queryResult == 0)
-        {
-            throw new EntityNotFoundException($"Game with id {request.GameId} not found", ValidationError.GameNotFound);
-        }
     }
 }

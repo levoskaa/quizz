@@ -7,6 +7,7 @@ using Quizz.GameService.Application.Behaviors;
 using Quizz.GameService.Application.Validators;
 using Quizz.GameService.Data;
 using Quizz.GameService.Data.Repositories;
+using Quizz.GameService.Infrastructure.Services;
 
 namespace Quizz.GameService.Infrastructure;
 
@@ -23,6 +24,10 @@ public class GameServiceModule : Module
         // Services
         builder.RegisterType<IdentityService>()
             .As<IIdentityService>()
+            .InstancePerLifetimeScope();
+
+        builder.RegisterType<GameValidatorService>()
+            .As<IGameValidatorService>()
             .InstancePerLifetimeScope();
 
         // Validators
