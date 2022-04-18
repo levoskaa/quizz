@@ -21,4 +21,12 @@ public abstract class Question : Entity<Guid>, IAggregateRoot
     {
         answerPossibilites = new List<Answer>();
     }
+
+    public Question(string text, int index, int timeLimitInSeconds)
+        : this()
+    {
+        Text = text;
+        Index = index;
+        TimeLimitInSeconds = timeLimitInSeconds;
+    }
 }

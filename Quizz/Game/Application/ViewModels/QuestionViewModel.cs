@@ -1,7 +1,7 @@
 ﻿using Quizz.Common.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace Quizz.Common.ViewModels;
+namespace Quizz.GameService.Application.ViewModels;
 
 public class QuestionViewModel
 {
