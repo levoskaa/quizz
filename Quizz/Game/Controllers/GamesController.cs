@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Dapper;
-using Grpc.Net.Client;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,11 +13,9 @@ using Quizz.GameService.Application.Dtos;
 using Quizz.GameService.Application.Models;
 using Quizz.GameService.Application.ViewModels;
 using Quizz.GameService.Data;
-using Quizz.Questions.Protos;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using static Quizz.Questions.Protos.Questions;
 
 namespace Quizz.GameService.Controllers;
 
@@ -33,22 +30,19 @@ public class GamesController : ControllerBase
     private readonly IMapper mapper;
     private readonly IIdentityService identityService;
     private readonly DapperContext dapper;
-    private readonly QuestionsClient questionsClient;
 
     public GamesController(
         IMediator mediator,
         IHttpContextAccessor contextAccessor,
         IMapper mapper,
         IIdentityService identityService,
-        DapperContext dapper,
-        QuestionsClient questionsClient)
+        DapperContext dapper)
     {
         this.mediator = mediator;
         this.contextAccessor = contextAccessor;
         this.mapper = mapper;
         this.identityService = identityService;
         this.dapper = dapper;
-        this.questionsClient = questionsClient;
     }
 
     [HttpPost]
@@ -139,5 +133,13 @@ public class GamesController : ControllerBase
         var getGameQuestionsCommand = new GetGameQuestionsCommand(gameId, userId);
         var questions = await mediator.Send(getGameQuestionsCommand);
         return mapper.Map<QuestionsListViewModel>(questions);
+    }
+
+    [HttpPut("${id}/questions")]
+    public Task UpdateGameQuestions([FromRoute(Name = "id")] int gameId, [FromBody] UpdateGameQuestionsDto dto)
+    {
+        var userId = identityService.GetUserIdentity();
+        var updateGameQuestionsCommand = new UpdateGameQuestionsCommand(gameId, userId, dto.Questions);
+        return mediator.Send(updateGameQuestionsCommand);
     }
 }

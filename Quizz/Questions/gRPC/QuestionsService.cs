@@ -31,4 +31,17 @@ public class QuestionsService : Protos.Questions.QuestionsBase
         reply.Questions.AddRange(mapper.Map<IEnumerable<Question>>(questions));
         return reply;
     }
+
+    public override async Task<ReplaceQuestionsReply> ReplaceQuestions(ReplaceQuestionsRequest request, ServerCallContext context)
+    {
+        var replaceQuestionsCommand = new ReplaceQuestionsCommand
+        {
+            QuestionIds = request.QuestionIds.ToList(),
+            QuestionDtos = mapper.Map<IEnumerable<Common.Dtos.QuestionDto>>(request.QuestionDtos.ToList()),
+        };
+        var newQuestionIds = await mediator.Send(replaceQuestionsCommand);
+        var reply = new ReplaceQuestionsReply();
+        reply.NewQuestionIds.AddRange(newQuestionIds);
+        return reply;
+    }
 }

@@ -68,6 +68,10 @@ public class AutoMapperProfile : Profile
         CreateMap<IEnumerable<Common.Models.Question>, QuestionsListViewModel>()
             .ForMember(vm => vm.Data, options => options.MapFrom(questions => questions));
 
+        // Update Questions
+        CreateMap<Questions.Protos.QuestionDto, Common.Dtos.QuestionDto>()
+            .ReverseMap();
+
         // Get Answer
         CreateMap<Answer, AnswerViewModel>();
     }

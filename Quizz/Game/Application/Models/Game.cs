@@ -41,4 +41,18 @@ public class Game : Entity<int>, IAggregateRoot
     {
         gameQuestions = new List<GameQuestion>();
     }
+
+    public void ReplaceQuesionIds(IEnumerable<Guid> newQuestionIds)
+    {
+        gameQuestions.Clear();
+        foreach (var newQuestionId in newQuestionIds)
+        {
+            var gameQuestion = new GameQuestion
+            {
+                GameId = Id,
+                QuestionId = newQuestionId
+            };
+            gameQuestions.Add(gameQuestion);
+        }
+    }
 }

@@ -4,6 +4,7 @@ option csharp_namespace = "Quizz.Questions.Protos";
 
 service Questions {
     rpc GetQuestions (GetQuestionsRequest) returns (GetQuestionsReply);
+    rpc ReplaceQuestions (ReplaceQuestionsRequest) returns (ReplaceQuestionsReply);
 }
 
 message Question {
@@ -12,14 +13,7 @@ message Question {
     QuestionType type = 3;
     int32 index = 4;
     int32 timeLimitInSeconds = 5;
-
     repeated Answer answerPossibilites = 6;
-    repeated int32 correctIdOrder = 7;
-    repeated int32 correctAnswerIds = 8;
-
-    bool correctAnswer = 9;
-
-    repeated Answer acceptedAnswers = 10;
 }
 
 enum QuestionType {
@@ -32,13 +26,38 @@ enum QuestionType {
 message Answer {
     int32 id = 1;
     string text = 2;
-    string questionId = 3;
+    int32 index = 3;
+    bool isCorrect = 4;
+    string questionId = 5;
 }
 
 message GetQuestionsRequest {
-  repeated string questionIds = 1;
+    repeated string questionIds = 1;
 }
 
 message GetQuestionsReply {
-  repeated Question questions = 1;
+    repeated Question questions = 1;
+}
+
+message QuestionDto {
+    string text = 1;
+    QuestionType type = 2;
+    int32 index = 3;
+    int32 timeLimitInSeconds = 4;
+    repeated AnswerDto answerPossibilites = 5;
+}
+
+message AnswerDto {
+    string Text = 1;
+    bool IsCorrect = 2;
+    int32 Index = 3;
+}
+
+message ReplaceQuestionsRequest {
+    repeated string questionIds = 1;
+    repeated QuestionDto questionDtos = 2;
+}
+
+message ReplaceQuestionsReply {
+    repeated string newQuestionIds = 1;
 }
