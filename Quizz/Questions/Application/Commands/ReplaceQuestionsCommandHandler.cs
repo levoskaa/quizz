@@ -1,8 +1,10 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Quizz.Common.Dtos;
 using Quizz.Common.Models;
 using Quizz.Questions.Data.Repositories;
 using Quizz.Questions.Infrastructure.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -14,10 +16,14 @@ public class ReplaceQuestionsCommandHandler
     : IRequestHandler<ReplaceQuestionsCommand, IEnumerable<string>>
 {
     private readonly IQuestionRepository questionRepository;
+    private readonly IMapper mapper;
 
-    public ReplaceQuestionsCommandHandler(IQuestionRepository questionRepository)
+    public ReplaceQuestionsCommandHandler(
+        IQuestionRepository questionRepository,
+        IMapper mapper)
     {
         this.questionRepository = questionRepository;
+        this.mapper = mapper;
     }
 
     public async Task<IEnumerable<string>> Handle(ReplaceQuestionsCommand request, CancellationToken cancellationToken)
@@ -76,6 +82,7 @@ public class ReplaceQuestionsCommandHandler
         {
             throw new QuestionsDomainException("Question could not be created");
         }
+        question.ReplaceAnswerPossibilities(mapper.Map<IEnumerable<Common.Models.Answer>>(questionDto.AnswerPossibilites));
         return question;
     }
 }

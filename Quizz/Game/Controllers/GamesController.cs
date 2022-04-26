@@ -135,7 +135,7 @@ public class GamesController : ControllerBase
         return mapper.Map<QuestionsListViewModel>(questions);
     }
 
-    [HttpPut("${id}/questions")]
+    [HttpPut("{id}/questions")]
     public Task UpdateGameQuestions([FromRoute(Name = "id")] int gameId, [FromBody] UpdateGameQuestionsDto dto)
     {
         var userId = identityService.GetUserIdentity();

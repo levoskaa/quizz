@@ -4,6 +4,7 @@ using Quizz.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Quizz.Questions.Data.Repositories;
@@ -25,10 +26,10 @@ public class QuestionRepository : IQuestionRepository
         return entry.Entity.Id;
     }
 
-    public async Task<IEnumerable<Question>> FilterAsync(Func<Question, bool> filter)
+    public async Task<IEnumerable<Question>> FilterAsync(Expression<Func<Question, bool>> filter)
     {
         var questions = await context.Questions
-            .Where(question => filter(question))
+            .Where(filter)
             .ToListAsync();
         return questions;
     }

@@ -42,11 +42,13 @@ public class UpdateGameQuestionsCommandHandler : IRequestHandler<UpdateGameQuest
         var oldQuestionIds = await GetQuestionIdsAsync(request.GameId);
         var grpcRequest = new ReplaceQuestionsRequest();
         grpcRequest.QuestionIds.AddRange(oldQuestionIds);
-        grpcRequest.QuestionDtos.AddRange(mapper.Map<IEnumerable<Questions.Protos.QuestionDto>>(request.Questions));
+        grpcRequest.QuestionDtos.AddRange(MapQuestionDtosToProtos(request.Questions));
         var grpcReply = await questionsClient.ReplaceQuestionsAsync(grpcRequest, cancellationToken: cancellationToken);
         var game = await gameRepository.GetAsync(request.GameId);
-        var guidQuestionIds = grpcReply.NewQuestionIds.Select(id => Guid.Parse(id));
+        var guidQuestionIds = grpcReply.NewQuestionIds.ToList()
+            .Select(id => Guid.Parse(id));
         game.ReplaceQuesionIds(guidQuestionIds);
+        await gameRepository.UnitOfWork.SaveEntitiesAsync();
         return Unit.Value;
     }
 
@@ -60,5 +62,39 @@ public class UpdateGameQuestionsCommandHandler : IRequestHandler<UpdateGameQuest
             questionIds = await connection.QueryAsync<string>(query, new { gameId });
         }
         return questionIds;
+    }
+
+    private IEnumerable<Questions.Protos.QuestionDto> MapQuestionDtosToProtos(IEnumerable<Common.Dtos.QuestionDto> questionDtos)
+    {
+        var mappedQuestionDtos = new List<Questions.Protos.QuestionDto>();
+        foreach (var questionDto in questionDtos)
+        {
+            var mappedQuestionDto = new Questions.Protos.QuestionDto
+            {
+                Text = questionDto.Text,
+                Type = (Questions.Protos.QuestionType)questionDto.Type,
+                Index = questionDto.Index,
+                TimeLimitInSeconds = questionDto.TimeLimitInSeconds,
+            };
+            mappedQuestionDto.AnswerPossibilites.AddRange(MapAnswerDtosToProtos(questionDto.AnswerPossibilites));
+            mappedQuestionDtos.Add(mappedQuestionDto);
+        }
+        return mappedQuestionDtos;
+    }
+
+    private IEnumerable<Questions.Protos.AnswerDto> MapAnswerDtosToProtos(IEnumerable<Common.Dtos.AnswerDto> answerDtos)
+    {
+        var mappedAnswerDtos = new List<Questions.Protos.AnswerDto>();
+        foreach (var answerDto in answerDtos)
+        {
+            var mappedAnswerDto = new Questions.Protos.AnswerDto
+            {
+                Text = answerDto.Text,
+                Index = answerDto.Index,
+                IsCorrect = answerDto.IsCorrect,
+            };
+            mappedAnswerDtos.Add(mappedAnswerDto);
+        }
+        return mappedAnswerDtos;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Quizz.Common.Models;
+using System.Collections.Generic;
 
 namespace Quizz.Common.Dtos;
 
@@ -8,5 +9,5 @@ public class QuestionDto
     public QuestionType Type { get; init; }
     public int Index { get; init; }
     public int TimeLimitInSeconds { get; init; }
-    public AnswerDto AnswerPossibilites { get; init; }
+    public IEnumerable<AnswerDto> AnswerPossibilites { get; init; }
 }

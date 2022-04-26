@@ -29,4 +29,10 @@ public abstract class Question : Entity<Guid>, IAggregateRoot
         Index = index;
         TimeLimitInSeconds = timeLimitInSeconds;
     }
+
+    public void ReplaceAnswerPossibilities(IEnumerable<Answer> answers)
+    {
+        answerPossibilites.Clear();
+        answerPossibilites.AddRange(answers);
+    }
 }
