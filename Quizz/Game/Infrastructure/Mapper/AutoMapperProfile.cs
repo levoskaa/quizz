@@ -47,30 +47,15 @@ public class AutoMapperProfile : Profile
         CreateMap<Exception, ErrorViewModel>();
 
         // Get Questions
-        CreateMap<Questions.Protos.Question, QuestionViewModel>();
-        CreateMap<Common.Models.Question, Questions.Protos.Question>()
-            .IncludeAllDerived()
-            .ReverseMap();
+        CreateMap<Question, QuestionViewModel>()
+            .IncludeAllDerived();
+        CreateMap<FindCorrectOrderQuestion, QuestionViewModel>();
+        CreateMap<MultipleChoiceQuestion, QuestionViewModel>();
+        CreateMap<TrueOrFalseQuestion, QuestionViewModel>();
+        CreateMap<TypeInAnswerQuestion, QuestionViewModel>();
 
-        CreateMap<FindCorrectOrderQuestion, Questions.Protos.Question>();
-        CreateMap<MultipleChoiceQuestion, Questions.Protos.Question>();
-        CreateMap<TrueOrFalseQuestion, Questions.Protos.Question>();
-        CreateMap<TypeInAnswerQuestion, Questions.Protos.Question>();
-
-        // TODO: probably not needed
-        //CreateMap<Common.Models.Question, QuestionViewModel>()
-        //    .IncludeAllDerived();
-        //CreateMap<FindCorrectOrderQuestion, QuestionViewModel>();
-        //CreateMap<MultipleChoiceQuestion, QuestionViewModel>();
-        //CreateMap<TrueOrFalseQuestion, QuestionViewModel>();
-        //CreateMap<TypeInAnswerQuestion, QuestionViewModel>();
-
-        CreateMap<IEnumerable<Common.Models.Question>, QuestionsListViewModel>()
+        CreateMap<IEnumerable<Question>, QuestionsListViewModel>()
             .ForMember(vm => vm.Data, options => options.MapFrom(questions => questions));
-
-        // Update Questions
-        CreateMap<Questions.Protos.QuestionDto, Common.Dtos.QuestionDto>()
-            .ReverseMap();
 
         // Get Answer
         CreateMap<Answer, AnswerViewModel>();

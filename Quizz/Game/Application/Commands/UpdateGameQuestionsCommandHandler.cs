@@ -41,8 +41,8 @@ public class UpdateGameQuestionsCommandHandler : IRequestHandler<UpdateGameQuest
         await gameValidatorService.CheckGameOwnershipAsync(request.GameId, request.UserId);
         var oldQuestionIds = await GetQuestionIdsAsync(request.GameId);
         var grpcRequest = new ReplaceQuestionsRequest();
-        grpcRequest.QuestionIds.AddRange(oldQuestionIds);
-        grpcRequest.QuestionDtos.AddRange(MapQuestionDtosToProtos(request.Questions));
+        grpcRequest.QuestionIds.AddRange(oldQuestionIds.Select(x => x.ToString()));
+        grpcRequest.QuestionDtos.AddRange(GrpcConverter.QuestionDtosToQuestionDtoProtos(request.Questions));
         var grpcReply = await questionsClient.ReplaceQuestionsAsync(grpcRequest, cancellationToken: cancellationToken);
         var game = await gameRepository.GetAsync(request.GameId);
         var guidQuestionIds = grpcReply.NewQuestionIds.ToList()
@@ -52,49 +52,15 @@ public class UpdateGameQuestionsCommandHandler : IRequestHandler<UpdateGameQuest
         return Unit.Value;
     }
 
-    private async Task<IEnumerable<string>> GetQuestionIdsAsync(int gameId)
+    private async Task<IEnumerable<Guid>> GetQuestionIdsAsync(int gameId)
     {
         var query = @"SELECT QuestionId FROM GameQuestion
                       WHERE GameId=@gameId;";
-        IEnumerable<string> questionIds = new List<string>();
+        IEnumerable<Guid> questionIds = new List<Guid>();
         using (var connection = dapper.CreateConnection())
         {
-            questionIds = await connection.QueryAsync<string>(query, new { gameId });
+            questionIds = await connection.QueryAsync<Guid>(query, new { gameId });
         }
         return questionIds;
-    }
-
-    private IEnumerable<Questions.Protos.QuestionDto> MapQuestionDtosToProtos(IEnumerable<Common.Dtos.QuestionDto> questionDtos)
-    {
-        var mappedQuestionDtos = new List<Questions.Protos.QuestionDto>();
-        foreach (var questionDto in questionDtos)
-        {
-            var mappedQuestionDto = new Questions.Protos.QuestionDto
-            {
-                Text = questionDto.Text,
-                Type = (Questions.Protos.QuestionType)questionDto.Type,
-                Index = questionDto.Index,
-                TimeLimitInSeconds = questionDto.TimeLimitInSeconds,
-            };
-            mappedQuestionDto.AnswerPossibilites.AddRange(MapAnswerDtosToProtos(questionDto.AnswerPossibilites));
-            mappedQuestionDtos.Add(mappedQuestionDto);
-        }
-        return mappedQuestionDtos;
-    }
-
-    private IEnumerable<Questions.Protos.AnswerDto> MapAnswerDtosToProtos(IEnumerable<Common.Dtos.AnswerDto> answerDtos)
-    {
-        var mappedAnswerDtos = new List<Questions.Protos.AnswerDto>();
-        foreach (var answerDto in answerDtos)
-        {
-            var mappedAnswerDto = new Questions.Protos.AnswerDto
-            {
-                Text = answerDto.Text,
-                Index = answerDto.Index,
-                IsCorrect = answerDto.IsCorrect,
-            };
-            mappedAnswerDtos.Add(mappedAnswerDto);
-        }
-        return mappedAnswerDtos;
     }
 }

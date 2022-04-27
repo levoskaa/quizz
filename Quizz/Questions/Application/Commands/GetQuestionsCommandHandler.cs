@@ -1,8 +1,9 @@
-﻿using Dapper;
-using MediatR;
+﻿using MediatR;
 using Quizz.Common.Models;
-using Quizz.Questions.Data;
+using Quizz.Questions.Data.Repositories;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,23 +11,16 @@ namespace Quizz.Questions.Application.Commands;
 
 public class GetQuestionsCommandHandler : IRequestHandler<GetQuestionsCommand, IEnumerable<Question>>
 {
-    private readonly DapperContext dapper;
+    private readonly IQuestionRepository questionRepository;
 
-    public GetQuestionsCommandHandler(DapperContext dapper)
+    public GetQuestionsCommandHandler(IQuestionRepository questionRepository)
     {
-        this.dapper = dapper;
+        this.questionRepository = questionRepository;
     }
 
     public async Task<IEnumerable<Question>> Handle(GetQuestionsCommand request, CancellationToken cancellationToken)
     {
-        var query = @"SELECT * FROM Question
-                     WHERE Id IN @questionIds
-                     ORDER BY [Index] ASC;";
-        IEnumerable<Question> questions = new List<Question>();
-        using (var connection = dapper.CreateConnection())
-        {
-            questions = await connection.QueryAsync<Question>(query, new { questionIds = request.QuestionIds });
-        }
+        var questions = await questionRepository.FilterAsync((question) => request.QuestionIds.Select(x => Guid.Parse(x)).Contains(question.Id));
         return questions;
     }
 }
