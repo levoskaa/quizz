@@ -3,6 +3,7 @@ using MediatR;
 using Quizz.Common.ErrorHandling;
 using Quizz.GameService.Application.Models;
 using Quizz.GameService.Data.Repositories;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,19 +22,24 @@ public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand>
 
     public async Task<Unit> Handle(UpdateGameCommand updateGameCommand, CancellationToken cancellationToken)
     {
-        await ValidateCommand(updateGameCommand);
-        var game = mapper.Map<Game>(updateGameCommand);
-        gameRepository.Update(game);
+        var game = await gameRepository.GetAsync(updateGameCommand.GameId);
+        ValidateCommand(game, updateGameCommand);
+        DoUpdate(game, updateGameCommand);
         await gameRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         return Unit.Value;
     }
 
-    private async Task ValidateCommand(UpdateGameCommand updateGameCommand)
+    private void ValidateCommand(Game game, UpdateGameCommand updateGameCommand)
     {
-        var currentGame = await gameRepository.GetAsync(updateGameCommand.GameId);
-        if (currentGame.OwnerId != updateGameCommand.UserId)
+        if (game.OwnerId != updateGameCommand.UserId)
         {
             throw new ForbiddenException();
         }
+    }
+
+    private void DoUpdate(Game game, UpdateGameCommand updateGameCommand)
+    {
+        game.Name = updateGameCommand.Name;
+        game.UpdatedAt = DateTime.Now;
     }
 }
