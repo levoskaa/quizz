@@ -12,12 +12,10 @@ namespace Quizz.GameService.Application.Commands;
 public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand>
 {
     private readonly IGameRepository gameRepository;
-    private readonly IMapper mapper;
 
-    public UpdateGameCommandHandler(IGameRepository gameRepository, IMapper mapper)
+    public UpdateGameCommandHandler(IGameRepository gameRepository)
     {
         this.gameRepository = gameRepository;
-        this.mapper = mapper;
     }
 
     public async Task<Unit> Handle(UpdateGameCommand updateGameCommand, CancellationToken cancellationToken)

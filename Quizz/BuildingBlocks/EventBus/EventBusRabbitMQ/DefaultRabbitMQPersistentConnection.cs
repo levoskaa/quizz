@@ -18,7 +18,7 @@ public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
     private IConnection connection;
     private bool disposed;
 
-    private object sync_root = new object();
+    private object sync_root = new();
 
     public DefaultRabbitMQPersistentConnection(
         IConnectionFactory connectionFactory,

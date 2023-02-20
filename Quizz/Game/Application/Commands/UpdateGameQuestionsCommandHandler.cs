@@ -19,20 +19,17 @@ public class UpdateGameQuestionsCommandHandler : IRequestHandler<UpdateGameQuest
     private readonly QuestionsClient questionsClient;
     private readonly IGameValidatorService gameValidatorService;
     private readonly DapperContext dapper;
-    private readonly IMapper mapper;
     private readonly IGameRepository gameRepository;
 
     public UpdateGameQuestionsCommandHandler(
         QuestionsClient questionsClient,
         IGameValidatorService gameValidatorService,
         DapperContext dapper,
-        IMapper mapper,
         IGameRepository gameRepository)
     {
         this.questionsClient = questionsClient;
         this.gameValidatorService = gameValidatorService;
         this.dapper = dapper;
-        this.mapper = mapper;
         this.gameRepository = gameRepository;
     }
 
@@ -48,7 +45,7 @@ public class UpdateGameQuestionsCommandHandler : IRequestHandler<UpdateGameQuest
         var guidQuestionIds = grpcReply.NewQuestionIds.ToList()
             .Select(id => Guid.Parse(id));
         game.ReplaceQuesionIds(guidQuestionIds);
-        await gameRepository.UnitOfWork.SaveEntitiesAsync();
+        await gameRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         return Unit.Value;
     }
 

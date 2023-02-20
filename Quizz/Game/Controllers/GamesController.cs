@@ -72,16 +72,14 @@ public class GamesController : ControllerBase
                            OFFSET @offset ROWS FETCH NEXT @pageSize ROWS ONLY;";
         var gameCountQuery = @"SELECT COUNT(*) FROM Game
                                WHERE OwnerId=@userId;";
-        using (var connection = dapper.CreateConnection())
-        {
-            var games = await connection.QueryAsync<Game>(gamesQuery, new { userId, offset, pageSize });
-            var totalCount = await connection.QuerySingleAsync<long>(gameCountQuery, new { userId });
-            return new PaginatedItemsViewModel<GameViewModel>(
-                pageIndex,
-                pageSize,
-                totalCount,
-                mapper.Map<IEnumerable<GameViewModel>>(games));
-        }
+        using var connection = dapper.CreateConnection();
+        var games = await connection.QueryAsync<Game>(gamesQuery, new { userId, offset, pageSize });
+        var totalCount = await connection.QuerySingleAsync<long>(gameCountQuery, new { userId });
+        return new PaginatedItemsViewModel<GameViewModel>(
+            pageIndex,
+            pageSize,
+            totalCount,
+            mapper.Map<IEnumerable<GameViewModel>>(games));
     }
 
     [HttpGet("{id}")]
@@ -93,15 +91,13 @@ public class GamesController : ControllerBase
         var gameQuery = @"SELECT * FROM Game
                           WHERE OwnerId=@userId
                           AND Id=@gameId;";
-        using (var connection = dapper.CreateConnection())
+        using var connection = dapper.CreateConnection();
+        var game = await connection.QuerySingleOrDefaultAsync<Game>(gameQuery, new { userId, gameId = id });
+        if (game == null)
         {
-            var game = await connection.QuerySingleOrDefaultAsync<Game>(gameQuery, new { userId, gameId = id });
-            if (game == null)
-            {
-                throw new EntityNotFoundException($"Game with id {id} not found", ValidationError.GameNotFound);
-            }
-            return mapper.Map<GameViewModel>(game);
+            throw new EntityNotFoundException($"Game with id {id} not found", ValidationError.GameNotFound);
         }
+        return mapper.Map<GameViewModel>(game);
     }
 
     [HttpPut("{id}")]

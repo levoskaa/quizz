@@ -22,7 +22,7 @@ public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand>
         var game = await gameRepository.GetAsync(deleteGameCommand.GameId);
         ValidateCommand(deleteGameCommand, game);
         gameRepository.Remove(game);
-        await gameRepository.UnitOfWork.SaveEntitiesAsync();
+        await gameRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         return Unit.Value;
     }
 
