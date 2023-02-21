@@ -4,6 +4,8 @@ public class TrueOrFalseQuestion : Question
 {
     public override QuestionType Type => QuestionType.TrueOrFalse;
 
+    public bool CorrectAnswer { get; set; }
+
     public TrueOrFalseQuestion(string text, int index, int timeLimitInSeconds)
         : base(text, index, timeLimitInSeconds)
     { }

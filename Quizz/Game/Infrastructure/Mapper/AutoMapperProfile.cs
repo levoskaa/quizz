@@ -49,10 +49,10 @@ public class AutoMapperProfile : Profile
         // Get Questions
         CreateMap<Question, QuestionViewModel>()
             .IncludeAllDerived();
-        CreateMap<FindCorrectOrderQuestion, QuestionViewModel>();
+        CreateMap<FindOrderQuestion, QuestionViewModel>();
         CreateMap<MultipleChoiceQuestion, QuestionViewModel>();
         CreateMap<TrueOrFalseQuestion, QuestionViewModel>();
-        CreateMap<TypeInAnswerQuestion, QuestionViewModel>();
+        CreateMap<FreeTextQuestion, QuestionViewModel>();
 
         CreateMap<IEnumerable<Question>, QuestionsListViewModel>()
             .ForMember(vm => vm.Data, options => options.MapFrom(questions => questions));

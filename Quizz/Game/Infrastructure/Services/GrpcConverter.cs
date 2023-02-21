@@ -72,7 +72,7 @@ public class GrpcConverter
         switch (question.Type)
         {
             case QuestionType.FindCorrectOrder:
-                mappedQuestion = new Common.Models.FindCorrectOrderQuestion(
+                mappedQuestion = new Common.Models.FindOrderQuestion(
                     question.Text,
                     question.Index,
                     question.TimeLimitInSeconds);
@@ -93,7 +93,7 @@ public class GrpcConverter
                 break;
 
             case QuestionType.TypeInAnswer:
-                mappedQuestion = new Common.Models.TypeInAnswerQuestion(
+                mappedQuestion = new Common.Models.FreeTextQuestion(
                     question.Text,
                     question.Index,
                     question.TimeLimitInSeconds);

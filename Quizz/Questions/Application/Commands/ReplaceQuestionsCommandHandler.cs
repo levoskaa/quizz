@@ -50,8 +50,8 @@ public class ReplaceQuestionsCommandHandler
         Question question = null;
         switch (questionDto.Type)
         {
-            case QuestionType.FindCorrectOrder:
-                question = new FindCorrectOrderQuestion(
+            case QuestionType.FindOrder:
+                question = new FindOrderQuestion(
                     questionDto.Text,
                     questionDto.Index,
                     questionDto.TimeLimitInSeconds);
@@ -71,8 +71,8 @@ public class ReplaceQuestionsCommandHandler
                     questionDto.TimeLimitInSeconds);
                 break;
 
-            case QuestionType.TypeInAnswer:
-                question = new TypeInAnswerQuestion(
+            case QuestionType.FreeText:
+                question = new FreeTextQuestion(
                     questionDto.Text,
                     questionDto.Index,
                     questionDto.TimeLimitInSeconds);

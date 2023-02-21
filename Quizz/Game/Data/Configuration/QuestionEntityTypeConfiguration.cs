@@ -10,10 +10,10 @@ public class QuestionEntityTypeConfiguration : IEntityTypeConfiguration<Question
     {
         builder.ToTable("Question")
             .HasDiscriminator(question => question.Type)
-            .HasValue<FindCorrectOrderQuestion>(QuestionType.FindCorrectOrder)
+            .HasValue<FindOrderQuestion>(QuestionType.FindOrder)
             .HasValue<MultipleChoiceQuestion>(QuestionType.MultipleChoice)
             .HasValue<TrueOrFalseQuestion>(QuestionType.TrueOrFalse)
-            .HasValue<TypeInAnswerQuestion>(QuestionType.TypeInAnswer);
+            .HasValue<FreeTextQuestion>(QuestionType.FreeText);
 
         builder.HasKey(question => question.Id);
 
