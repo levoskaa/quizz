@@ -15,6 +15,7 @@ namespace Quizz.GameService.Data;
 public class GameContext : DbContext, IUnitOfWork
 {
     public DbSet<Game> Games { get; set; }
+    public DbSet<GameQuestion> GameQuestions { get; set; }
     public IDbContextTransaction CurrentTransaction => currentTransaction;
     public bool HasActiveTransaction => currentTransaction != null;
 
@@ -78,9 +79,7 @@ public class GameContext : DbContext, IUnitOfWork
 
     private static void ApplyEntityConfigurations(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new AnswerEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new GameEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new GameQuestionEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new QuestionEntityTypeConfiguration());
     }
 }

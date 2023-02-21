@@ -1,5 +1,4 @@
 ﻿using Quizz.Common.DataAccess;
-using Quizz.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +15,6 @@ public class Game : Entity<int>, IAggregateRoot
 
     private readonly List<GameQuestion> gameQuestions;
     public IReadOnlyCollection<GameQuestion> GameQuestions => gameQuestions.AsReadOnly();
-
-    public IReadOnlyCollection<Question> Questions
-    {
-        get
-        {
-            return gameQuestions.Select(x => x.Question)
-                .ToList()
-                .AsReadOnly();
-        }
-    }
 
     public IReadOnlyCollection<Guid> QuestionIds
     {
