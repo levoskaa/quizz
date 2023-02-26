@@ -6,7 +6,9 @@ public class TrueOrFalseQuestion : Question
 
     public bool CorrectAnswer { get; set; }
 
-    public TrueOrFalseQuestion(string text, int index, int timeLimitInSeconds)
+    public TrueOrFalseQuestion(string text, int index, int timeLimitInSeconds, bool correctAnswer)
         : base(text, index, timeLimitInSeconds)
-    { }
+    {
+        CorrectAnswer = correctAnswer;
+    }
 }

@@ -55,6 +55,8 @@ public class ReplaceQuestionsCommandHandler
                     questionDto.Text,
                     questionDto.Index,
                     questionDto.TimeLimitInSeconds);
+                question.ReplaceAnswerPossibilities(
+                    mapper.Map<IEnumerable<Common.Models.FindOrderAnswer>>(questionDto.AnswerPossibilites));
                 break;
 
             case QuestionType.MultipleChoice:
@@ -62,13 +64,18 @@ public class ReplaceQuestionsCommandHandler
                     questionDto.Text,
                     questionDto.Index,
                     questionDto.TimeLimitInSeconds);
+                question.ReplaceAnswerPossibilities(
+                    mapper.Map<IEnumerable<Common.Models.MultipleChoiceAnswer>>(questionDto.AnswerPossibilites));
                 break;
 
             case QuestionType.TrueOrFalse:
                 question = new TrueOrFalseQuestion(
                     questionDto.Text,
                     questionDto.Index,
-                    questionDto.TimeLimitInSeconds);
+                    questionDto.TimeLimitInSeconds,
+                    questionDto.CorrectAnswer);
+                question.ReplaceAnswerPossibilities(
+                    mapper.Map<IEnumerable<Common.Models.Answer>>(questionDto.AnswerPossibilites));
                 break;
 
             case QuestionType.FreeText:
@@ -76,13 +83,14 @@ public class ReplaceQuestionsCommandHandler
                     questionDto.Text,
                     questionDto.Index,
                     questionDto.TimeLimitInSeconds);
+                question.ReplaceAnswerPossibilities(
+                    mapper.Map<IEnumerable<Common.Models.Answer>>(questionDto.AnswerPossibilites));
                 break;
         }
         if (question == null)
         {
             throw new QuestionsDomainException("Question could not be created");
         }
-        question.ReplaceAnswerPossibilities(mapper.Map<IEnumerable<Common.Models.Answer>>(questionDto.AnswerPossibilites));
         return question;
     }
 }

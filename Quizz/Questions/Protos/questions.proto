@@ -14,21 +14,23 @@ message Question {
     int32 index = 4;
     int32 timeLimitInSeconds = 5;
     repeated Answer answerPossibilites = 6;
+    bool correctAnswer = 7;
 }
 
 enum QuestionType {
     TrueOrFalse = 0;
     MultipleChoice = 1;
-    FindCorrectOrder = 2;
-    TypeInAnswer = 3;
+    FindOrder = 2;
+    FreeText = 3;
 }
 
 message Answer {
     int32 id = 1;
     string text = 2;
-    int32 index = 3;
-    bool isCorrect = 4;
-    string questionId = 5;
+    int32 displayIndex = 3;
+    int32 correctIndex = 4;
+    bool isCorrect = 5;
+    string questionId = 6;
 }
 
 message GetQuestionsRequest {
@@ -45,12 +47,15 @@ message QuestionDto {
     int32 index = 3;
     int32 timeLimitInSeconds = 4;
     repeated AnswerDto answerPossibilites = 5;
+    bool correctAnswer = 6;
 }
 
 message AnswerDto {
-    string Text = 1;
-    bool IsCorrect = 2;
-    int32 Index = 3;
+    string text = 1;
+    int32 displayIndex = 2;
+    int32 correctIndex = 3;
+    bool isCorrect = 4;
+    string questionId = 5;
 }
 
 message ReplaceQuestionsRequest {

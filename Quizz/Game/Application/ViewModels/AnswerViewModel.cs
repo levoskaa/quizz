@@ -7,9 +7,7 @@ public class AnswerViewModel
     [Required]
     public string Text { get; set; }
 
-    [Required]
-    public bool IsCorrect { get; set; }
-
-    [Required]
-    public int Index { get; set; }
+    public bool? IsCorrect { get; set; }
+    public int? CorrectIndex { get; set; }
+    public int? DisplayIndex { get; set; }
 }

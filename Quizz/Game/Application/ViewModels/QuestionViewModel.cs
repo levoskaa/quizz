@@ -1,4 +1,5 @@
 ﻿using Quizz.Common.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Quizz.GameService.Application.ViewModels;
@@ -17,5 +18,7 @@ public class QuestionViewModel
     [Required]
     public int TimeLimitInSeconds { get; init; }
 
-    public AnswerViewModel AnswerPossibilites { get; init; }
+    public bool? CorrectAnswer { get; init; }
+
+    public IEnumerable<AnswerViewModel> AnswerPossibilities { get; init; }
 }

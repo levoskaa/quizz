@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quizz.Questions.Data;
 
@@ -11,9 +12,10 @@ using Quizz.Questions.Data;
 namespace Questions.Migrations
 {
     [DbContext(typeof(QuestionsContext))]
-    partial class QuestionsContextModelSnapshot : ModelSnapshot
+    [Migration("20230222164216_AddDescendantAnswers")]
+    partial class AddDescendantAnswers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,11 +97,15 @@ namespace Questions.Migrations
             modelBuilder.Entity("Quizz.Common.Models.FindOrderQuestion", b =>
                 {
                     b.HasBaseType("Quizz.Common.Models.Question");
+
+                    b.HasDiscriminator().HasValue(2);
                 });
 
             modelBuilder.Entity("Quizz.Common.Models.FreeTextQuestion", b =>
                 {
                     b.HasBaseType("Quizz.Common.Models.Question");
+
+                    b.HasDiscriminator().HasValue(3);
                 });
 
             modelBuilder.Entity("Quizz.Common.Models.MultipleChoiceAnswer", b =>
@@ -120,6 +126,8 @@ namespace Questions.Migrations
             modelBuilder.Entity("Quizz.Common.Models.MultipleChoiceQuestion", b =>
                 {
                     b.HasBaseType("Quizz.Common.Models.Question");
+
+                    b.HasDiscriminator().HasValue(1);
                 });
 
             modelBuilder.Entity("Quizz.Common.Models.TrueOrFalseQuestion", b =>

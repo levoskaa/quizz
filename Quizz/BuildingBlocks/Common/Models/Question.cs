@@ -14,12 +14,12 @@ public abstract class Question : Entity<Guid>, IAggregateRoot
 
     public int TimeLimitInSeconds { get; set; }
 
-    protected readonly List<Answer> answerPossibilites;
-    public virtual IReadOnlyCollection<Answer> AnswerPossibilities => answerPossibilites.AsReadOnly();
+    protected readonly List<Answer> answerPossibilities;
+    public IReadOnlyCollection<Answer> AnswerPossibilities => answerPossibilities.AsReadOnly();
 
     public Question()
     {
-        answerPossibilites = new List<Answer>();
+        answerPossibilities = new List<Answer>();
     }
 
     public Question(string text, int index, int timeLimitInSeconds)
@@ -33,7 +33,7 @@ public abstract class Question : Entity<Guid>, IAggregateRoot
     // TODO: check after refactoring is done
     public void ReplaceAnswerPossibilities(IEnumerable<Answer> answers)
     {
-        answerPossibilites.Clear();
-        answerPossibilites.AddRange(answers);
+        answerPossibilities.Clear();
+        answerPossibilities.AddRange(answers);
     }
 }

@@ -8,7 +8,11 @@ namespace Quizz.GameService.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Answer> builder)
         {
-            builder.ToTable("Answer");
+            builder.ToTable("Answer")
+                .HasDiscriminator<string>("AnswerType")
+                .HasValue<Answer>("base")
+                .HasValue<FindOrderAnswer>("find_order")
+                .HasValue<MultipleChoiceAnswer>("multiple_choice");
 
             builder.HasKey(answer => answer.Id);
 

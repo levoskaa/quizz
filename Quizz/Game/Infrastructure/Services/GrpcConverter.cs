@@ -1,25 +1,22 @@
 ﻿using Quizz.GameService.Infrastructure.Exceptions;
-using Quizz.Questions.Protos;
 using System.Collections.Generic;
+using System.Linq;
+using QuestionType = Quizz.Questions.Protos.QuestionType;
 
 namespace Quizz.GameService.Infrastructure.Services;
 
 public class GrpcConverter
 {
-    public static IEnumerable<Common.Models.Answer> AnswerProtosToAnswers(IEnumerable<Questions.Protos.Answer> answers)
+    public static IEnumerable<Common.Models.Answer> AnswerProtosToAnswers(QuestionType questionType,
+        IEnumerable<Questions.Protos.Answer> answers)
     {
-        var mappedAnswers = new List<Common.Models.Answer>();
-        foreach (var answerDto in answers)
+        return questionType switch
         {
-            var mappedAnswer = new Common.Models.Answer
-            {
-                Text = answerDto.Text,
-                Index = answerDto.Index,
-                IsCorrect = answerDto.IsCorrect,
-            };
-            mappedAnswers.Add(mappedAnswer);
-        }
-        return mappedAnswers;
+            QuestionType.MultipleChoice => MultipleChoiceAnswerProtosToAnswers(answers),
+            QuestionType.FindOrder => FindOrderAnswerProtosToAnswers(answers),
+            QuestionType.FreeText => FreeTextAnswerProtosToAnswers(answers),
+            _ => Enumerable.Empty<Common.Models.Answer>(),
+        };
     }
 
     public static IEnumerable<Common.Models.Question> QuestionProtosToQuestions(IEnumerable<Questions.Protos.Question> questions)
@@ -43,6 +40,7 @@ public class GrpcConverter
                 Type = (Questions.Protos.QuestionType)questionDto.Type,
                 Index = questionDto.Index,
                 TimeLimitInSeconds = questionDto.TimeLimitInSeconds,
+                CorrectAnswer = questionDto.CorrectAnswer,
             };
             mappedQuestionDto.AnswerPossibilites.AddRange(AnswerDtosToAnswerDtoProtos(questionDto.AnswerPossibilites));
             mappedQuestionDtos.Add(mappedQuestionDto);
@@ -58,7 +56,8 @@ public class GrpcConverter
             var mappedAnswerDto = new Questions.Protos.AnswerDto
             {
                 Text = answerDto.Text,
-                Index = answerDto.Index,
+                DisplayIndex = answerDto.DisplayIndex,
+                CorrectIndex = answerDto.CorrectIndex,
                 IsCorrect = answerDto.IsCorrect,
             };
             mappedAnswerDtos.Add(mappedAnswerDto);
@@ -71,7 +70,7 @@ public class GrpcConverter
         Common.Models.Question mappedQuestion = null;
         switch (question.Type)
         {
-            case QuestionType.FindCorrectOrder:
+            case QuestionType.FindOrder:
                 mappedQuestion = new Common.Models.FindOrderQuestion(
                     question.Text,
                     question.Index,
@@ -89,10 +88,11 @@ public class GrpcConverter
                 mappedQuestion = new Common.Models.TrueOrFalseQuestion(
                     question.Text,
                     question.Index,
-                    question.TimeLimitInSeconds);
+                    question.TimeLimitInSeconds,
+                    question.CorrectAnswer);
                 break;
 
-            case QuestionType.TypeInAnswer:
+            case QuestionType.FreeText:
                 mappedQuestion = new Common.Models.FreeTextQuestion(
                     question.Text,
                     question.Index,
@@ -103,7 +103,53 @@ public class GrpcConverter
         {
             throw new GameServiceDomainException("Question could not be mapped");
         }
-        mappedQuestion.ReplaceAnswerPossibilities(AnswerProtosToAnswers(question.AnswerPossibilites));
+        mappedQuestion.ReplaceAnswerPossibilities(AnswerProtosToAnswers(question.Type, question.AnswerPossibilites));
         return mappedQuestion;
+    }
+
+    private static IEnumerable<Common.Models.MultipleChoiceAnswer> MultipleChoiceAnswerProtosToAnswers(IEnumerable<Questions.Protos.Answer> answers)
+    {
+        var mappedAnswers = new List<Common.Models.MultipleChoiceAnswer>();
+        foreach (var answerDto in answers)
+        {
+            var mappedAnswer = new Common.Models.MultipleChoiceAnswer
+            {
+                Text = answerDto.Text,
+                DisplayIndex = answerDto.DisplayIndex,
+                IsCorrect = answerDto.IsCorrect,
+            };
+            mappedAnswers.Add(mappedAnswer);
+        }
+        return mappedAnswers;
+    }
+
+    private static IEnumerable<Common.Models.FindOrderAnswer> FindOrderAnswerProtosToAnswers(IEnumerable<Questions.Protos.Answer> answers)
+    {
+        var mappedAnswers = new List<Common.Models.FindOrderAnswer>();
+        foreach (var answerDto in answers)
+        {
+            var mappedAnswer = new Common.Models.FindOrderAnswer
+            {
+                Text = answerDto.Text,
+                DisplayIndex = answerDto.DisplayIndex,
+                CorrectIndex = answerDto.CorrectIndex,
+            };
+            mappedAnswers.Add(mappedAnswer);
+        }
+        return mappedAnswers;
+    }
+
+    private static IEnumerable<Common.Models.Answer> FreeTextAnswerProtosToAnswers(IEnumerable<Questions.Protos.Answer> answers)
+    {
+        var mappedAnswers = new List<Common.Models.Answer>();
+        foreach (var answerDto in answers)
+        {
+            var mappedAnswer = new Common.Models.Answer
+            {
+                Text = answerDto.Text,
+            };
+            mappedAnswers.Add(mappedAnswer);
+        }
+        return mappedAnswers;
     }
 }

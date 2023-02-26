@@ -30,6 +30,7 @@ public class QuestionRepository : IQuestionRepository
     {
         var questions = await context.Questions
             .Where(filter)
+            .Include(question => question.AnswerPossibilities)
             .ToListAsync();
         return questions;
     }

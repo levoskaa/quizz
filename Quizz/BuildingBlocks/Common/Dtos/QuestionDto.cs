@@ -9,5 +9,6 @@ public class QuestionDto
     public QuestionType Type { get; init; }
     public int Index { get; init; }
     public int TimeLimitInSeconds { get; init; }
-    public IEnumerable<AnswerDto> AnswerPossibilites { get; init; }
+    public bool CorrectAnswer { get; init; }
+    public IEnumerable<AnswerDto> AnswerPossibilites { get; init; } = new List<AnswerDto>();
 }

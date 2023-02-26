@@ -20,7 +20,8 @@ public class GetQuestionsCommandHandler : IRequestHandler<GetQuestionsCommand, I
 
     public async Task<IEnumerable<Question>> Handle(GetQuestionsCommand request, CancellationToken cancellationToken)
     {
-        var questions = await questionRepository.FilterAsync((question) => request.QuestionIds.Select(x => Guid.Parse(x)).Contains(question.Id));
+        var questions = await questionRepository
+            .FilterAsync((question) => request.QuestionIds.Contains(question.Id));
         return questions;
     }
 }

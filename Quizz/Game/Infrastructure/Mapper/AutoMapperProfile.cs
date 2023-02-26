@@ -58,6 +58,10 @@ public class AutoMapperProfile : Profile
             .ForMember(vm => vm.Data, options => options.MapFrom(questions => questions));
 
         // Get Answer
-        CreateMap<Answer, AnswerViewModel>();
+        CreateMap<Answer, AnswerViewModel>()
+            .IncludeAllDerived();
+
+        CreateMap<MultipleChoiceAnswer, AnswerViewModel>();
+        CreateMap<FindOrderAnswer, AnswerViewModel>();
     }
 }

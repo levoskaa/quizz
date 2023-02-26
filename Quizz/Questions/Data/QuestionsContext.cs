@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Quizz.Common.DataAccess;
 using Quizz.Common.Models;
 using Quizz.GameService.Data.Configuration;
+using Quizz.Questions.Data.Configuration;
 using Quizz.Questions.Infrastructure.Extensions;
 using System;
 using System.Data;
@@ -15,6 +16,7 @@ namespace Quizz.Questions.Data
     public class QuestionsContext : DbContext, IUnitOfWork
     {
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
         public IDbContextTransaction CurrentTransaction => currentTransaction;
         public bool HasActiveTransaction => currentTransaction != null;
 
@@ -81,6 +83,8 @@ namespace Quizz.Questions.Data
         {
             modelBuilder.ApplyConfiguration(new AnswerEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new QuestionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new FindOrderAnswerEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MultipleChoiceAnswerEntityTypeConfiguration());
         }
     }
 }
