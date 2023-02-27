@@ -6,6 +6,7 @@ import {
   GameViewModel,
   GameViewModelPaginatedItemsViewModel,
   Int32EntityCreatedViewModel,
+  QuestionsListViewModel,
   UpdateGameDto,
 } from 'src/app/shared/models/generated/game-generated.models';
 
@@ -38,5 +39,9 @@ export class GameService {
 
   deleteGame(id: number): Observable<void> {
     return this.httpClient.delete(`${this.gameApiUrl}/${id}`);
+  }
+
+  getGameQuestions(gameId: number): Observable<QuestionsListViewModel> {
+    return this.httpClient.get(`${this.gameApiUrl}/${gameId}/questions`);
   }
 }

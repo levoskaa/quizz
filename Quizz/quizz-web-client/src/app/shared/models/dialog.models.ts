@@ -1,6 +1,6 @@
-export interface DialogConfig {
+export interface DialogConfig<T = any> {
   autoFocus?: boolean;
-  data?: any;
+  data?: T;
 }
 
 export interface ConfirmDialogData {
@@ -14,7 +14,7 @@ export enum DialogCloseType {
   Canceled = 'Canceled',
 }
 
-export interface DialogResult {
+export interface DialogResult<T = any> {
   closeType: DialogCloseType;
-  data: any;
+  data: T;
 }

@@ -8,6 +8,7 @@
     "deleteDialog": {
       "title": "Játék törlése",
       "text": "Biztosan törölni akarod a(z) \"{{gameName}}\" játékot?"
-    }
+    },
+    "questions": "Kérdések"
   }
 }
