@@ -8,9 +8,9 @@
     </div>
     <div class="app-page-content">
         <ng-container *ngIf="games$ | async as games">
-            <div class="app-card-container">
-                <app-game-card *ngFor="let game of games" class="mb-2 mr-3" [game]="game"
-                    (detailsClick)="onGameDetails($event)" (deleteClick)="onGameDelete($event)">
+            <div class="games-container">
+                <app-game-card *ngFor="let game of games" [game]="game" (detailsClick)="onGameDetails($event)"
+                    (deleteClick)="onGameDelete($event)">
                 </app-game-card>
             </div>
         </ng-container>

@@ -65,7 +65,7 @@ export interface QuestionDto {
   index?: number;
   timeLimitInSeconds?: number;
   correctAnswer?: boolean;
-  answerPossibilites?: AnswerDto[] | undefined;
+  answerPossibilities?: AnswerDto[] | undefined;
 }
 
 export enum QuestionType {

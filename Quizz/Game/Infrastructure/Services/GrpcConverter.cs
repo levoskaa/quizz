@@ -42,7 +42,7 @@ public class GrpcConverter
                 TimeLimitInSeconds = questionDto.TimeLimitInSeconds,
                 CorrectAnswer = questionDto.CorrectAnswer,
             };
-            mappedQuestionDto.AnswerPossibilites.AddRange(AnswerDtosToAnswerDtoProtos(questionDto.AnswerPossibilites));
+            mappedQuestionDto.AnswerPossibilites.AddRange(AnswerDtosToAnswerDtoProtos(questionDto.AnswerPossibilities));
             mappedQuestionDtos.Add(mappedQuestionDto);
         }
         return mappedQuestionDtos;

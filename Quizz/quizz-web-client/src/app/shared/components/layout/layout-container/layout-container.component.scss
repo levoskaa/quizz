@@ -2,9 +2,12 @@
 
 .layout-container {
   height: 100%;
+  background-color: $black;
 
   .main-content {
+    max-width: 900px;
     height: calc(100% - 4rem);
-    background-color: $dark;
+    margin: auto;
+    background-color: $grey-1;
   }
 }

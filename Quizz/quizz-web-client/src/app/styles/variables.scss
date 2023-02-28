@@ -5,14 +5,17 @@ $logo-font: 'Lobster';
 $seance: #9123a6;
 $pomegranate: #f23a2f;
 $apple: #43a547;
-$mine-shaft: #303030;
-$tundora: #424242;
 $white: #ffffff;
+
+$black: #000000;
+$grey-1: #212121;
+$grey-2: #303030;
+$grey-3: #424242;
 
 $primary: $seance;
 $accent: $apple;
 $warn: $pomegranate;
-$dark: $mine-shaft;
-$dark-accent: $tundora;
+$dark: $grey-2;
+$dark-accent: $grey-3;
 
 $font-color: $white;

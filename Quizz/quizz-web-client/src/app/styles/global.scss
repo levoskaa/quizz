@@ -6,12 +6,12 @@ body {
 }
 
 html {
-  font-size: 18px;
+  font-size: 16px;
 }
 
-@media only screen and (max-width: 35rem) {
+@media only screen and (max-width: 700px) {
   html {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
@@ -23,4 +23,32 @@ body {
 
 p {
   margin: 0 !important;
+}
+
+// Remove spinners from number matInputs
+// Chrome, Safari, Edge, Opera
+input[matInput]::-webkit-outer-spin-button,
+input[matInput]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// Remove spinners from number matInputs
+// Firefox
+input[matInput][type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+// When applied, aligns the non-matIcon suffix with the input
+.fix-suffix.mat-form-field .mat-form-field-suffix {
+  top: 0;
+}
+
+.mat-card {
+  background-color: $grey-2;
+}
+
+.mat-dialog-container {
+  background-color: $grey-2;
 }

@@ -19,7 +19,7 @@ public class GrpcConverter
                 Type = questionType,
                 Index = questionDto.Index,
                 TimeLimitInSeconds = questionDto.TimeLimitInSeconds,
-                AnswerPossibilites = AnswerDtoProtosToAnswerDtos(questionDto.AnswerPossibilites),
+                AnswerPossibilities = AnswerDtoProtosToAnswerDtos(questionDto.AnswerPossibilites),
                 CorrectAnswer = questionDto.CorrectAnswer,
             };
             mappedQuestionDtos.Add(mappedQuestionDto);

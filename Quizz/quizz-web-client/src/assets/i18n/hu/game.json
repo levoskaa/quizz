@@ -9,6 +9,11 @@
       "title": "Játék törlése",
       "text": "Biztosan törölni akarod a(z) \"{{gameName}}\" játékot?"
     },
-    "questions": "Kérdések"
+    "questions": "Kérdések",
+    "questionForm": {
+      "questionLabel": "Kérdés",
+      "timeLimitLabel": "Időlimit",
+      "correctAnswerLabel": "Helyes válasz"
+    }
   }
 }

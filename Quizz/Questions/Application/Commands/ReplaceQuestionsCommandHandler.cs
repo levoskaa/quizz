@@ -56,7 +56,7 @@ public class ReplaceQuestionsCommandHandler
                     questionDto.Index,
                     questionDto.TimeLimitInSeconds);
                 question.ReplaceAnswerPossibilities(
-                    mapper.Map<IEnumerable<Common.Models.FindOrderAnswer>>(questionDto.AnswerPossibilites));
+                    mapper.Map<IEnumerable<Common.Models.FindOrderAnswer>>(questionDto.AnswerPossibilities));
                 break;
 
             case QuestionType.MultipleChoice:
@@ -65,7 +65,7 @@ public class ReplaceQuestionsCommandHandler
                     questionDto.Index,
                     questionDto.TimeLimitInSeconds);
                 question.ReplaceAnswerPossibilities(
-                    mapper.Map<IEnumerable<Common.Models.MultipleChoiceAnswer>>(questionDto.AnswerPossibilites));
+                    mapper.Map<IEnumerable<Common.Models.MultipleChoiceAnswer>>(questionDto.AnswerPossibilities));
                 break;
 
             case QuestionType.TrueOrFalse:
@@ -75,7 +75,7 @@ public class ReplaceQuestionsCommandHandler
                     questionDto.TimeLimitInSeconds,
                     questionDto.CorrectAnswer);
                 question.ReplaceAnswerPossibilities(
-                    mapper.Map<IEnumerable<Common.Models.Answer>>(questionDto.AnswerPossibilites));
+                    mapper.Map<IEnumerable<Common.Models.Answer>>(questionDto.AnswerPossibilities));
                 break;
 
             case QuestionType.FreeText:
@@ -84,7 +84,7 @@ public class ReplaceQuestionsCommandHandler
                     questionDto.Index,
                     questionDto.TimeLimitInSeconds);
                 question.ReplaceAnswerPossibilities(
-                    mapper.Map<IEnumerable<Common.Models.Answer>>(questionDto.AnswerPossibilites));
+                    mapper.Map<IEnumerable<Common.Models.Answer>>(questionDto.AnswerPossibilities));
                 break;
         }
         if (question == null)

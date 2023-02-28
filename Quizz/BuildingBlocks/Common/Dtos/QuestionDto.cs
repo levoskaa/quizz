@@ -10,5 +10,5 @@ public class QuestionDto
     public int Index { get; init; }
     public int TimeLimitInSeconds { get; init; }
     public bool CorrectAnswer { get; init; }
-    public IEnumerable<AnswerDto> AnswerPossibilites { get; init; } = new List<AnswerDto>();
+    public IEnumerable<AnswerDto> AnswerPossibilities { get; init; } = new List<AnswerDto>();
 }
