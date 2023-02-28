@@ -1,1 +1,6 @@
-<p>questions-list works!</p>
+<h3 class="app-page-content-title" translate>game.questions</h3>
+<div class="questions-container" [formGroup]="form">
+    <ng-container *ngFor="let questionForm of formControls.questions.controls; index as i">
+        <app-question-form [formControl]="getQuestionControl(i)" [questionType]="questions[i].type"></app-question-form>
+    </ng-container>
+</div>

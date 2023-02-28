@@ -2,16 +2,18 @@
     <mat-form-field appearance="outline" [hideRequiredMarker]="true">
         <mat-label translate>game.questionForm.questionLabel</mat-label>
         <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="3" [formControl]="formControls.text"></textarea>
+            cdkAutosizeMaxRows="3" formControlName="text"></textarea>
     </mat-form-field>
     <mat-form-field class="fix-suffix" appearance="outline" [hideRequiredMarker]="true">
         <mat-label translate>game.questionForm.timeLimitLabel</mat-label>
-        <input matInput type="number" [formControl]="formControls.timeLimitInSeconds">
+        <input matInput type="number" formControlName="timeLimitInSeconds">
         <span matSuffix translate>common.dateTime.s</span>
     </mat-form-field>
 
     <ng-container [ngSwitch]="questionType">
         <app-true-or-false-extension *ngSwitchCase="QuestionType.TrueOrFalse"
             [form]="form"></app-true-or-false-extension>
+        <app-multiple-choice-extension *ngSwitchCase="QuestionType.MultipleChoice"
+            [form]="form"></app-multiple-choice-extension>
     </ng-container>
 </form>

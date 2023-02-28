@@ -9,12 +9,6 @@ html {
   font-size: 16px;
 }
 
-@media only screen and (max-width: 700px) {
-  html {
-    font-size: 12px;
-  }
-}
-
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
@@ -51,4 +45,14 @@ input[matInput][type='number'] {
 
 .mat-dialog-container {
   background-color: $grey-2;
+}
+
+ng-scrollbar {
+  --scrollbar-thumb-color: #{$primary} !important;
+}
+
+@media only screen and (max-width: 700px) {
+  html {
+    font-size: 12px;
+  }
 }
