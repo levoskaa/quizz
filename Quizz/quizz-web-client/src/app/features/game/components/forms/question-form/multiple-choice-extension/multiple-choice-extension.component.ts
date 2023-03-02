@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { FormArray, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-multiple-choice-extension',
@@ -28,6 +28,14 @@ export class MultipleChoiceExtensionComponent implements OnChanges {
 
   removeAnswer(index: number): void {
     this.answerPossibilities.removeAt(index);
+  }
+
+  addAnswer(): void {
+    const answer = {
+      text: new FormControl(null, Validators.required),
+      isCorrect: new FormControl(false, Validators.required),
+    };
+    this.answerPossibilities.push(new FormGroup(answer));
   }
 
   private initAnswerPossibilitiesControl(): void {

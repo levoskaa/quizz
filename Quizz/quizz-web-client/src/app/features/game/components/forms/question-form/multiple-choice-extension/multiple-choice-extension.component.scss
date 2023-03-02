@@ -45,4 +45,10 @@
       }
     }
   }
+
+  .new-answer-placeholder {
+    border: 2px dashed $form-font-color;
+    margin-right: 1.5rem;
+    height: 3.25rem;
+  }
 }

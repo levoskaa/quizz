@@ -21,4 +21,9 @@
       </div>
     </div>
   </ng-container>
+  <button class="new-answer-placeholder mt-1" mat-flat-button *ngIf="answerPossibilities.length < 4"
+    (click)="addAnswer()">
+    <i class="fa-solid fa-plus mr-2"></i>
+    <span translate>game.questionForm.addNewAnswer</span>
+  </button>
 </div>

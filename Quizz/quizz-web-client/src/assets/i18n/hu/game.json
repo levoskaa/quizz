@@ -14,7 +14,8 @@
       "questionLabel": "Kérdés",
       "timeLimitLabel": "Időlimit",
       "correctAnswerLabel": "Helyes válasz",
-      "answersLabel": "Válaszok"
+      "answersLabel": "Válaszok",
+      "addNewAnswer": "Új válasz hozzáadása"
     }
   }
 }
