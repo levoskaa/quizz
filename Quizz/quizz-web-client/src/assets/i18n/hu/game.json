@@ -13,7 +13,8 @@
     "questionForm": {
       "questionLabel": "Kérdés",
       "timeLimitLabel": "Időlimit",
-      "correctAnswerLabel": "Helyes válasz"
+      "correctAnswerLabel": "Helyes válasz",
+      "answersLabel": "Válaszok"
     }
   }
 }

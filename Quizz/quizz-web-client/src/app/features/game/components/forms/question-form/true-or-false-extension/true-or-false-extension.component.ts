@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-true-or-false-extension',
   templateUrl: './true-or-false-extension.component.html',
+  styleUrls: ['./true-or-false-extension.component.scss'],
 })
 export class TrueOrFalseExtensionComponent implements OnInit {
   @Input() form: FormGroup;

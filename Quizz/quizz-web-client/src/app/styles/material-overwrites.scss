@@ -1,0 +1,37 @@
+// Remove spinners from number mat-inputs
+// Chrome, Safari, Edge, Opera
+input[matInput]::-webkit-outer-spin-button,
+input[matInput]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// Remove spinners from number mat-inputs
+// Firefox
+input[matInput][type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+// Aligns the non-mat-icon suffix with the input
+.align-suffix.mat-form-field .mat-form-field-suffix {
+  top: 0;
+}
+
+.mat-card {
+  background-color: $grey-2;
+}
+
+.mat-dialog-container {
+  background-color: $grey-2;
+}
+
+// Tries to center the input when no mat-label is present
+.no-label .mat-form-field-infix {
+  border-top: 0.421875em solid transparent;
+}
+
+.no-bottom-space .mat-form-field-wrapper {
+  margin: 0;
+  padding: 0;
+}

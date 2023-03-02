@@ -10,6 +10,7 @@ import { QuestionsListComponent } from './components/questions-list/questions-li
 import { GameRoutingModule } from './game-routing.module';
 import { GameDetailPageComponent } from './pages/game-detail-page/game-detail-page.component';
 import { GamesPageComponent } from './pages/games-page/games-page.component';
+import { MultipleChoiceExtensionComponent } from './components/forms/question-form/multiple-choice-extension/multiple-choice-extension.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { GamesPageComponent } from './pages/games-page/games-page.component';
     QuestionsListComponent,
     QuestionFormComponent,
     TrueOrFalseExtensionComponent,
+    MultipleChoiceExtensionComponent,
   ],
   imports: [CommonModule, GameRoutingModule, SharedModule],
 })

@@ -24,8 +24,8 @@ export class QuestionsListComponent implements OnChanges {
     this.initForm();
   }
 
-  getQuestionControl(index: number): FormControl {
-    return this.formControls.questions.at(index) as FormControl;
+  getQuestionControls(): FormControl[] {
+    return this.formControls.questions.controls as FormControl[];
   }
 
   private initForm(): void {
