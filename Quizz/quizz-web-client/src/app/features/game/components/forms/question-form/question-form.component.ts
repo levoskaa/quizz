@@ -78,6 +78,7 @@ export class QuestionFormComponent
   writeValue(question: QuestionForm): void {
     const answersFormArray = this.formControls.answerPossibilities as FormArray;
     answersFormArray.clear();
+    question.answerPossibilities?.sort((a, b) => (a.correctIndex ?? 0) - (b.correctIndex ?? 0));
     for (let i = 0; i < (question.answerPossibilities?.length ?? 0); i++) {
       const answerForm: Record<keyof AnswerDto, FormControl> = {
         text: new FormControl(null, Validators.required),
