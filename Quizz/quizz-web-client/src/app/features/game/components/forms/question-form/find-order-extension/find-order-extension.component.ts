@@ -1,4 +1,4 @@
-import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Input, OnChanges } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { moveItemInFormArray } from 'src/app/core/utils/move-item-in-form-array';
