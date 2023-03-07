@@ -16,6 +16,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { LayoutContainerComponent } from './components/layout/layout-container/layout-container.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const components = [LayoutContainerComponent, HeaderComponent, ConfirmDialogComponent];
 
@@ -32,6 +33,7 @@ const commonModules = [
   MatInputModule,
   ReactiveFormsModule,
   MatButtonToggleModule,
+  DragDropModule,
 ];
 
 @NgModule({

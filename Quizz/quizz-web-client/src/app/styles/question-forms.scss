@@ -6,38 +6,56 @@
     grid-template-columns: repeat(2, 1fr);
     column-gap: 0.5rem;
 
-    .answer {
-      display: flex;
-
-      .question-text {
-        flex: 1;
-      }
-
-      .answer-buttons {
-        align-self: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        .mat-icon-button {
-          width: 1.5rem;
-          height: 1.5rem;
-          line-height: 1.5rem;
-
-          .mat-icon {
-            font-size: 1rem;
-            height: 1rem;
-            width: 1rem;
-            line-height: 1rem;
-          }
-        }
-      }
-    }
-
     .new-answer-placeholder {
       border: 2px dashed $form-font-color;
       margin-right: 1.5rem;
       height: 3.25rem;
+
+      .mat-button-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  .answers-label {
+    color: $form-font-color;
+  }
+}
+
+// Cannot be nested inside .question-form selector because the styles won't be applied
+// while the item is being dragged.
+.answer {
+  display: flex;
+  background-color: $grey-2;
+  font-size: 1rem;
+
+  .question-text {
+    flex: 1;
+  }
+
+  .answer-buttons {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .mat-icon-button {
+      width: 1.5rem;
+      height: 1.5rem;
+      line-height: 1.5rem;
+
+      .mat-icon {
+        font-size: 1rem;
+        height: 1rem;
+        width: 1rem;
+        line-height: 1rem;
+      }
+    }
+
+    .remove-btn {
+      color: $warn;
     }
   }
 }

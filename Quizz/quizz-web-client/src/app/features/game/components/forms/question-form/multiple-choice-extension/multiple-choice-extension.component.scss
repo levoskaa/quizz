@@ -1,16 +1,11 @@
 @import 'variables';
 
-.answers-label {
-  color: $form-font-color;
-}
-
 .answer-container {
   .correct-btn {
     color: $accent;
   }
 
-  .incorrect-btn,
-  .remove-btn {
+  .incorrect-btn {
     color: $warn;
   }
 }

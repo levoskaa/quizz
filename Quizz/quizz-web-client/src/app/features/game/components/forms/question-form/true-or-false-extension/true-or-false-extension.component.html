@@ -1,5 +1,5 @@
 <ng-container [formGroup]="form">
-  <p class="correct-answer-label mb-2" translate>game.questionForm.correctAnswerLabel</p>
+  <p class="answers-label mb-2" translate>game.questionForm.correctAnswerLabel</p>
   <mat-button-toggle-group [formControl]="correctAnswerControl">
     <mat-button-toggle [value]="true">{{"common.true" | translate}}</mat-button-toggle>
     <mat-button-toggle [value]="false">{{"common.false" | translate}}</mat-button-toggle>

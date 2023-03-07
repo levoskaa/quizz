@@ -12,6 +12,7 @@ import { GameDetailPageComponent } from './pages/game-detail-page/game-detail-pa
 import { GamesPageComponent } from './pages/games-page/games-page.component';
 import { MultipleChoiceExtensionComponent } from './components/forms/question-form/multiple-choice-extension/multiple-choice-extension.component';
 import { FreeTextExtensionComponent } from './components/forms/question-form/free-text-extension/free-text-extension.component';
+import { FindOrderExtensionComponent } from './components/forms/question-form/find-order-extension/find-order-extension.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FreeTextExtensionComponent } from './components/forms/question-form/fre
     TrueOrFalseExtensionComponent,
     MultipleChoiceExtensionComponent,
     FreeTextExtensionComponent,
+    FindOrderExtensionComponent,
   ],
   imports: [CommonModule, GameRoutingModule, SharedModule],
 })
