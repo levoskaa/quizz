@@ -1,6 +1,7 @@
 <p class="answers-label mb-1" translate>game.questionForm.answersLabel</p>
 <div class="answer-container" cdkDropList (cdkDropListDropped)="onAnswerDropped($event)">
   <ng-container *ngFor="let answerForm of getAnswerForms(); index as i" [formGroup]="answerForm">
+    <div class="answer-index">{{i + 1}}.</div>
     <div class="answer" cdkDrag>
       <mat-form-field class="question-text no-label no-bottom-space" appearance="outline" [hideRequiredMarker]="true">
         <input type="text" matInput formControlName="text">
