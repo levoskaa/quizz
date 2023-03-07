@@ -37,6 +37,10 @@ export class FindOrderExtensionComponent implements OnChanges {
 
   onAnswerDropped(event: CdkDragDrop<FormArray>): void {
     moveItemInFormArray(this.answerPossibilities, event.previousIndex, event.currentIndex);
+    for (let i = 0; i < this.answerPossibilities.length; i++) {
+      const answerForm = this.answerPossibilities.at(i) as FormGroup;
+      answerForm.controls.correctIndex.setValue(i + 1);
+    }
   }
 
   private initAnswerPossibilitiesControl(): void {
