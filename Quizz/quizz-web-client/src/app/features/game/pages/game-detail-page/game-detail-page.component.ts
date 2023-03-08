@@ -3,10 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { switchMapTo, tap } from 'rxjs/operators';
-import { UnsubscribeOnDestroy } from 'src/app/shared/classes/unsubscribe-on-destroy';
-import { GameViewModel } from 'src/app/shared/models/generated/game-generated.models';
+import { combineLatest, Observable } from 'rxjs';
+import { map, switchMapTo, tap } from 'rxjs/operators';
+import { UnsubscribeOnDestroy } from '../../../../shared/classes/unsubscribe-on-destroy';
+import {
+  GameViewModel,
+  QuestionType,
+  QuestionViewModel,
+} from '../../../../shared/models/generated/game-generated.models';
 import { GameService } from '../../services/game.service';
 
 @Component({
@@ -15,6 +19,9 @@ import { GameService } from '../../services/game.service';
 export class GameDetailPageComponent extends UnsubscribeOnDestroy implements OnInit {
   form = new FormControl(null);
   game: GameViewModel;
+  questions: QuestionViewModel[] = [];
+
+  QuestionType = QuestionType;
 
   constructor(
     private readonly gameService: GameService,
@@ -26,7 +33,7 @@ export class GameDetailPageComponent extends UnsubscribeOnDestroy implements OnI
   }
 
   ngOnInit(): void {
-    this.subscribe(this.getGame());
+    this.subscribe(combineLatest([this.getGame(), this.getGameQuestions()]));
   }
 
   getSubtitle(): string {
@@ -48,6 +55,14 @@ export class GameDetailPageComponent extends UnsubscribeOnDestroy implements OnI
         this.game = game;
         this.form.reset(game);
       })
+    );
+  }
+
+  private getGameQuestions(): Observable<QuestionViewModel[]> {
+    const gameId = this.route.snapshot.params.id;
+    return this.gameService.getGameQuestions(gameId).pipe(
+      map((response) => response.data),
+      tap((questions) => (this.questions = questions))
     );
   }
 }

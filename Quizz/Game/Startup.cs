@@ -15,6 +15,7 @@ using Quizz.GameService.Data;
 using Quizz.GameService.Infrastructure;
 using Quizz.GameService.Infrastructure.Exceptions;
 using Quizz.GameService.Infrastructure.Mapper;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
@@ -38,6 +39,11 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddGrpcClient<Questions.Protos.Questions.QuestionsClient>((services, options) =>
+        {
+            options.Address = new Uri(Configuration["Questions:GrpcAddress"]);
+        });
+
         services.AddAutoMapper(typeof(AutoMapperProfile));
 
         services.AddMediatR(typeof(CreateGameCommandHandler).Assembly);
@@ -55,6 +61,7 @@ public class Startup
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "GameService", Version = "v1" });
         });
+        services.AddSwaggerGenNewtonsoftSupport();
 
         services.AddDbContext<GameContext>(options =>
         {

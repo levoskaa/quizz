@@ -1,0 +1,23 @@
+@import 'variables';
+
+.answer-container {
+  grid-template-columns: 2rem 1fr;
+
+  .answer-index {
+    color: $form-font-color;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .answer {
+    grid-column: 2 / span 1;
+
+    .drag-handle {
+      font-size: 14px;
+    }
+  }
+
+  .new-answer-placeholder {
+    grid-column: 2 / span 1;
+  }
+}

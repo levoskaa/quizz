@@ -1,0 +1,29 @@
+<!-- ? Apply CSS classes to this form to style the different question types -->
+<div class="question-form">
+  <button mat-icon-button color="warn" class="question-delete-btn" (click)="deleteQuestion()">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+      <mat-label translate>game.questionForm.questionLabel</mat-label>
+      <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="3" formControlName="text"></textarea>
+    </mat-form-field>
+    <mat-form-field class="time-limit-field align-suffix" appearance="outline" [hideRequiredMarker]="true">
+      <mat-label translate>game.questionForm.timeLimitLabel</mat-label>
+      <input matInput type="number" formControlName="timeLimitInSeconds">
+      <span matSuffix translate>common.dateTime.s</span>
+      <mat-error *ngIf="formControls.timeLimitInSeconds.invalid">
+        {{getErrorMessage(formControls.timeLimitInSeconds)}}
+      </mat-error>
+    </mat-form-field>
+
+    <ng-container [ngSwitch]="formControls.type.value">
+      <app-true-or-false-extension *ngSwitchCase="QuestionType.TrueOrFalse" [form]="form"></app-true-or-false-extension>
+      <app-multiple-choice-extension *ngSwitchCase="QuestionType.MultipleChoice"
+        [form]="form"></app-multiple-choice-extension>
+      <app-free-text-extension *ngSwitchCase="QuestionType.FreeText" [form]="form"></app-free-text-extension>
+      <app-find-order-extension *ngSwitchCase="QuestionType.FindOrder" [form]="form"></app-find-order-extension>
+    </ng-container>
+  </form>
+</div>

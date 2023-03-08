@@ -10,7 +10,10 @@ import { ConfirmDialogData, DialogConfig } from '../models/dialog.models';
 export class DialogService {
   constructor(private readonly matDialogService: MatDialog) {}
 
-  open<T>(component: ComponentType<T>, config?: DialogConfig): MatDialogRef<T> {
+  open<DialogT, ConfigDataT>(
+    component: ComponentType<DialogT>,
+    config?: DialogConfig<ConfigDataT>
+  ): MatDialogRef<DialogT> {
     const defaultConfig: DialogConfig = {
       autoFocus: false,
     };
@@ -19,7 +22,7 @@ export class DialogService {
   }
 
   openConfirmDialog(dialogData: ConfirmDialogData): MatDialogRef<ConfirmDialogComponent> {
-    const config: DialogConfig = {
+    const config: DialogConfig<ConfirmDialogData> = {
       data: dialogData,
       autoFocus: false,
     };

@@ -8,5 +8,4 @@ public class GameQuestion
     public Game Game { get; set; }
 
     public Guid QuestionId { get; set; }
-    public Question Question { get; set; }
 }

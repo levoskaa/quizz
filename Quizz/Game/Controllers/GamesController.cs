@@ -67,21 +67,19 @@ public class GamesController : ControllerBase
         var userId = identityService.GetUserIdentity();
         var offset = pageSize * pageIndex;
         var gamesQuery = @"SELECT * FROM Game
-                             WHERE OwnerId=@userId
-                             ORDER BY UpdatedAt DESC
-                             OFFSET @offset ROWS FETCH NEXT @pageSize ROWS ONLY;";
+                           WHERE OwnerId=@userId
+                           ORDER BY UpdatedAt DESC
+                           OFFSET @offset ROWS FETCH NEXT @pageSize ROWS ONLY;";
         var gameCountQuery = @"SELECT COUNT(*) FROM Game
-                                 WHERE OwnerId=@userId;";
-        using (var connection = dapper.CreateConnection())
-        {
-            var games = await connection.QueryAsync<Game>(gamesQuery, new { userId, offset, pageSize });
-            var totalCount = await connection.QuerySingleAsync<long>(gameCountQuery, new { userId });
-            return new PaginatedItemsViewModel<GameViewModel>(
-                pageIndex,
-                pageSize,
-                totalCount,
-                mapper.Map<IEnumerable<GameViewModel>>(games));
-        }
+                               WHERE OwnerId=@userId;";
+        using var connection = dapper.CreateConnection();
+        var games = await connection.QueryAsync<Game>(gamesQuery, new { userId, offset, pageSize });
+        var totalCount = await connection.QuerySingleAsync<long>(gameCountQuery, new { userId });
+        return new PaginatedItemsViewModel<GameViewModel>(
+            pageIndex,
+            pageSize,
+            totalCount,
+            mapper.Map<IEnumerable<GameViewModel>>(games));
     }
 
     [HttpGet("{id}")]
@@ -91,17 +89,15 @@ public class GamesController : ControllerBase
     {
         var userId = identityService.GetUserIdentity();
         var gameQuery = @"SELECT * FROM Game
-                              WHERE OwnerId=@userId
-                              AND Id=@gameId;";
-        using (var connection = dapper.CreateConnection())
+                          WHERE OwnerId=@userId
+                          AND Id=@gameId;";
+        using var connection = dapper.CreateConnection();
+        var game = await connection.QuerySingleOrDefaultAsync<Game>(gameQuery, new { userId, gameId = id });
+        if (game == null)
         {
-            var game = await connection.QuerySingleOrDefaultAsync<Game>(gameQuery, new { userId, gameId = id });
-            if (game == null)
-            {
-                throw new EntityNotFoundException($"Game with id {id} not found", ValidationError.GameNotFound);
-            }
-            return mapper.Map<GameViewModel>(game);
+            throw new EntityNotFoundException($"Game with id {id} not found", ValidationError.GameNotFound);
         }
+        return mapper.Map<GameViewModel>(game);
     }
 
     [HttpPut("{id}")]
@@ -124,5 +120,22 @@ public class GamesController : ControllerBase
         var userId = identityService.GetUserIdentity();
         var deleteGameCommand = new DeleteGameCommand(gameId, userId);
         return mediator.Send(deleteGameCommand);
+    }
+
+    [HttpGet("{id}/questions")]
+    public async Task<QuestionsListViewModel> GetGameQuestions([FromRoute(Name = "id")] int gameId)
+    {
+        var userId = identityService.GetUserIdentity();
+        var getGameQuestionsCommand = new GetGameQuestionsCommand(gameId, userId);
+        var questions = await mediator.Send(getGameQuestionsCommand);
+        return mapper.Map<QuestionsListViewModel>(questions);
+    }
+
+    [HttpPut("{id}/questions")]
+    public Task UpdateGameQuestions([FromRoute(Name = "id")] int gameId, [FromBody] UpdateGameQuestionsDto dto)
+    {
+        var userId = identityService.GetUserIdentity();
+        var updateGameQuestionsCommand = new UpdateGameQuestionsCommand(gameId, userId, dto.Questions);
+        return mediator.Send(updateGameQuestionsCommand);
     }
 }

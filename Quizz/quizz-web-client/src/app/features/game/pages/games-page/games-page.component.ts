@@ -12,6 +12,7 @@ import { GameService } from '../../services/game.service';
 
 @Component({
   templateUrl: './games-page.component.html',
+  styleUrls: ['./games-page.component.scss'],
 })
 export class GamesPageComponent extends UnsubscribeOnDestroy implements OnInit {
   games$: Observable<GameViewModel[]>;

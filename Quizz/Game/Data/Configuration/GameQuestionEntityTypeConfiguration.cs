@@ -13,9 +13,9 @@ public class GameQuestionEntityTypeConfiguration : IEntityTypeConfiguration<Game
         // Create composite key
         builder.HasKey(gq => new { gq.GameId, gq.QuestionId });
 
-        builder.HasOne(gq => gq.Question)
-            .WithOne()
-            .HasForeignKey(nameof(GameQuestion), nameof(GameQuestion.QuestionId))
+        builder.HasOne(gq => gq.Game)
+            .WithMany(nameof(Game.GameQuestions))
+            .HasForeignKey(nameof(GameQuestion.GameId))
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

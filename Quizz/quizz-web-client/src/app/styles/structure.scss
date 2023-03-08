@@ -16,6 +16,10 @@
   &.space-between {
     justify-content: space-between;
   }
+
+  &.flex-end {
+    justify-content: flex-end;
+  }
 }
 
 .app-page {
@@ -37,6 +41,11 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+
+    &-title {
+      font-size: 1.5rem !important;
+      font-weight: 500 !important;
+    }
   }
 }
 
@@ -48,23 +57,23 @@
 // Margin
 @for $i from 1 through 5 {
   .m-#{$i} {
-    margin: #{$i * 0.25}em;
+    margin: #{$i * 0.25}rem;
   }
 
   .mt-#{$i} {
-    margin-top: #{$i * 0.25}em;
+    margin-top: #{$i * 0.25}rem;
   }
 
   .mr-#{$i} {
-    margin-right: #{$i * 0.25}em;
+    margin-right: #{$i * 0.25}rem;
   }
 
   .mb-#{$i} {
-    margin-bottom: #{$i * 0.25}em;
+    margin-bottom: #{$i * 0.25}rem;
   }
 
   .ml-#{$i} {
-    margin-left: #{$i * 0.25}em;
+    margin-left: #{$i * 0.25}rem;
   }
 }
 

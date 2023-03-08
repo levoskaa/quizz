@@ -6,13 +6,7 @@ body {
 }
 
 html {
-  font-size: 18px;
-}
-
-@media only screen and (max-width: 35rem) {
-  html {
-    font-size: 14px;
-  }
+  font-size: 16px;
 }
 
 body {
@@ -23,4 +17,34 @@ body {
 
 p {
   margin: 0 !important;
+}
+
+ng-scrollbar {
+  --scrollbar-thumb-color: #{$primary} !important;
+}
+
+.drag-handle {
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.cdk-drag-preview .drag-handle {
+  pointer-events: auto;
+  cursor: grabbing;
+}
+
+.form-error {
+  color: $warn;
+  font-size: 12px;
+  line-height: 12px;
+  padding: 1em 0;
+}
+
+@media only screen and (max-width: 700px) {
+  html {
+    font-size: 12px;
+  }
 }

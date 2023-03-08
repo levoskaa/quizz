@@ -27,7 +27,7 @@ public class GameRepository : IGameRepository
     public async Task<Game> GetAsync(int id)
     {
         var game = await context.Games
-            .AsNoTracking()
+            .Include(game => game.GameQuestions)
             .SingleOrDefaultAsync(game => game.Id == id);
         if (game == null)
         {

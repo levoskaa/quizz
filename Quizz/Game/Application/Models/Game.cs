@@ -16,16 +16,6 @@ public class Game : Entity<int>, IAggregateRoot
     private readonly List<GameQuestion> gameQuestions;
     public IReadOnlyCollection<GameQuestion> GameQuestions => gameQuestions.AsReadOnly();
 
-    public IReadOnlyCollection<Question> Questions
-    {
-        get
-        {
-            return gameQuestions.Select(x => x.Question)
-                .ToList()
-                .AsReadOnly();
-        }
-    }
-
     public IReadOnlyCollection<Guid> QuestionIds
     {
         get
@@ -39,5 +29,19 @@ public class Game : Entity<int>, IAggregateRoot
     public Game()
     {
         gameQuestions = new List<GameQuestion>();
+    }
+
+    public void ReplaceQuesionIds(IEnumerable<Guid> newQuestionIds)
+    {
+        gameQuestions.Clear();
+        foreach (var newQuestionId in newQuestionIds)
+        {
+            var gameQuestion = new GameQuestion
+            {
+                GameId = Id,
+                QuestionId = newQuestionId
+            };
+            gameQuestions.Add(gameQuestion);
+        }
     }
 }

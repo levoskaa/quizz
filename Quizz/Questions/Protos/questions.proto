@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+option csharp_namespace = "Quizz.Questions.Protos";
+
+service Questions {
+    rpc GetQuestions (GetQuestionsRequest) returns (GetQuestionsReply);
+    rpc ReplaceQuestions (ReplaceQuestionsRequest) returns (ReplaceQuestionsReply);
+}
+
+message Question {
+    string id = 1;
+    string text = 2;
+    QuestionType type = 3;
+    int32 index = 4;
+    int32 timeLimitInSeconds = 5;
+    repeated Answer answerPossibilites = 6;
+    bool correctAnswer = 7;
+}
+
+enum QuestionType {
+    TrueOrFalse = 0;
+    MultipleChoice = 1;
+    FindOrder = 2;
+    FreeText = 3;
+}
+
+message Answer {
+    int32 id = 1;
+    string text = 2;
+    int32 displayIndex = 3;
+    int32 correctIndex = 4;
+    bool isCorrect = 5;
+    string questionId = 6;
+}
+
+message GetQuestionsRequest {
+    repeated string questionIds = 1;
+}
+
+message GetQuestionsReply {
+    repeated Question questions = 1;
+}
+
+message QuestionDto {
+    string text = 1;
+    QuestionType type = 2;
+    int32 index = 3;
+    int32 timeLimitInSeconds = 4;
+    repeated AnswerDto answerPossibilites = 5;
+    bool correctAnswer = 6;
+}
+
+message AnswerDto {
+    string text = 1;
+    int32 displayIndex = 2;
+    int32 correctIndex = 3;
+    bool isCorrect = 4;
+    string questionId = 5;
+}
+
+message ReplaceQuestionsRequest {
+    repeated string questionIds = 1;
+    repeated QuestionDto questionDtos = 2;
+}
+
+message ReplaceQuestionsReply {
+    repeated string newQuestionIds = 1;
+}

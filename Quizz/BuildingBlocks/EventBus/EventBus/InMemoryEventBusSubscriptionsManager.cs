@@ -106,7 +106,10 @@ public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptio
         return GetHandlersForEvent(key);
     }
 
-    public IEnumerable<SubscriptionInfo> GetHandlersForEvent(string eventName) => handlers[eventName];
+    public IEnumerable<SubscriptionInfo> GetHandlersForEvent(string eventName)
+    {
+        return handlers[eventName];
+    }
 
     private void RaiseOnEventRemoved(string eventName)
     {

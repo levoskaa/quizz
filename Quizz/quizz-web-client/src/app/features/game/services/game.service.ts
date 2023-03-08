@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AppHttpClient } from 'src/app/core/services/app-http-client';
+import { AppHttpClient } from '../../../core/services/app-http-client';
 import {
   CreateGameDto,
   GameViewModel,
   GameViewModelPaginatedItemsViewModel,
   Int32EntityCreatedViewModel,
+  QuestionsListViewModel,
   UpdateGameDto,
-} from 'src/app/shared/models/generated/game-generated.models';
+  UpdateGameQuestionsDto,
+} from '../../../shared/models/generated/game-generated.models';
 
 @Injectable({
   providedIn: 'root',
@@ -38,5 +40,13 @@ export class GameService {
 
   deleteGame(id: number): Observable<void> {
     return this.httpClient.delete(`${this.gameApiUrl}/${id}`);
+  }
+
+  getGameQuestions(gameId: number): Observable<QuestionsListViewModel> {
+    return this.httpClient.get(`${this.gameApiUrl}/${gameId}/questions`);
+  }
+
+  updateGameQuestions(gameId: number, dto: UpdateGameQuestionsDto): Observable<void> {
+    return this.httpClient.put(`${this.gameApiUrl}/${gameId}/questions`, dto);
   }
 }

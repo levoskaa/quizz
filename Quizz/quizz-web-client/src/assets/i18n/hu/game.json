@@ -8,6 +8,25 @@
     "deleteDialog": {
       "title": "Játék törlése",
       "text": "Biztosan törölni akarod a(z) \"{{gameName}}\" játékot?"
+    },
+    "questions": "Kérdések",
+    "addQuestion": "Kérdés hozzáadása",
+    "questionForm": {
+      "questionLabel": "Kérdés",
+      "timeLimitLabel": "Időlimit",
+      "correctAnswerLabel": "Helyes válasz",
+      "answersLabel": "Válaszok",
+      "addNewAnswer": "Új válasz hozzáadása",
+      "acceptedAnswersLabel": "Elfogadott válaszok",
+      "timeLimitRangeError": "Az időlimitnek {{min}} és {{max}} között kell lennie",
+      "answerCountError": "Legalább {{min}} választ meg kell adni",
+      "correctAnswerRequired": "Legalább 1 helyes választ meg kell adni"
+    },
+    "questionTypes": {
+      "trueOrFalse": "Igaz/Hamis",
+      "multipleChoice": "Feleletválasztós",
+      "findOrder": "Sorrendezős",
+      "freeText": "Szabad szöveges"
     }
   }
 }

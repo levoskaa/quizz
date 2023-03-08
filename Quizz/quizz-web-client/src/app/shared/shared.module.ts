@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,6 +16,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { LayoutContainerComponent } from './components/layout/layout-container/layout-container.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const components = [LayoutContainerComponent, HeaderComponent, ConfirmDialogComponent];
 
@@ -30,6 +32,8 @@ const commonModules = [
   MatFormFieldModule,
   MatInputModule,
   ReactiveFormsModule,
+  MatButtonToggleModule,
+  DragDropModule,
 ];
 
 @NgModule({

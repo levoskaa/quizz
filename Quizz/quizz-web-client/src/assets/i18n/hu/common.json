@@ -15,6 +15,11 @@
       "date": {
         "shortWithTime": "yyyy.MM.dd. HH:mm"
       }
-    }
+    },
+    "dateTime": {
+      "s": "mp"
+    },
+    "true": "Igaz",
+    "false": "Hamis"
   }
 }

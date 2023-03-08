@@ -1,0 +1,23 @@
+<p class="answers-label mb-1" translate>game.questionForm.answersLabel</p>
+<div class="answer-container" cdkDropList (cdkDropListDropped)="onAnswerDropped($event)">
+  <ng-container *ngFor="let answerForm of getAnswerForms(); index as i" [formGroup]="answerForm">
+    <div class="answer-index">{{i + 1}}.</div>
+    <div class="answer" cdkDrag>
+      <mat-form-field class="question-text no-label no-bottom-space" appearance="outline" [hideRequiredMarker]="true">
+        <input type="text" matInput formControlName="text">
+      </mat-form-field>
+      <div class="answer-buttons">
+        <i class="fa-solid fa-arrows-up-down-left-right drag-handle" cdkDragHandle></i>
+        <button class="remove-btn" mat-icon-button (click)="removeAnswer(i)">
+          <mat-icon [inline]="true">delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+  <button class="new-answer-placeholder mt-1" mat-flat-button *ngIf="answerPossibilities.length < 4"
+    (click)="addAnswer()">
+    <i class="fa-solid fa-plus mr-2"></i>
+    <span translate>game.questionForm.addNewAnswer</span>
+  </button>
+</div>
+<p class="form-error" *ngIf="answerPossibilities.invalid">{{getAnswerErrorMessage()}}</p>

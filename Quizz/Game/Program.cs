@@ -9,6 +9,9 @@ namespace Quizz.GameService;
 
 public class Program
 {
+    public static readonly string Namespace = typeof(Startup).Namespace;
+    public static readonly string AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
+
     // TODO: switch to minimal hosting
     public static void Main(string[] args)
     {

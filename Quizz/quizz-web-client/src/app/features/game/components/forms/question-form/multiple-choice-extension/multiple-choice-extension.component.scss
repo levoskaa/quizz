@@ -1,0 +1,11 @@
+@import 'variables';
+
+.answer-container {
+  .correct-btn {
+    color: $accent;
+  }
+
+  .incorrect-btn {
+    color: $warn;
+  }
+}
