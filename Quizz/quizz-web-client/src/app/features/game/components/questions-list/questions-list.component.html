@@ -1,7 +1,7 @@
 <h3 class="app-page-content-title" translate>game.questions</h3>
 <div class="questions-container" [formGroup]="form">
   <ng-container *ngFor="let questionControl of getQuestionControls(); index as i">
-    <app-question-form [formControl]="questionControl"></app-question-form>
+    <app-question-form [formControl]="questionControl" (deleteQuestionClick)="deleteQuestion(i)"></app-question-form>
   </ng-container>
 </div>
 <div class="questions-actions app-flex-box flex-end mt-3">

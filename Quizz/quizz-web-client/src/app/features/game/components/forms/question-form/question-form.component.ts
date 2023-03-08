@@ -1,5 +1,5 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, NgZone, OnInit, Output, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -41,6 +41,7 @@ export class QuestionFormComponent
   extends UnsubscribeOnDestroy
   implements OnInit, ControlValueAccessor, Validator
 {
+  @Output() deleteQuestionClick = new EventEmitter<void>();
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   QuestionType = QuestionType;
@@ -70,6 +71,10 @@ export class QuestionFormComponent
         this.onChange(this.form.value);
       },
     });
+  }
+
+  deleteQuestion(): void {
+    this.deleteQuestionClick.emit();
   }
 
   writeValue(question: QuestionForm): void {

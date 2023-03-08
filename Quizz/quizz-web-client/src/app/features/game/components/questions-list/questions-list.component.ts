@@ -60,6 +60,12 @@ export class QuestionsListComponent implements OnChanges {
     this.formControls.questions.push(new FormControl(newQuestion));
   }
 
+  deleteQuestion(index: number): void {
+    this.formControls.questions.removeAt(index);
+    this.form.markAllAsTouched();
+    this.form.markAsDirty();
+  }
+
   private initForm(): void {
     this.formControls.questions.clear();
     for (const question of this.questions) {
