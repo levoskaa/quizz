@@ -52,10 +52,6 @@ export class QuestionsListComponent implements OnChanges {
   addQuestion(questionType: QuestionType): void {
     const newQuestion: QuestionForm = {
       type: questionType,
-      text: '',
-      correctAnswer: false,
-      answerPossibilities: [],
-      timeLimitInSeconds: 30,
     };
     this.formControls.questions.push(new FormControl(newQuestion));
   }

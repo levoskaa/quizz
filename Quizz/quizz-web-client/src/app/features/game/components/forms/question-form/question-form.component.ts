@@ -90,7 +90,7 @@ export class QuestionFormComponent
       };
       answersFormArray.push(new FormGroup(answerForm));
     }
-    this.form.setValue(question);
+    this.form.patchValue(question);
   }
 
   registerOnChange(onChange: (question?: QuestionForm) => void) {
