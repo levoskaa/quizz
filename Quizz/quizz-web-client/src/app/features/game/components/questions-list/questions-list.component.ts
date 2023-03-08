@@ -58,7 +58,7 @@ export class QuestionsListComponent implements OnChanges {
 
   deleteQuestion(index: number): void {
     this.formControls.questions.removeAt(index);
-    this.form.markAllAsTouched();
+    this.form.markAsTouched();
     this.form.markAsDirty();
   }
 

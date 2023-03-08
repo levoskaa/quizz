@@ -12,6 +12,7 @@ import {
   Validator,
   Validators,
 } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 import { UnsubscribeOnDestroy } from '../../../../../shared/classes/unsubscribe-on-destroy';
 import {
@@ -49,7 +50,11 @@ export class QuestionFormComponent
   formControls: Record<keyof QuestionForm, AbstractControl> = {
     text: new FormControl(null, Validators.required),
     type: new FormControl(null, Validators.required),
-    timeLimitInSeconds: new FormControl(30, Validators.required),
+    timeLimitInSeconds: new FormControl(30, [
+      Validators.required,
+      Validators.min(5),
+      Validators.max(300),
+    ]),
     correctAnswer: new FormControl(),
     answerPossibilities: new FormArray([]),
   };
@@ -60,7 +65,7 @@ export class QuestionFormComponent
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onTouched = () => {};
 
-  constructor(private ngZone: NgZone) {
+  constructor(private readonly ngZone: NgZone, private readonly translate: TranslateService) {
     super();
   }
 
@@ -75,6 +80,13 @@ export class QuestionFormComponent
 
   deleteQuestion(): void {
     this.deleteQuestionClick.emit();
+  }
+
+  getErrorMessage(control: AbstractControl): string {
+    if (control === this.formControls.timeLimitInSeconds) {
+      return this.getTimeLimitErrorMessage();
+    }
+    return '';
   }
 
   writeValue(question: QuestionForm): void {
@@ -113,12 +125,22 @@ export class QuestionFormComponent
     }
   }
 
-  validate(form: FormGroup): ValidationErrors | null {
-    return form.errors;
+  validate(): ValidationErrors | null {
+    return this.form.invalid ? { invalid: true } : null;
   }
 
   triggerResize() {
     // Wait for changes to be applied, then trigger textarea resize.
     this.ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
+  }
+
+  private getTimeLimitErrorMessage(): string {
+    if (
+      this.formControls.timeLimitInSeconds.hasError('min') ||
+      this.formControls.timeLimitInSeconds.hasError('max')
+    ) {
+      return this.translate.instant('game.questionForm.timeLimitRangeError', { min: 5, max: 300 });
+    }
+    return '';
   }
 }

@@ -36,6 +36,13 @@ ng-scrollbar {
   cursor: grabbing;
 }
 
+.form-error {
+  color: $warn;
+  font-size: 12px;
+  line-height: 12px;
+  padding: 1em 0;
+}
+
 @media only screen and (max-width: 700px) {
   html {
     font-size: 12px;

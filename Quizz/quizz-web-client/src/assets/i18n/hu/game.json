@@ -17,7 +17,10 @@
       "correctAnswerLabel": "Helyes válasz",
       "answersLabel": "Válaszok",
       "addNewAnswer": "Új válasz hozzáadása",
-      "acceptedAnswersLabel": "Elfogadott válaszok"
+      "acceptedAnswersLabel": "Elfogadott válaszok",
+      "timeLimitRangeError": "Az időlimitnek {{min}} és {{max}} között kell lennie",
+      "answerCountError": "Legalább {{min}} választ meg kell adni",
+      "correctAnswerRequired": "Legalább 1 helyes választ meg kell adni"
     },
     "questionTypes": {
       "trueOrFalse": "Igaz/Hamis",

@@ -4,7 +4,7 @@
     <i class="fa-solid fa-xmark"></i>
   </button>
   <form [formGroup]="form">
-    <mat-form-field class="text-field" appearance="outline" [hideRequiredMarker]="true">
+    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
       <mat-label translate>game.questionForm.questionLabel</mat-label>
       <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
         cdkAutosizeMaxRows="3" formControlName="text"></textarea>
@@ -13,6 +13,9 @@
       <mat-label translate>game.questionForm.timeLimitLabel</mat-label>
       <input matInput type="number" formControlName="timeLimitInSeconds">
       <span matSuffix translate>common.dateTime.s</span>
+      <mat-error *ngIf="formControls.timeLimitInSeconds.invalid">
+        {{getErrorMessage(formControls.timeLimitInSeconds)}}
+      </mat-error>
     </mat-form-field>
 
     <ng-container [ngSwitch]="formControls.type.value">

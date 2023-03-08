@@ -1,6 +1,7 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Input, OnChanges } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { moveItemInFormArray } from 'src/app/core/utils/move-item-in-form-array';
 
 @Component({
@@ -15,6 +16,8 @@ export class FindOrderExtensionComponent implements OnChanges {
     return this.form.controls.answerPossibilities as FormArray;
   }
 
+  constructor(private readonly translate: TranslateService) {}
+
   ngOnChanges(): void {
     this.initAnswerPossibilitiesControl();
   }
@@ -25,12 +28,14 @@ export class FindOrderExtensionComponent implements OnChanges {
 
   removeAnswer(index: number): void {
     this.answerPossibilities.removeAt(index);
+    this.answerPossibilities.markAsTouched();
+    this.answerPossibilities.markAsDirty();
   }
 
   addAnswer(): void {
     const answer = {
       text: new FormControl(null, Validators.required),
-      correctIndex: new FormControl(null, Validators.required),
+      correctIndex: new FormControl(this.answerPossibilities.length, Validators.required),
     };
     this.answerPossibilities.push(new FormGroup(answer));
   }
@@ -41,6 +46,13 @@ export class FindOrderExtensionComponent implements OnChanges {
       const answerForm = this.answerPossibilities.at(i) as FormGroup;
       answerForm.controls.correctIndex.setValue(i + 1);
     }
+  }
+
+  getAnswerErrorMessage(): string {
+    if (this.answerPossibilities.hasError('minlength')) {
+      return this.translate.instant('game.questionForm.answerCountError', { min: 2 });
+    }
+    return '';
   }
 
   private initAnswerPossibilitiesControl(): void {

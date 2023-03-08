@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-free-text-extension',
@@ -11,6 +12,8 @@ export class FreeTextExtensionComponent implements OnChanges {
   get answerPossibilities(): FormArray {
     return this.form.controls.answerPossibilities as FormArray;
   }
+
+  constructor(private readonly translate: TranslateService) {}
 
   ngOnChanges(): void {
     this.initAnswerPossibilitiesControl();
@@ -29,6 +32,12 @@ export class FreeTextExtensionComponent implements OnChanges {
       text: new FormControl(null, Validators.required),
     };
     this.answerPossibilities.push(new FormGroup(answer));
+  }
+  getAnswerErrorMessage(): string {
+    if (this.answerPossibilities.hasError('required')) {
+      return this.translate.instant('game.questionForm.answerCountError', { min: 1 });
+    }
+    return '';
   }
 
   private initAnswerPossibilitiesControl(): void {

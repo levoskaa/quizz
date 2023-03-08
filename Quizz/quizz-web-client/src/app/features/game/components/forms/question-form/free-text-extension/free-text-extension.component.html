@@ -17,3 +17,5 @@
     <span translate>game.questionForm.addNewAnswer</span>
   </button>
 </div>
+
+<p class="form-error" *ngIf="answerPossibilities.invalid">{{getAnswerErrorMessage()}}</p>

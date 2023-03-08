@@ -6,12 +6,8 @@
   padding: 2rem 1.5rem 1.5rem 1.5rem;
   position: relative;
 
-  .text-field {
+  .mat-form-field {
     width: 100%;
-  }
-
-  .time-limit-field {
-    width: 8rem;
   }
 
   .question-delete-btn {
@@ -27,4 +23,8 @@
     align-items: center;
     justify-content: center;
   }
+}
+
+:host ::ng-deep .time-limit-field .mat-form-field-flex {
+  width: 8rem;
 }
