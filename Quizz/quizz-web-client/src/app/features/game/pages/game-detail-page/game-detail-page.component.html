@@ -1,16 +1,16 @@
 <div class="app-page">
-    <div class="app-page-header app-flex-box space-between start-items">
-        <div>
-            <h2 class="app-page-header-title">{{ 'game.gameDetails' | translate }}</h2>
-            <p>{{ getSubtitle() }}</p>
-        </div>
-        <button mat-flat-button color="accent" (click)="onSaveClick()" [disabled]="form.invalid || form.untouched">
-            <i class="fa-solid fa-floppy-disk mr-2"></i>
-            <span>{{ 'common.save' | translate }}</span>
-        </button>
+  <div class="app-page-header app-flex-box space-between start-items">
+    <div>
+      <h2 class="app-page-header-title">{{ 'game.gameDetails' | translate }}</h2>
+      <p>{{ getSubtitle() }}</p>
     </div>
-    <div class="app-page-content">
-        <app-game-form [formControl]="form"></app-game-form>
-        <app-questions-list [questions]="questions"></app-questions-list>
-    </div>
+    <button mat-flat-button color="accent" (click)="onSaveClick()" [disabled]="form.invalid || form.untouched">
+      <i class="fa-solid fa-floppy-disk mr-2"></i>
+      <span>{{ 'common.save' | translate }}</span>
+    </button>
+  </div>
+  <div class="app-page-content" *ngIf="game">
+    <app-game-form [formControl]="form"></app-game-form>
+    <app-questions-list [gameId]="game.id" [questions]="questions"></app-questions-list>
+  </div>
 </div>

@@ -4,3 +4,9 @@
     <app-question-form [formControl]="questionControl" [questionType]="questions[i].type"></app-question-form>
   </ng-container>
 </div>
+<div class="question-actions app-flex-box flex-end mt-3">
+  <button mat-flat-button color="accent" (click)="saveQuestions()" [disabled]="form.invalid || form.untouched">
+    <i class="fa-solid fa-floppy-disk mr-2"></i>
+    <span>{{ 'common.save' | translate }}</span>
+  </button>
+</div>

@@ -73,7 +73,7 @@ public class ReplaceQuestionsCommandHandler
                     questionDto.Text,
                     questionDto.Index,
                     questionDto.TimeLimitInSeconds,
-                    questionDto.CorrectAnswer);
+                    (bool)questionDto.CorrectAnswer);
                 question.ReplaceAnswerPossibilities(
                     mapper.Map<IEnumerable<Common.Models.Answer>>(questionDto.AnswerPossibilities));
                 break;

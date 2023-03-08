@@ -59,7 +59,6 @@ export class QuestionFormComponent
   onChange = (_question?: QuestionForm) => {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onTouched = () => {};
-  touched = false;
 
   constructor(private ngZone: NgZone) {
     super();
@@ -100,10 +99,7 @@ export class QuestionFormComponent
   }
 
   markAsTouched() {
-    if (!this.touched) {
-      this.onTouched();
-      this.touched = true;
-    }
+    this.onTouched();
   }
 
   setDisabledState?(isDisabled: boolean): void {

@@ -40,7 +40,7 @@ public class GrpcConverter
                 Type = (Questions.Protos.QuestionType)questionDto.Type,
                 Index = questionDto.Index,
                 TimeLimitInSeconds = questionDto.TimeLimitInSeconds,
-                CorrectAnswer = questionDto.CorrectAnswer,
+                CorrectAnswer = questionDto.CorrectAnswer ?? false,
             };
             mappedQuestionDto.AnswerPossibilites.AddRange(AnswerDtosToAnswerDtoProtos(questionDto.AnswerPossibilities));
             mappedQuestionDtos.Add(mappedQuestionDto);
@@ -56,9 +56,9 @@ public class GrpcConverter
             var mappedAnswerDto = new Questions.Protos.AnswerDto
             {
                 Text = answerDto.Text,
-                DisplayIndex = answerDto.DisplayIndex,
-                CorrectIndex = answerDto.CorrectIndex,
-                IsCorrect = answerDto.IsCorrect,
+                DisplayIndex = answerDto.DisplayIndex ?? 0,
+                CorrectIndex = answerDto.CorrectIndex ?? 0,
+                IsCorrect = answerDto.IsCorrect ?? false,
             };
             mappedAnswerDtos.Add(mappedAnswerDto);
         }
