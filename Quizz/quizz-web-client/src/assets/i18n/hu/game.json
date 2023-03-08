@@ -10,6 +10,7 @@
       "text": "Biztosan törölni akarod a(z) \"{{gameName}}\" játékot?"
     },
     "questions": "Kérdések",
+    "addQuestion": "Kérdés hozzáadása",
     "questionForm": {
       "questionLabel": "Kérdés",
       "timeLimitLabel": "Időlimit",
@@ -17,6 +18,12 @@
       "answersLabel": "Válaszok",
       "addNewAnswer": "Új válasz hozzáadása",
       "acceptedAnswersLabel": "Elfogadott válaszok"
+    },
+    "questionTypes": {
+      "trueOrFalse": "Igaz/Hamis",
+      "multipleChoice": "Feleletválasztós",
+      "findOrder": "Sorrendezős",
+      "freeText": "Szabad szöveges"
     }
   }
 }

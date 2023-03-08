@@ -11,7 +11,7 @@
     <span matSuffix translate>common.dateTime.s</span>
   </mat-form-field>
 
-  <ng-container [ngSwitch]="questionType">
+  <ng-container [ngSwitch]="formControls.type.value">
     <app-true-or-false-extension *ngSwitchCase="QuestionType.TrueOrFalse" [form]="form"></app-true-or-false-extension>
     <app-multiple-choice-extension *ngSwitchCase="QuestionType.MultipleChoice"
       [form]="form"></app-multiple-choice-extension>

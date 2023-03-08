@@ -5,6 +5,7 @@ import {
   QuestionType,
   QuestionViewModel,
 } from '../../../../shared/models/generated/game-generated.models';
+import { QuestionForm } from '../../models/game.models';
 import { GameService } from '../../services/game.service';
 
 @Component({
@@ -46,6 +47,17 @@ export class QuestionsListComponent implements OnChanges {
         })
       )
       .subscribe();
+  }
+
+  addQuestion(questionType: QuestionType): void {
+    const newQuestion: QuestionForm = {
+      type: questionType,
+      text: '',
+      correctAnswer: false,
+      answerPossibilities: [],
+      timeLimitInSeconds: 30,
+    };
+    this.formControls.questions.push(new FormControl(newQuestion));
   }
 
   private initForm(): void {
