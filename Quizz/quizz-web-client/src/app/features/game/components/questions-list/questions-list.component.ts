@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import {
@@ -24,7 +24,10 @@ export class QuestionsListComponent implements OnChanges {
 
   QuestionType = QuestionType;
 
-  constructor(private readonly gameService: GameService) {}
+  constructor(
+    private readonly gameService: GameService,
+    private readonly cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnChanges(): void {
     this.initForm();
@@ -54,6 +57,7 @@ export class QuestionsListComponent implements OnChanges {
       type: questionType,
     };
     this.formControls.questions.push(new FormControl(newQuestion));
+    this.cdRef.detectChanges();
   }
 
   deleteQuestion(index: number): void {
