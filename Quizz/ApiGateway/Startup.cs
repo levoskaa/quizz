@@ -15,8 +15,9 @@ public class Startup
             options.AddPolicy("default", policy =>
             {
                 policy.WithOrigins("https://localhost:4200")
+                    .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowAnyMethod();
+                    .AllowCredentials();
             });
         });
 
@@ -26,6 +27,8 @@ public class Startup
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         app.UseCors("default");
+
+        app.UseWebSockets();
 
         app.UseOcelot().Wait();
     }
