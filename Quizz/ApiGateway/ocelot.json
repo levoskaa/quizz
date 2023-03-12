@@ -47,6 +47,30 @@
       ],
       "UpstreamPathTemplate": "/api/signalr/{catchAll}",
       "UpstreamHttpMethod": []
+    },
+    {
+      "DownstreamPathTemplate": "/runner-hub/negotiate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "signalr",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/hubs/runner/negotiate",
+      "UpstreamHttpMethod": []
+    },
+    {
+      "DownstreamPathTemplate": "/runner-hub",
+      "DownstreamScheme": "ws",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "signalr",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/hubs/runner",
+      "UpstreamHttpMethod": []
     }
   ],
   "GlobalConfiguration": {}
