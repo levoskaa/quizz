@@ -1,0 +1,16 @@
+@mixin mat-icon-button-size($size) {
+  width: $size;
+  height: $size;
+  line-height: $size;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+
+  .mat-icon {
+    width: calc($size * 0.6);
+    height: calc($size * 0.6);
+    line-height: calc($size * 0.6);
+    font-size: calc($size * 0.6);
+  }
+}
