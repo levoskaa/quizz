@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Quizz.GameService.Application.ViewModels;
+namespace Quizz.Common.ViewModels;
 
 public class QuestionViewModel
 {

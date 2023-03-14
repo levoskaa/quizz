@@ -1,4 +1,4 @@
-@mixin mat-icon-button-size($size) {
+@mixin mat-icon-button-size($size, $factor: 0.6) {
   width: $size;
   height: $size;
   line-height: $size;
@@ -8,9 +8,9 @@
   padding: 0;
 
   .mat-icon {
-    width: calc($size * 0.6);
-    height: calc($size * 0.6);
-    line-height: calc($size * 0.6);
-    font-size: calc($size * 0.6);
+    width: calc($size * $factor);
+    height: calc($size * $factor);
+    line-height: calc($size * $factor);
+    font-size: calc($size * $factor);
   }
 }

@@ -5,7 +5,7 @@ using QuestionType = Quizz.Questions.Protos.QuestionType;
 
 namespace Quizz.GameService.Infrastructure.Services;
 
-public class GrpcConverter
+public class QuestionsGrpcConverter
 {
     public static IEnumerable<Common.Models.Answer> AnswerProtosToAnswers(QuestionType questionType,
         IEnumerable<Questions.Protos.Answer> answers)

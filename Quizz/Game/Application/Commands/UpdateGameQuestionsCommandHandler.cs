@@ -39,7 +39,7 @@ public class UpdateGameQuestionsCommandHandler : IRequestHandler<UpdateGameQuest
         var oldQuestionIds = await GetQuestionIdsAsync(request.GameId);
         var grpcRequest = new ReplaceQuestionsRequest();
         grpcRequest.QuestionIds.AddRange(oldQuestionIds.Select(x => x.ToString()));
-        grpcRequest.QuestionDtos.AddRange(GrpcConverter.QuestionDtosToQuestionDtoProtos(request.Questions));
+        grpcRequest.QuestionDtos.AddRange(QuestionsGrpcConverter.QuestionDtosToQuestionDtoProtos(request.Questions));
         var grpcReply = await questionsClient.ReplaceQuestionsAsync(grpcRequest, cancellationToken: cancellationToken);
         var game = await gameRepository.GetAsync(request.GameId);
         var guidQuestionIds = grpcReply.NewQuestionIds.ToList()

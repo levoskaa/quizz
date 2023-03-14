@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option csharp_namespace = "Quizz.GameService.Protos";
+
+service Games {
+	rpc GetGameQuestions(GetGameQuestionsRequest) returns (GetGameQuestionsReply);
+}
+
+message Question {
+    string id = 1;
+    string text = 2;
+    QuestionType type = 3;
+    int32 index = 4;
+    int32 time_limit_in_seconds = 5;
+    repeated Answer answer_possibilities = 6;
+    bool correct_answer = 7;
+}
+
+enum QuestionType {
+    TRUE_OR_FALSE = 0;
+    MULTIPLE_CHOICE = 1;
+    FIND_ORDER = 2;
+    FREE_TEXT = 3;
+}
+
+message Answer {
+    int32 id = 1;
+    string text = 2;
+    int32 display_index = 3;
+    int32 correct_index = 4;
+    bool is_correct = 5;
+}
+
+message GetGameQuestionsRequest {
+    int32 game_id = 1;
+    string user_id = 2;
+}
+
+message GetGameQuestionsReply {
+    repeated Question questions = 1;
+}
+
