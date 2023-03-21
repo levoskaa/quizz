@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map, switchMapTo, tap } from 'rxjs/operators';
-import { successfulDialogCloseFilter } from 'src/app/core/utils/successfulDialogCloseFilter';
-import { UnsubscribeOnDestroy } from 'src/app/shared/classes/unsubscribe-on-destroy';
-import { GameViewModel } from 'src/app/shared/models/generated/game-generated.models';
-import { DialogService } from 'src/app/shared/services/dialog.service';
+import { successfulDialogCloseFilter } from '../../../../core/utils/successfulDialogCloseFilter';
+import { QuizRunnerService } from '../../../../features/quiz-runner/services/quiz-runner.service';
+import { UnsubscribeOnDestroy } from '../../../../shared/classes/unsubscribe-on-destroy';
+import { GameViewModel } from '../../../../shared/models/generated/game-generated.models';
+import { DialogService } from '../../../../shared/services/dialog.service';
 import { NewGameDialogComponent } from '../../components/dialogs/new-game-dialog/new-game-dialog.component';
 import { GameService } from '../../services/game.service';
 
@@ -22,7 +23,8 @@ export class GamesPageComponent extends UnsubscribeOnDestroy implements OnInit {
     private readonly dialogService: DialogService,
     private readonly translate: TranslateService,
     private readonly router: Router,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly runnerService: QuizRunnerService
   ) {
     super();
   }
@@ -58,6 +60,13 @@ export class GamesPageComponent extends UnsubscribeOnDestroy implements OnInit {
         tap(() => this.getGames())
       )
     );
+  }
+
+  onGameLaunch(gameId: number): void {
+    this.runnerService
+      .initGame(gameId)
+      .pipe(tap(() => this.router.navigate([gameId, 'lobby'], { relativeTo: this.route })))
+      .subscribe();
   }
 
   private getGames(): void {

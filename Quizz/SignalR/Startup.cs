@@ -19,6 +19,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.Json.Serialization;
 
 namespace Quizz.SignalR;
 
@@ -44,7 +45,7 @@ public class Startup
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.Converters.Add(new StringEnumConverter());
-            }); ;
+            });
 
         services.AddSwaggerGen(c =>
         {
@@ -52,7 +53,11 @@ public class Startup
         });
         services.AddSwaggerGenNewtonsoftSupport();
 
-        services.AddSignalR();
+        services.AddSignalR()
+            .AddJsonProtocol(options =>
+            {
+                options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
         services.AddCors(options =>
         {
@@ -105,7 +110,6 @@ public class Startup
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SignalR v1"));
         }
         app.UseMiddleware<ExceptionHandlerMiddleware>();
-
 
         app.UseRouting();
 
