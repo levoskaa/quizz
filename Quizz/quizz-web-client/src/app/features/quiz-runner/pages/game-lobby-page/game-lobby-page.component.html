@@ -6,6 +6,8 @@
 
   <div class="app-page-content">
     <h2 class="app-page-content-title" translate>game.participants</h2>
-    <div class="participant-list"></div>
+    <div class="participant-list">
+      <div class="participant" *ngFor="let player of players">{{player}}</div>
+    </div>
   </div>
 </div>

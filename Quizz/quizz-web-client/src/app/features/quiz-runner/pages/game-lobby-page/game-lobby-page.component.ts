@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { distinct, filter, switchMap, tap } from 'rxjs/operators';
-import { QuizRunnerService } from 'src/app/features/quiz-runner/services/quiz-runner.service';
-import { UnsubscribeOnDestroy } from 'src/app/shared/classes/unsubscribe-on-destroy';
-import { ParticipantType } from '../../models/game.models';
+import { QuizRunnerService } from '../../services/quiz-runner.service';
+import { UnsubscribeOnDestroy } from '../../../../shared/classes/unsubscribe-on-destroy';
+import { ParticipantType } from '../../../game/models/game.models';
 
 @Component({
   templateUrl: './game-lobby-page.component.html',
@@ -11,6 +11,7 @@ import { ParticipantType } from '../../models/game.models';
 })
 export class GameLobbyPageComponent extends UnsubscribeOnDestroy implements OnInit {
   inviteCode: string;
+  players: string[] = [];
 
   constructor(private quizRunner: QuizRunnerService) {
     super();
@@ -18,6 +19,7 @@ export class GameLobbyPageComponent extends UnsubscribeOnDestroy implements OnIn
 
   ngOnInit(): void {
     this.subscribe(this.getInviteCode().pipe(switchMap(() => this.joinQuiz())));
+    this.subscribe(this.quizRunner.playerJoined$.pipe(tap((name) => this.players.unshift(name))));
   }
 
   private getInviteCode(): Observable<string> {

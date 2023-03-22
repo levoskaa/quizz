@@ -1,3 +1,7 @@
-export type InviteCodeForm = {
+export interface InviteCodeForm {
   inviteCode: string;
-};
+}
+
+export interface PlayerNameForm {
+  name: string;
+}

@@ -13,7 +13,6 @@ import { GamesPageComponent } from './pages/games-page/games-page.component';
 import { MultipleChoiceExtensionComponent } from './components/forms/question-form/multiple-choice-extension/multiple-choice-extension.component';
 import { FreeTextExtensionComponent } from './components/forms/question-form/free-text-extension/free-text-extension.component';
 import { FindOrderExtensionComponent } from './components/forms/question-form/find-order-extension/find-order-extension.component';
-import { GameLobbyPageComponent } from './pages/game-lobby-page/game-lobby-page.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { GameLobbyPageComponent } from './pages/game-lobby-page/game-lobby-page.
     MultipleChoiceExtensionComponent,
     FreeTextExtensionComponent,
     FindOrderExtensionComponent,
-    GameLobbyPageComponent,
   ],
   imports: [CommonModule, GameRoutingModule, SharedModule],
 })

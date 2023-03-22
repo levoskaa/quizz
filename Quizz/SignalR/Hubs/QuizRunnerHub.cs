@@ -28,5 +28,11 @@ namespace Quizz.SignalR.Hubs
                 return false;
             }
         }
+
+        public async Task SetPlayerName(string inviteCode, string name)
+        {
+            quizRunner.AddParticipant(inviteCode, name, Context.ConnectionId);
+            await Clients.Group(inviteCode).SendAsync("PlayerJoined", name);
+        }
     }
 }

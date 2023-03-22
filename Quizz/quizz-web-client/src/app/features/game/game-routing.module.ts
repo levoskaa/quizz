@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GameDetailPageComponent } from './pages/game-detail-page/game-detail-page.component';
-import { GameLobbyPageComponent } from './pages/game-lobby-page/game-lobby-page.component';
 import { GamesPageComponent } from './pages/games-page/games-page.component';
 
 const routes: Routes = [
@@ -12,17 +11,7 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        component: GameDetailPageComponent,
-      },
-      {
-        path: 'lobby',
-        component: GameLobbyPageComponent,
-      },
-    ],
+    component: GameDetailPageComponent,
   },
   {
     path: '**',

@@ -14,6 +14,19 @@ namespace Quizz.SignalR.Infrastructure.Services
         private static readonly ConcurrentDictionary<string, Quiz> quizzes =
             new ConcurrentDictionary<string, Quiz>();
 
+        public void AddParticipant(string inviteCode, string name, string connectionId)
+        {
+            var participant = new Participant
+            {
+                Name = name,
+                SignalRConnectionId = connectionId,
+            };
+            if (quizzes.TryGetValue(inviteCode, out Quiz quiz))
+            {
+                quiz.AddParticipant(participant);
+            }
+        }
+
         public string InitQuiz(int quizId, IEnumerable<Question> questions)
         {
             string inviteCode;

@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { map, switchMapTo, tap } from 'rxjs/operators';
 import { successfulDialogCloseFilter } from '../../../../core/utils/successfulDialogCloseFilter';
 import { QuizRunnerService } from '../../../quiz-runner/services/quiz-runner.service';
-import { UnsubscribeOnDestroy } from '../../../../shared/classes/unsubscribe-on-destroy';
 import { GameViewModel } from '../../../../shared/models/generated/game-generated.models';
 import { DialogService } from '../../../../shared/services/dialog.service';
 import { NewGameDialogComponent } from '../../components/dialogs/new-game-dialog/new-game-dialog.component';
@@ -15,7 +14,7 @@ import { GameService } from '../../services/game.service';
   templateUrl: './games-page.component.html',
   styleUrls: ['./games-page.component.scss'],
 })
-export class GamesPageComponent extends UnsubscribeOnDestroy implements OnInit {
+export class GamesPageComponent implements OnInit {
   games$: Observable<GameViewModel[]>;
 
   constructor(
@@ -25,9 +24,7 @@ export class GamesPageComponent extends UnsubscribeOnDestroy implements OnInit {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly runnerService: QuizRunnerService
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getGames();
@@ -35,12 +32,13 @@ export class GamesPageComponent extends UnsubscribeOnDestroy implements OnInit {
 
   onGameAdd(): void {
     const dialogRef = this.dialogService.open(NewGameDialogComponent);
-    this.subscribe(
-      dialogRef.afterClosed().pipe(
+    dialogRef
+      .afterClosed()
+      .pipe(
         successfulDialogCloseFilter(),
         tap(() => this.getGames())
       )
-    );
+      .subscribe();
   }
 
   onGameDetails(gameId: number): void {
@@ -53,19 +51,20 @@ export class GamesPageComponent extends UnsubscribeOnDestroy implements OnInit {
       text: this.translate.instant('game.deleteDialog.text', { gameName: game.name }),
       isDelete: true,
     });
-    this.subscribe(
-      dialogRef.afterClosed().pipe(
+    dialogRef
+      .afterClosed()
+      .pipe(
         successfulDialogCloseFilter(),
         switchMapTo(this.gameService.deleteGame(game.id)),
         tap(() => this.getGames())
       )
-    );
+      .subscribe();
   }
 
   onGameLaunch(gameId: number): void {
     this.runnerService
       .initGame(gameId)
-      .pipe(tap(() => this.router.navigate([gameId, 'lobby'], { relativeTo: this.route })))
+      .pipe(tap(() => this.router.navigateByUrl(`/runner/${gameId}`)))
       .subscribe();
   }
 

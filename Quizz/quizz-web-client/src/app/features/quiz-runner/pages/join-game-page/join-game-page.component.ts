@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { tap } from 'rxjs/operators';
+import { successfulDialogCloseFilter } from 'src/app/core/utils/successfulDialogCloseFilter';
 import { ParticipantType } from 'src/app/features/game/models/game.models';
+import { DialogService } from 'src/app/shared/services/dialog.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { PlayerNameDialogComponent } from '../../components/dialogs/player-name-dialog/player-name-dialog.component';
 import { InviteCodeForm } from '../../models/quiz-runner.models';
 import { QuizRunnerService } from '../../services/quiz-runner.service';
 
@@ -24,7 +29,9 @@ export class JoinGamePageComponent {
   constructor(
     private readonly quizRunner: QuizRunnerService,
     private readonly snackbar: SnackbarService,
-    private readonly translate: TranslateService
+    private readonly translate: TranslateService,
+    private readonly dialogService: DialogService,
+    private readonly router: Router
   ) {}
 
   transformInput(): void {
@@ -32,15 +39,32 @@ export class JoinGamePageComponent {
   }
 
   async submit(): Promise<void> {
-    if (this.form.valid) {
-      const successful = await this.quizRunner.tryJoin(
-        this.formControls.inviteCode.value,
-        ParticipantType.Player
-      );
-      if (!successful) {
-        const error = this.translate.instant('errors.invalidInviteCode');
-        this.snackbar.openError(error, 3);
-      }
+    if (this.form.invalid) {
+      return;
     }
+    const successful = await this.quizRunner.tryJoin(
+      this.formControls.inviteCode.value,
+      ParticipantType.Player
+    );
+    if (!successful) {
+      const error = this.translate.instant('errors.invalidInviteCode');
+      this.snackbar.openError(error, 3);
+      return;
+    }
+    this.openNameDialog();
+  }
+
+  openNameDialog(): void {
+    const dialogRef = this.dialogService.open(PlayerNameDialogComponent);
+    dialogRef
+      .afterClosed()
+      .pipe(
+        successfulDialogCloseFilter(),
+        tap(() => {
+          // TODO
+          console.log('routing...');
+        })
+      )
+      .subscribe();
   }
 }

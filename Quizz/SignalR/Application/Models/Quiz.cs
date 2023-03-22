@@ -1,4 +1,5 @@
 ﻿using Quizz.Common.Models;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Quizz.SignalR.Application.Models
@@ -8,6 +9,12 @@ namespace Quizz.SignalR.Application.Models
         public int Id { get; set; }
         public int CurrentQuestionIndex { get; set; } = 0;
         public IEnumerable<Question> Questions { get; set; } = new List<Question>();
-        public IEnumerable<Participant> Participants { get; set; } = new List<Participant>();
+        private BlockingCollection<Participant> participants = new BlockingCollection<Participant>();
+        public IEnumerable<Participant> Participants => participants;
+
+        public void AddParticipant(Participant participant)
+        {
+            participants.Add(participant);
+        }
     }
 }

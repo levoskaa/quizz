@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Globals } from '@globals';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { AppHttpClient } from '../../../core/services/app-http-client';
@@ -13,6 +13,7 @@ import { ParticipantType } from '../../game/models/game.models';
 })
 export class QuizRunnerService {
   inviteCode$ = new BehaviorSubject<string | undefined>(undefined);
+  playerJoined$ = new Subject<string>();
 
   private readonly apiUrl = '/signalr/runner';
   private connection: HubConnection;
@@ -20,12 +21,8 @@ export class QuizRunnerService {
   constructor(private readonly http: AppHttpClient) {}
 
   connect(): Promise<void> {
-    const connectionBuilder = new HubConnectionBuilder();
-    connectionBuilder.withUrl(`${Globals.apiRoot}/hubs/runner`);
-    if (!environment.production) {
-      connectionBuilder.configureLogging(LogLevel.Information);
-    }
-    this.connection = connectionBuilder.build();
+    this.connection = this.buildConnection();
+    this.configureConnection();
     return this.connection.start();
   }
 
@@ -36,6 +33,28 @@ export class QuizRunnerService {
   }
 
   tryJoin(inviteCode: string, participantType: ParticipantType): Promise<boolean> {
-    return this.connection.invoke('TryJoin', inviteCode, participantType);
+    return this.connection.invoke('TryJoin', inviteCode, participantType).then((successful) => {
+      if (successful) {
+        this.inviteCode$.next(inviteCode);
+      }
+      return new Promise((resolve) => resolve(successful));
+    });
+  }
+
+  setPlayerName(name: string): Promise<void> {
+    return this.connection.invoke('SetPlayerName', this.inviteCode$.value, name);
+  }
+
+  private buildConnection(): HubConnection {
+    const connectionBuilder = new HubConnectionBuilder();
+    connectionBuilder.withUrl(`${Globals.apiRoot}/hubs/runner`).withAutomaticReconnect();
+    if (!environment.production) {
+      connectionBuilder.configureLogging(LogLevel.Information);
+    }
+    return connectionBuilder.build();
+  }
+
+  private configureConnection(): void {
+    this.connection.on('PlayerJoined', (name) => this.playerJoined$.next(name));
   }
 }
