@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map, switchMapTo, tap } from 'rxjs/operators';
 import { successfulDialogCloseFilter } from '../../../../core/utils/successfulDialogCloseFilter';
-import { QuizRunnerService } from '../../../../features/quiz-runner/services/quiz-runner.service';
+import { QuizRunnerService } from '../../../quiz-runner/services/quiz-runner.service';
 import { UnsubscribeOnDestroy } from '../../../../shared/classes/unsubscribe-on-destroy';
 import { GameViewModel } from '../../../../shared/models/generated/game-generated.models';
 import { DialogService } from '../../../../shared/services/dialog.service';

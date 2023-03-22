@@ -28,7 +28,7 @@ export class GameLobbyPageComponent extends UnsubscribeOnDestroy implements OnIn
     );
   }
 
-  private joinQuiz(): Promise<void> {
-    return this.quizRunner.joinQuiz(this.inviteCode, ParticipantType.Owner);
+  private joinQuiz(): Promise<boolean> {
+    return this.quizRunner.tryJoin(this.inviteCode, ParticipantType.Owner);
   }
 }

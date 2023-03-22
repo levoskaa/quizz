@@ -14,7 +14,7 @@ function translateFactory(
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     const translateObservables: Observable<Object>[] = [];
-    for (const translation of ['common', 'shared']) {
+    for (const translation of ['common', 'shared', 'errors', 'quiz-runner']) {
       translateObservables.push(translateLoader.loadTranslation(translation));
     }
     combineLatest(translateObservables).pipe(take(1)).subscribe();

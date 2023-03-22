@@ -35,7 +35,7 @@ export class QuizRunnerService {
       .pipe(tap((response) => this.inviteCode$.next(response.inviteCode)));
   }
 
-  joinQuiz(inviteCode: string, participantType: ParticipantType): Promise<void> {
-    return this.connection.invoke('JoinGroup', inviteCode, participantType);
+  tryJoin(inviteCode: string, participantType: ParticipantType): Promise<boolean> {
+    return this.connection.invoke('TryJoin', inviteCode, participantType);
   }
 }

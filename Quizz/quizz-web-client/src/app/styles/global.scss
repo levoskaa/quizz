@@ -19,6 +19,10 @@ p {
   margin: 0 !important;
 }
 
+.ng-scroll-content {
+  height: 100%;
+}
+
 ng-scrollbar {
   --scrollbar-thumb-color: #{$primary} !important;
 }

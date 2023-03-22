@@ -31,6 +31,11 @@ namespace Quizz.SignalR.Infrastructure.Services
             return inviteCode;
         }
 
+        public bool QuizExists(string inviteCode)
+        {
+            return quizzes.ContainsKey(inviteCode);
+        }
+
         private string GenerateInviteCode(int length)
         {
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

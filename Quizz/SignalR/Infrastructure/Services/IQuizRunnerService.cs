@@ -6,5 +6,6 @@ namespace Quizz.SignalR.Infrastructure.Services
     public interface IQuizRunnerService
     {
         string InitQuiz(int quizId, IEnumerable<Question> questions);
+        bool QuizExists(string inviteCode);
     }
 }

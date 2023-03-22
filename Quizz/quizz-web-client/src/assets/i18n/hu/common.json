@@ -20,6 +20,7 @@
       "s": "mp"
     },
     "true": "Igaz",
-    "false": "Hamis"
+    "false": "Hamis",
+    "close": "Bezár"
   }
 }
