@@ -1,7 +1,7 @@
 <!-- ? Apply CSS classes to this form to style the different question types -->
 <div class="question-form">
   <button mat-icon-button color="warn" class="question-delete-btn" (click)="deleteQuestion()">
-    <i class="fa-solid fa-xmark"></i>
+    <mat-icon>close</mat-icon>
   </button>
   <form [formGroup]="form">
     <mat-form-field appearance="outline" [hideRequiredMarker]="true">

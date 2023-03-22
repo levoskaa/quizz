@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Quizz.Common.ViewModels;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Quizz.GameService.Application.ViewModels;

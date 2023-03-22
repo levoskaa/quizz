@@ -13,6 +13,7 @@ export class GameCardComponent {
 
   @Output() detailsClick = new EventEmitter<number>();
   @Output() deleteClick = new EventEmitter<GameViewModel>();
+  @Output() playClick = new EventEmitter<number>();
 
   constructor(private readonly translate: TranslateService, private readonly datePipe: DatePipe) {}
 

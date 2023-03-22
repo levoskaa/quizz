@@ -2,15 +2,16 @@
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/{catchAll}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "game",
-          "Port": 80
+          "Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/game/{catchAll}",
-      "UpstreamHttpMethod": []
+      "UpstreamHttpMethod": [],
+      "DangerousAcceptAnyServerCertificateValidator": true
     },
     {
       "DownstreamPathTemplate": "/api/{catchAll}",

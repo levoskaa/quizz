@@ -17,6 +17,7 @@ import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/conf
 import { HeaderComponent } from './components/layout/header/header.component';
 import { LayoutContainerComponent } from './components/layout/layout-container/layout-container.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const components = [LayoutContainerComponent, HeaderComponent, ConfirmDialogComponent];
 
@@ -34,6 +35,7 @@ const commonModules = [
   ReactiveFormsModule,
   MatButtonToggleModule,
   DragDropModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({

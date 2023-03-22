@@ -41,7 +41,7 @@ public class GetGameQuestionsCommandHandler : IRequestHandler<GetGameQuestionsCo
         var grpcRequest = new GetQuestionsRequest();
         grpcRequest.QuestionIds.AddRange(questionIds.Select(x => x.ToString()));
         var grpcReply = await questionsClient.GetQuestionsAsync(grpcRequest, cancellationToken: cancellationToken);
-        var questions = GrpcConverter.QuestionProtosToQuestions(grpcReply.Questions.ToList());
+        var questions = QuestionsGrpcConverter.QuestionProtosToQuestions(grpcReply.Questions.ToList());
         return questions;
     }
 }

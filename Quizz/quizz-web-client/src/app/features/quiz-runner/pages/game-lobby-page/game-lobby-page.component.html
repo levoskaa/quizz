@@ -1,0 +1,13 @@
+<div class="app-page">
+  <div class="app-page-header">
+    <h1 class="mt-4" translate>game.joinWithCode</h1>
+    <p class="invite-code">{{inviteCode}}</p>
+  </div>
+
+  <div class="app-page-content">
+    <h2 class="app-page-content-title" translate>game.participants</h2>
+    <div class="participant-list">
+      <div class="participant" *ngFor="let player of players">{{player}}</div>
+    </div>
+  </div>
+</div>

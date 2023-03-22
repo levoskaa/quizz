@@ -1,0 +1,36 @@
+@import 'variables';
+
+h1,
+.invite-code {
+  text-align: center;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+.invite-code {
+  font-size: max(6rem, 9vmax);
+  line-height: 1em;
+  margin-top: 2rem;
+}
+
+.participant-list {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1.5rem;
+  justify-content: space-between;
+
+  &::after {
+    content: '';
+    display: block;
+    flex: 1;
+  }
+
+  .participant {
+    padding: 0.5em 1em;
+    background-color: $primary;
+    border-radius: 4px;
+  }
+}

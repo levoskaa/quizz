@@ -66,6 +66,9 @@ services:
     ports:
       - "32008:80"
       - "32009:443"
+    environment:
+      - Identity__Authority=http://identity:80
+      - Games__GrpcAddress=http://game:80
 
   sql-server:
     container_name: "quizz_sql-server"

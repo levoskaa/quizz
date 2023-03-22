@@ -1,3 +1,5 @@
+@import 'variables';
+
 // Remove spinners from number mat-inputs
 // Chrome, Safari, Edge, Opera
 input[matInput]::-webkit-outer-spin-button,
@@ -42,4 +44,9 @@ input[matInput][type='number'] {
 
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.mat-snack-bar-container.error {
+  background-color: $warn;
+  color: $white;
 }

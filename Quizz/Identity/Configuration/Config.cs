@@ -37,7 +37,8 @@ public static class Config
                 AllowedCorsOrigins = { "https://localhost:4200" },
 
                 AllowAccessTokensViaBrowser = true,
-                AccessTokenLifetime = 600,
+                // TODO: set token lifetime lower and refresh more frequently
+                AccessTokenLifetime = 86400,
                 AllowedScopes =
                 {
                     IdentityServerConstants.StandardScopes.OpenId,

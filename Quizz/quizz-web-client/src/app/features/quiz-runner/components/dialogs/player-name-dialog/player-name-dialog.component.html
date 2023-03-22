@@ -1,0 +1,14 @@
+<h1 mat-dialog-title translate>quiz-runner.playerNameDialog.title</h1>
+<div mat-dialog-content>
+  <form>
+    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+      <mat-label translate>common.name</mat-label>
+      <input matInput [formControl]="formControls.name">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-flat-button (click)="submit()" color="accent" [disabled]="form.invalid || form.pristine">
+    <span translate>common.ok</span>
+  </button>
+</div>

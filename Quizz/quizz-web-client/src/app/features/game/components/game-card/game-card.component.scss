@@ -1,6 +1,11 @@
 @import 'variables';
+@import 'mixins';
 
 .game-card {
   background-color: $grey-2;
   border-radius: 4px;
+
+  .play-button {
+    @include mat-icon-button-size(2.5rem, 0.9);
+  }
 }

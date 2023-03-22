@@ -12,6 +12,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Quizz.GameService.Application.Commands;
 using Quizz.GameService.Data;
+using Quizz.GameService.gRPC;
 using Quizz.GameService.Infrastructure;
 using Quizz.GameService.Infrastructure.Exceptions;
 using Quizz.GameService.Infrastructure.Mapper;
@@ -39,6 +40,7 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddGrpc();
         services.AddGrpcClient<Questions.Protos.Questions.QuestionsClient>((services, options) =>
         {
             options.Address = new Uri(Configuration["Questions:GrpcAddress"]);
@@ -135,6 +137,7 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
+            endpoints.MapGrpcService<GamesService>();
             // TODO: .RequireAuthorization("ApiScope");
         });
     }

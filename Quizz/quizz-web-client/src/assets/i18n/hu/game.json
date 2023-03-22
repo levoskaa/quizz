@@ -27,6 +27,8 @@
       "multipleChoice": "Feleletválasztós",
       "findOrder": "Sorrendezős",
       "freeText": "Szabad szöveges"
-    }
+    },
+    "joinWithCode": "Csatlakozz a következő kóddal!",
+    "participants": "Résztvevők"
   }
 }

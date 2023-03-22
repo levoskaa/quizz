@@ -1,0 +1,12 @@
+<div class="app-flex-box center center-items column-direction app-page">
+  <h1 class="app-page-header-title" translate>quiz-runner.enterCodeToJoin</h1>
+
+  <form>
+    <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+      <input matInput [formControl]="formControls.inviteCode" (input)="transformInput()" [maxLength]="8">
+    </mat-form-field>
+  </form>
+  <button mat-flat-button color="primary" [disabled]="form.invalid || form.pristine"
+    (click)="submit()">{{'quiz-runner.joinButton' |
+    translate}}</button>
+</div>

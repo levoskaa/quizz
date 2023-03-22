@@ -1,0 +1,9 @@
+{
+  "quiz-runner": {
+    "enterCodeToJoin": "Csatlakozz meghívókód megadásával!",
+    "joinButton": "Csatlakozás",
+    "playerNameDialog": {
+      "title": "Megjelenítési név kiválasztása"
+    }
+  }
+}
