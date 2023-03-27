@@ -50,5 +50,10 @@ namespace Quizz.SignalR.Hubs
             var questionViewModel = mapper.Map<QuestionViewModel>(question);
             await Clients.Group(inviteCode).SendAsync("QuestionReceived", questionViewModel);
         }
+
+        public async Task ProgressToNextQuestion(string inviteCode)
+        {
+            quizRunner.ProgressToNextQuestion(inviteCode);
+        }
     }
 }

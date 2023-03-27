@@ -35,10 +35,13 @@ export class QuizControlPageComponent extends UnsubscribeOnDestroy implements On
   private startCountDown(seconds: number): void {
     this.timeRemaining$ = timer(0, 1000).pipe(
       map((timePassed) => seconds - timePassed),
-      tap(() => {
-        // TODO: step to the next question
-      }),
-      take(seconds + 1)
+      take(seconds + 1),
+      tap({
+        complete: async () => {
+          await this.quizRunner.progressToNextQuestion();
+          await this.quizRunner.getCurrentQuestion();
+        },
+      })
     );
   }
 

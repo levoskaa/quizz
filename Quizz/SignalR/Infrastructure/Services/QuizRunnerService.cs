@@ -53,6 +53,14 @@ namespace Quizz.SignalR.Infrastructure.Services
             return inviteCode;
         }
 
+        public void ProgressToNextQuestion(string inviteCode)
+        {
+            if (quizzes.TryGetValue(inviteCode, out Quiz quiz))
+            {
+                quiz.ProgressToNextQuestion();
+            }
+        }
+
         public bool QuizExists(string inviteCode)
         {
             return quizzes.ContainsKey(inviteCode);

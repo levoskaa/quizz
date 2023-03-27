@@ -65,6 +65,10 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
     return this.connection.invoke('GetCurrentQuestion', this.inviteCode);
   }
 
+  progressToNextQuestion(): Promise<void> {
+    return this.connection.invoke('ProgressToNextQuestion', this.inviteCode);
+  }
+
   private buildConnection(): HubConnection {
     const connectionBuilder = new HubConnectionBuilder();
     connectionBuilder.withUrl(`${Globals.apiRoot}/hubs/runner`).withAutomaticReconnect();

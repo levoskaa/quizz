@@ -9,5 +9,6 @@ namespace Quizz.SignalR.Infrastructure.Services
         bool QuizExists(string inviteCode);
         void AddParticipant(string inviteCode, string name, string connectionId);
         Question GetCurrentQuestion(string inviteCode);
+        void ProgressToNextQuestion(string inviteCode);
     }
 }
