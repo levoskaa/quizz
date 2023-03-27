@@ -6,9 +6,15 @@ import { AuthenticatedGuard } from './core/guards/authenticated.guard';
 import { TranslateResolver } from './core/utils/translate.resolver';
 import { GameLobbyPageComponent } from './features/quiz-runner/pages/game-lobby-page/game-lobby-page.component';
 import { JoinGamePageComponent } from './features/quiz-runner/pages/join-game-page/join-game-page.component';
+import { QuizAnsweringPageComponent } from './features/quiz-runner/pages/quiz-answering-page/quiz-answering-page.component';
+import { QuizControlPageComponent } from './features/quiz-runner/pages/quiz-control-page/quiz-control-page.component';
 import { LayoutContainerComponent } from './shared/components/layout/layout-container/layout-container.component';
 
 const routes: Routes = [
+  {
+    path: 'answering',
+    component: QuizAnsweringPageComponent,
+  },
   {
     path: '',
     component: LayoutContainerComponent,
@@ -22,10 +28,15 @@ const routes: Routes = [
         path: 'runner',
         children: [
           {
+            path: 'control',
+            component: QuizControlPageComponent,
+          },
+          {
             path: ':id',
             component: GameLobbyPageComponent,
           },
         ],
+        canActivate: [AuthenticatedGuard],
       },
       {
         path: 'games',

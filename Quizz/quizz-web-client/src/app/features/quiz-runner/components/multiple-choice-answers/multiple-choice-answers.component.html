@@ -1,0 +1,5 @@
+<div class="answers multiple-choice">
+  <div class="answer-box" *ngFor="let answer of answers; index as i" [ngClass]="'color-' + (i + 1)">
+    <p>{{answer.text}}</p>
+  </div>
+</div>

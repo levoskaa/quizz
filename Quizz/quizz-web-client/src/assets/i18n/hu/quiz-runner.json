@@ -4,6 +4,7 @@
     "joinButton": "Csatlakozás",
     "playerNameDialog": {
       "title": "Megjelenítési név kiválasztása"
-    }
+    },
+    "start": "Indítás"
   }
 }

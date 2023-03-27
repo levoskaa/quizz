@@ -1,6 +1,7 @@
 ﻿using Quizz.Common.Models;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Quizz.SignalR.Application.Models
 {
@@ -15,6 +16,17 @@ namespace Quizz.SignalR.Application.Models
         public void AddParticipant(Participant participant)
         {
             participants.Add(participant);
+        }
+
+        public Question GetCurrentQuestion()
+        {
+            // TODO: use the index property of the question instances to determine the current one
+            return Questions.ElementAt(CurrentQuestionIndex);
+        }
+
+        public void ProgressToNextQuestion()
+        {
+            CurrentQuestionIndex++;
         }
     }
 }

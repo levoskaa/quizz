@@ -8,5 +8,6 @@ namespace Quizz.SignalR.Infrastructure.Services
         string InitQuiz(int quizId, IEnumerable<Question> questions);
         bool QuizExists(string inviteCode);
         void AddParticipant(string inviteCode, string name, string connectionId);
+        Question GetCurrentQuestion(string inviteCode);
     }
 }

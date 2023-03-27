@@ -27,6 +27,15 @@ namespace Quizz.SignalR.Infrastructure.Services
             }
         }
 
+        public Question GetCurrentQuestion(string inviteCode)
+        {
+            Question question = null;
+            if (quizzes.TryGetValue(inviteCode, out Quiz quiz)) {
+                question = quiz.GetCurrentQuestion();
+            }
+            return question;
+        }
+
         public string InitQuiz(int quizId, IEnumerable<Question> questions)
         {
             string inviteCode;

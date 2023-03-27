@@ -1,0 +1,8 @@
+<div class="answers find-order">
+  <ng-container *ngFor="let answer of answers; index as i">
+    <div class="answer-index">{{i + 1}}.</div>
+    <div class="answer-box" [ngClass]="'color-' + (i + 1)">
+      <p>{{answer.text}}</p>
+    </div>
+  </ng-container>
+</div>

@@ -1,7 +1,10 @@
 <div class="app-page">
-  <div class="app-page-header">
+  <div class="app-page-header app-flex-box column-direction center-items">
     <h1 class="mt-4" translate>game.joinWithCode</h1>
     <p class="invite-code">{{inviteCode}}</p>
+    <button mat-flat-button class="mt-3" (click)="start()" color="accent">
+      <span translate>quiz-runner.start</span>
+    </button>
   </div>
 
   <div class="app-page-content">
