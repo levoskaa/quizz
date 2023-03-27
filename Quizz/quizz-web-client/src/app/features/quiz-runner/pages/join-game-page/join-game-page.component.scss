@@ -1,5 +1,10 @@
 $input-width: 20ch;
 
+:host {
+  display: block;
+  height: calc(100vh - 4rem);
+}
+
 .app-page {
   height: 100%;
 
