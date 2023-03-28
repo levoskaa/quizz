@@ -55,5 +55,11 @@ namespace Quizz.SignalR.Hubs
         {
             quizRunner.ProgressToNextQuestion(inviteCode);
         }
+
+        public async Task<bool> AnswerQuestion(string inviteCode, dynamic answer)
+        {
+            // TODO
+            return true;
+        }
     }
 }

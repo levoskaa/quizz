@@ -69,6 +69,10 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
     return this.connection.invoke('ProgressToNextQuestion', this.inviteCode);
   }
 
+  answerQuestion(answer: number[] | string | boolean): Promise<boolean> {
+    return this.connection.invoke('AnswerQuestion', this.inviteCode, answer);
+  }
+
   private buildConnection(): HubConnection {
     const connectionBuilder = new HubConnectionBuilder();
     connectionBuilder.withUrl(`${Globals.apiRoot}/hubs/runner`).withAutomaticReconnect();

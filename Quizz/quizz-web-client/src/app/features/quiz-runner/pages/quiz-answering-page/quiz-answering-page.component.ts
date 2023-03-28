@@ -18,6 +18,7 @@ import { QuizRunnerState } from '../../states/quiz-runner.state';
 export class QuizAnsweringPageComponent extends UnsubscribeOnDestroy implements OnInit {
   gameStarted = false;
   questionAnswered = false;
+  answerCorrect: boolean;
   question$: Observable<QuestionViewModel>;
   QuestionType = QuestionType;
 
@@ -33,7 +34,8 @@ export class QuizAnsweringPageComponent extends UnsubscribeOnDestroy implements 
     );
   }
 
-  onAnswered(): void {
+  onAnswered(answerCorrect: boolean): void {
     this.questionAnswered = true;
+    this.answerCorrect = answerCorrect;
   }
 }

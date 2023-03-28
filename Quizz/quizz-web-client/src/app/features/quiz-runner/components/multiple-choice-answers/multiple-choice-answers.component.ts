@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AnswerViewModel } from '../../../../shared/models/generated/game-generated.models';
 import { OperationMode } from '../../models/quiz-runner.models';
+import { QuizRunnerService } from '../../services/quiz-runner.service';
 
 @Component({
   selector: 'app-multiple-choice-answers',
@@ -10,12 +11,14 @@ import { OperationMode } from '../../models/quiz-runner.models';
 export class MultipleChoiceAnswersComponent {
   @Input() answers: AnswerViewModel[];
   @Input() mode: OperationMode = 'control';
-  @Output() answered = new EventEmitter<void>();
+  @Output() answered = new EventEmitter<boolean>();
   selected = Array.from({ length: 4 }, () => false);
 
+  constructor(private readonly quizRunner: QuizRunnerService) {}
+
   submit(): void {
-    // TODO
-    this.answered.emit();
+    const answer = this.answers.filter((_, i) => this.selected[i]).map((answer) => answer.id);
+    this.quizRunner.answerQuestion(answer).then((result) => this.answered.emit(result));
   }
 
   getAnswerBoxClasses(index: number): object {
