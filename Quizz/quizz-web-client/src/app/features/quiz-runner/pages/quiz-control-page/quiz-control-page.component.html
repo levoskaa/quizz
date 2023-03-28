@@ -8,7 +8,7 @@
     <div class="app-page-content">
       <p class="question-text mb-4">{{currentQuestion.text}}</p>
       <ng-container [ngSwitch]="currentQuestion.type">
-        <app-multiple-choice-answers *ngSwitchCase=" QuestionType.MultipleChoice"
+        <app-multiple-choice-answers *ngSwitchCase="QuestionType.MultipleChoice"
           [answers]="currentQuestion.answerPossibilities ?? []"></app-multiple-choice-answers>
         <app-find-order-answers *ngSwitchCase="QuestionType.FindOrder"
           [answers]="currentQuestion.answerPossibilities ?? []"></app-find-order-answers>

@@ -1,0 +1,15 @@
+<ng-container *ngIf="question$ | async as question">
+  <div class="app-page ">
+    <div class="app-page-content app-flex-box center">
+      <p class="wait-text" *ngIf="!gameStarted" translate>quiz-runner.gameWillBeginSoon</p>
+
+      <ng-container [ngSwitch]="question.type">
+        <app-multiple-choice-answers *ngSwitchCase="QuestionType.MultipleChoice"
+          [answers]="question.answerPossibilities ?? []"></app-multiple-choice-answers>
+        <app-find-order-answers *ngSwitchCase="QuestionType.FindOrder"
+          [answers]="question.answerPossibilities ?? []"></app-find-order-answers>
+        <app-true-or-false-answers *ngSwitchCase="QuestionType.TrueOrFalse"></app-true-or-false-answers>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
