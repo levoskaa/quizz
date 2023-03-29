@@ -78,6 +78,7 @@ namespace Quizz.SignalR.Infrastructure.Services
             {
                 var mappedAnswer = new Common.Models.MultipleChoiceAnswer
                 {
+                    Id = answerDto.Id,
                     Text = answerDto.Text,
                     DisplayIndex = answerDto.DisplayIndex,
                     IsCorrect = answerDto.IsCorrect,
@@ -94,6 +95,7 @@ namespace Quizz.SignalR.Infrastructure.Services
             {
                 var mappedAnswer = new Common.Models.FindOrderAnswer
                 {
+                    Id = answerDto.Id,
                     Text = answerDto.Text,
                     DisplayIndex = answerDto.DisplayIndex,
                     CorrectIndex = answerDto.CorrectIndex,
@@ -110,6 +112,7 @@ namespace Quizz.SignalR.Infrastructure.Services
             {
                 var mappedAnswer = new Common.Models.Answer
                 {
+                    Id = answerDto.Id,
                     Text = answerDto.Text,
                 };
                 mappedAnswers.Add(mappedAnswer);

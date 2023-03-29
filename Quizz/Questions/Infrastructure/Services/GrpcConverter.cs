@@ -85,6 +85,7 @@ public class GrpcConverter
         {
             var mappedAnswerDto = new Questions.Protos.Answer
             {
+                Id = answer.Id,
                 Text = answer.Text,
                 IsCorrect = answer.IsCorrect,
                 DisplayIndex = answer.DisplayIndex,
@@ -101,6 +102,7 @@ public class GrpcConverter
         {
             var mappedAnswerDto = new Questions.Protos.Answer
             {
+                Id = answer.Id,
                 Text = answer.Text,
                 DisplayIndex = answer.DisplayIndex,
                 CorrectIndex = answer.CorrectIndex,
@@ -117,6 +119,7 @@ public class GrpcConverter
         {
             var mappedAnswerDto = new Questions.Protos.Answer
             {
+                Id = answer.Id,
                 Text = answer.Text,
             };
             mappedAnswerDtos.Add(mappedAnswerDto);

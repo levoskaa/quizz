@@ -1,8 +1,11 @@
-<div class="answers find-order">
+<div class="answers find-order" cdkDropList (cdkDropListDropped)="onAnswerDropped($event)">
   <ng-container *ngFor="let answer of answers; index as i">
     <div class="answer-index">{{i + 1}}.</div>
-    <div class="answer-box" [ngClass]="'color-' + (i + 1)">
-      <p>{{answer.text}}</p>
+    <div class="answer-box" [ngClass]="colorMap[answer.id]" cdkDrag>
+      <p *ngIf="mode === 'control'">{{answer.text}}</p>
     </div>
   </ng-container>
 </div>
+<button *ngIf="mode === 'answering'" class="mt-4" mat-flat-button (click)="submit()" color="accent">
+  <span translate>common.ok</span>
+</button>

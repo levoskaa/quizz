@@ -114,6 +114,7 @@ public class QuestionsGrpcConverter
         {
             var mappedAnswer = new Common.Models.MultipleChoiceAnswer
             {
+                Id = answerDto.Id,
                 Text = answerDto.Text,
                 DisplayIndex = answerDto.DisplayIndex,
                 IsCorrect = answerDto.IsCorrect,
@@ -130,6 +131,7 @@ public class QuestionsGrpcConverter
         {
             var mappedAnswer = new Common.Models.FindOrderAnswer
             {
+                Id = answerDto.Id,
                 Text = answerDto.Text,
                 DisplayIndex = answerDto.DisplayIndex,
                 CorrectIndex = answerDto.CorrectIndex,
@@ -146,6 +148,7 @@ public class QuestionsGrpcConverter
         {
             var mappedAnswer = new Common.Models.Answer
             {
+                Id = answerDto.Id,
                 Text = answerDto.Text,
             };
             mappedAnswers.Add(mappedAnswer);

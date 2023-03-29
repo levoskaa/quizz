@@ -37,8 +37,8 @@ ng-scrollbar {
 }
 
 .cdk-drag-preview .drag-handle {
-  pointer-events: auto;
-  cursor: grabbing;
+  pointer-events: auto !important;
+  cursor: grabbing !important;
 }
 
 .form-error {

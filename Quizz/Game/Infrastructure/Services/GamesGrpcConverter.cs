@@ -47,6 +47,7 @@ namespace Quizz.GameService.Infrastructure.Services
             {
                 var mappedAnswerDto = new Protos.Answer
                 {
+                    Id = answer.Id,
                     Text = answer.Text,
                     IsCorrect = answer.IsCorrect,
                     DisplayIndex = answer.DisplayIndex,
@@ -63,6 +64,7 @@ namespace Quizz.GameService.Infrastructure.Services
             {
                 var mappedAnswerDto = new Protos.Answer
                 {
+                    Id = answer.Id,
                     Text = answer.Text,
                     DisplayIndex = answer.DisplayIndex,
                     CorrectIndex = answer.CorrectIndex,
@@ -79,6 +81,7 @@ namespace Quizz.GameService.Infrastructure.Services
             {
                 var mappedAnswerDto = new Protos.Answer
                 {
+                    Id = answer.Id,
                     Text = answer.Text,
                 };
                 mappedAnswerDtos.Add(mappedAnswerDto);
