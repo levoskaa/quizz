@@ -1,9 +1,9 @@
-<ng-container *ngIf="question$ | async as question">
-  <div class="app-page ">
-    <div class="app-page-content app-flex-box center">
-      <p class="wait-text" *ngIf="!gameStarted" translate>quiz-runner.gameWillBeginSoon</p>
-      <p class="wait-text" *ngIf="questionAnswered" translate>quiz-runner.waitingForQuestion</p>
+<div class="app-page ">
+  <div class="app-page-content app-flex-box center">
+    <p class="wait-text" *ngIf="!gameStarted" translate>quiz-runner.gameWillBeginSoon</p>
+    <p class="wait-text" *ngIf="questionAnswered" translate>quiz-runner.waitingForQuestion</p>
 
+    <ng-container *ngIf="question$ | async as question">
       <ng-container [ngSwitch]="question.type" *ngIf="!questionAnswered">
         <app-multiple-choice-answers *ngSwitchCase="QuestionType.MultipleChoice"
           [answers]="question.answerPossibilities ?? []" mode="answering" class="answering-mode"
@@ -15,6 +15,6 @@
         <app-free-text-answers *ngSwitchCase="QuestionType.FreeText"
           (answered)="onAnswered($event)"></app-free-text-answers>
       </ng-container>
-    </div>
+    </ng-container>
   </div>
-</ng-container>
+</div>
