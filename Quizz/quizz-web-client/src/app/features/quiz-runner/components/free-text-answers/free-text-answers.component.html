@@ -1,0 +1,11 @@
+<div class="free-text-answer">
+  <form>
+    <mat-form-field class="answer-form-field" appearance="outline">
+      <mat-label translate>common.answer</mat-label>
+      <input matInput [formControl]="answerControl">
+    </mat-form-field>
+  </form>
+</div>
+<button mat-flat-button (click)="submit()" color="accent">
+  <span translate>common.ok</span>
+</button>

@@ -12,6 +12,8 @@
           mode="answering" class="answering-mode" (answered)="onAnswered($event)"></app-find-order-answers>
         <app-true-or-false-answers *ngSwitchCase="QuestionType.TrueOrFalse" mode="answering" class="answering-mode"
           (answered)="onAnswered($event)"></app-true-or-false-answers>
+        <app-free-text-answers *ngSwitchCase="QuestionType.FreeText"
+          (answered)="onAnswered($event)"></app-free-text-answers>
       </ng-container>
     </div>
   </div>
