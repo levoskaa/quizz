@@ -29,7 +29,6 @@ public abstract class Question : Entity<Guid>, IAggregateRoot
         TimeLimitInSeconds = timeLimitInSeconds;
     }
 
-    // TODO: check after refactoring is done
     public void ReplaceAnswerPossibilities(IEnumerable<Answer> answers)
     {
         answerPossibilities.Clear();
