@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 namespace Quizz.Common.Models;
 
 public class TrueOrFalseQuestion : Question
@@ -10,5 +12,12 @@ public class TrueOrFalseQuestion : Question
         : base(text, index, timeLimitInSeconds)
     {
         CorrectAnswer = correctAnswer;
+    }
+
+    // Parameter answer is a boolean
+    public override bool CheckAnswer(JsonElement rawAnswer)
+    {
+        var answer = rawAnswer.GetBoolean();
+        return answer == CorrectAnswer;
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.SignalR;
 using Quizz.Common.ViewModels;
 using Quizz.SignalR.Application.Models;
 using Quizz.SignalR.Infrastructure.Services;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Quizz.SignalR.Hubs
@@ -56,10 +57,10 @@ namespace Quizz.SignalR.Hubs
             quizRunner.ProgressToNextQuestion(inviteCode);
         }
 
-        public async Task<bool> AnswerQuestion(string inviteCode, dynamic answer)
+        public async Task<bool> AnswerQuestion(string inviteCode, JsonElement rawAnswer)
         {
-            // TODO
-            return true;
+            // TODO: don't accept answers after the time limit is over
+            return quizRunner.SubmitAnswer(inviteCode, Context.ConnectionId, rawAnswer.GetProperty("value"));
         }
     }
 }

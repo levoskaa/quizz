@@ -70,7 +70,7 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
   }
 
   answerQuestion(answer: number[] | string | boolean): Promise<boolean> {
-    return this.connection.invoke('AnswerQuestion', this.inviteCode, answer);
+    return this.connection.invoke('AnswerQuestion', this.inviteCode, { value: answer });
   }
 
   private buildConnection(): HubConnection {

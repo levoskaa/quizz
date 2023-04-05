@@ -1,9 +1,12 @@
 ﻿using Quizz.Common.Models;
 using Quizz.SignalR.Application.Models;
+using Quizz.SignalR.Infrastructure.Exceptions;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 
 namespace Quizz.SignalR.Infrastructure.Services
 {
@@ -13,6 +16,20 @@ namespace Quizz.SignalR.Infrastructure.Services
         // Value: quiz in progress
         private static readonly ConcurrentDictionary<string, Quiz> quizzes =
             new ConcurrentDictionary<string, Quiz>();
+
+        public bool SubmitAnswer(string inviteCode, string connectionId, JsonElement rawAnswer)
+        {
+            if (quizzes.TryGetValue(inviteCode, out Quiz quiz))
+            {
+                var currentQuestion = quiz.GetCurrentQuestion();
+                var answerCorrect = currentQuestion.CheckAnswer(rawAnswer);
+                var answerSubmission = new AnswerSubmission(currentQuestion.Id, answerCorrect, rawAnswer);
+                var participant = quiz.Participants.Single(participant => participant.SignalRConnectionId == connectionId);
+                participant.AddAnswerSubmission(answerSubmission);
+                return answerCorrect;
+            }
+            throw new QuizRunnerDomainException($"No quiz found with invite code {inviteCode}");
+        }
 
         public void AddParticipant(string inviteCode, string name, string connectionId)
         {
@@ -30,7 +47,8 @@ namespace Quizz.SignalR.Infrastructure.Services
         public Question GetCurrentQuestion(string inviteCode)
         {
             Question question = null;
-            if (quizzes.TryGetValue(inviteCode, out Quiz quiz)) {
+            if (quizzes.TryGetValue(inviteCode, out Quiz quiz))
+            {
                 question = quiz.GetCurrentQuestion();
             }
             return question;

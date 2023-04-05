@@ -1,6 +1,7 @@
 ﻿using Quizz.Common.DataAccess;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace Quizz.Common.Models;
 
@@ -14,13 +15,11 @@ public abstract class Question : Entity<Guid>, IAggregateRoot
 
     public int TimeLimitInSeconds { get; set; }
 
-    protected readonly List<Answer> answerPossibilities;
+    protected readonly List<Answer> answerPossibilities = new();
     public IReadOnlyCollection<Answer> AnswerPossibilities => answerPossibilities.AsReadOnly();
 
     public Question()
-    {
-        answerPossibilities = new List<Answer>();
-    }
+    { }
 
     public Question(string text, int index, int timeLimitInSeconds)
         : this()
@@ -36,4 +35,6 @@ public abstract class Question : Entity<Guid>, IAggregateRoot
         answerPossibilities.Clear();
         answerPossibilities.AddRange(answers);
     }
+
+    public abstract bool CheckAnswer(JsonElement rawAnswer);
 }
