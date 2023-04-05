@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import {
   QuestionType,
   QuestionViewModel,
+  UpdateGameQuestionsDto,
 } from '../../../../shared/models/generated/game-generated.models';
 import { QuestionForm } from '../../models/game.models';
 import { GameService } from '../../services/game.service';
@@ -41,8 +42,13 @@ export class QuestionsListComponent implements OnChanges {
     if (this.form.invalid) {
       return;
     }
+    const dto: UpdateGameQuestionsDto = {
+      questions: this.formControls.questions.value.map(
+        (question: QuestionViewModel, i: number) => ({ ...question, index: i })
+      ),
+    };
     this.gameService
-      .updateGameQuestions(this.gameId, this.form.value)
+      .updateGameQuestions(this.gameId, dto)
       .pipe(
         tap(() => {
           this.form.markAsUntouched();

@@ -9,8 +9,17 @@ namespace Quizz.SignalR.Application.Models
     {
         public int Id { get; set; }
         public int CurrentQuestionIndex { get; set; } = 0;
-        public IEnumerable<Question> Questions { get; set; } = new List<Question>();
-        private BlockingCollection<Participant> participants = new BlockingCollection<Participant>();
+        private readonly List<Question> questions = new();
+        public IEnumerable<Question> Questions {
+            get => questions;
+            set
+            { 
+                questions.Clear();
+                questions.AddRange(value);
+                questions.Sort((a, b) => a.Index - b.Index);
+            }
+        }
+        private BlockingCollection<Participant> participants = new();
         public IEnumerable<Participant> Participants => participants;
 
         public void AddParticipant(Participant participant)
@@ -20,8 +29,7 @@ namespace Quizz.SignalR.Application.Models
 
         public Question GetCurrentQuestion()
         {
-            // TODO: use the index property of the question instances to determine the current one
-            return Questions.ElementAt(CurrentQuestionIndex);
+            return Questions.SingleOrDefault(question => question.Index == CurrentQuestionIndex);
         }
 
         public void ProgressToNextQuestion()
