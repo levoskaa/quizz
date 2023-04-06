@@ -13,6 +13,7 @@ namespace Quizz.GameService.Infrastructure.Services
             {
                 var mappedQuestion = new Protos.Question
                 {
+                    Id = question.Id.ToString(),
                     Text = question.Text,
                     Type = (Protos.QuestionType)question.Type,
                     Index = question.Index,

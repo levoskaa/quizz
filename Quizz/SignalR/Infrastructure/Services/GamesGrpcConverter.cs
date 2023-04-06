@@ -1,5 +1,6 @@
 ﻿using Quizz.GameService.Protos;
 using Quizz.SignalR.Infrastructure.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -67,6 +68,7 @@ namespace Quizz.SignalR.Infrastructure.Services
             {
                 throw new QuizRunnerDomainException("Question could not be mapped");
             }
+            mappedQuestion.Id = Guid.Parse(question.Id);
             mappedQuestion.ReplaceAnswerPossibilities(AnswerProtosToAnswers(question.Type, question.AnswerPossibilities));
             return mappedQuestion;
         }

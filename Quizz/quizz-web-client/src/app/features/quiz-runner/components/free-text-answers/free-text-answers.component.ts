@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { QuizRunnerService } from '../../services/quiz-runner.service';
 
@@ -8,6 +8,7 @@ import { QuizRunnerService } from '../../services/quiz-runner.service';
   styleUrls: ['./free-text-answers.component.scss'],
 })
 export class FreeTextAnswersComponent {
+  @Input() questionId: string;
   @Output() answered = new EventEmitter<boolean>();
 
   answerControl = new FormControl();
@@ -16,7 +17,7 @@ export class FreeTextAnswersComponent {
 
   submit(): void {
     this.quizRunner
-      .answerQuestion(this.answerControl.value)
+      .answerQuestion(this.questionId, this.answerControl.value)
       .then((result) => this.answered.emit(result));
   }
 }

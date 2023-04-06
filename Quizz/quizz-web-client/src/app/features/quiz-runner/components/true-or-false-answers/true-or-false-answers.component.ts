@@ -8,12 +8,15 @@ import { QuizRunnerService } from '../../services/quiz-runner.service';
   styleUrls: ['./true-or-false-answers.component.scss'],
 })
 export class TrueOrFalseAnswersComponent {
+  @Input() questionId: string;
   @Input() mode: OperationMode = 'control';
   @Output() answered = new EventEmitter<boolean>();
 
   constructor(private readonly quizRunner: QuizRunnerService) {}
 
   submit(answer: boolean): void {
-    this.quizRunner.answerQuestion(answer).then((result) => this.answered.emit(result));
+    this.quizRunner
+      .answerQuestion(this.questionId, answer)
+      .then((result) => this.answered.emit(result));
   }
 }

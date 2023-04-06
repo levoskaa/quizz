@@ -45,6 +45,7 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
   }
 
   tryJoin(inviteCode: string, participantType: ParticipantType): Promise<boolean> {
+    this.store.reset(QuizRunnerState);
     return this.connection.invoke('TryJoin', inviteCode, participantType).then((successful) => {
       if (successful) {
         this.store.dispatch(new UpdateInviteCode(inviteCode));
@@ -69,8 +70,8 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
     return this.connection.invoke('ProgressToNextQuestion', this.inviteCode);
   }
 
-  answerQuestion(answer: number[] | string | boolean): Promise<boolean> {
-    return this.connection.invoke('AnswerQuestion', this.inviteCode, { value: answer });
+  answerQuestion(questionId: string, answer: number[] | string | boolean): Promise<boolean> {
+    return this.connection.invoke('AnswerQuestion', this.inviteCode, questionId, { value: answer });
   }
 
   private buildConnection(): HubConnection {

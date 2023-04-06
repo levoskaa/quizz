@@ -1,4 +1,5 @@
 ﻿using Quizz.Common.Models;
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
@@ -11,6 +12,6 @@ namespace Quizz.SignalR.Infrastructure.Services
         void AddParticipant(string inviteCode, string name, string connectionId);
         Question GetCurrentQuestion(string inviteCode);
         void ProgressToNextQuestion(string inviteCode);
-        bool SubmitAnswer(string inviteCode, string connectionId, JsonElement rawAnswer);
+        bool SubmitAnswer(string inviteCode, Guid questionId, string connectionId, JsonElement rawAnswer);
     }
 }

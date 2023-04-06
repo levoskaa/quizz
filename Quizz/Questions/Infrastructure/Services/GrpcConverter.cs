@@ -51,6 +51,7 @@ public class GrpcConverter
         {
             var mappedQuestion = new Questions.Protos.Question
             {
+                Id = question.Id.ToString(),
                 Text = question.Text,
                 Type = (Questions.Protos.QuestionType)question.Type,
                 Index = question.Index,

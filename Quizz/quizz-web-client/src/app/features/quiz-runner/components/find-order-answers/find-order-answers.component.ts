@@ -11,6 +11,7 @@ import { QuizRunnerService } from '../../services/quiz-runner.service';
 })
 export class FindOrderAnswersComponent implements OnInit {
   @Input() answers: AnswerViewModel[];
+  @Input() questionId: string;
   @Input() mode: OperationMode = 'control';
   @Output() answered = new EventEmitter<boolean>();
   colorMap: { [key: number]: string } = {};
@@ -31,6 +32,8 @@ export class FindOrderAnswersComponent implements OnInit {
 
   submit(): void {
     const answer = this.answers.map((answer) => answer.id);
-    this.quizRunner.answerQuestion(answer).then((result) => this.answered.emit(result));
+    this.quizRunner
+      .answerQuestion(this.questionId, answer)
+      .then((result) => this.answered.emit(result));
   }
 }

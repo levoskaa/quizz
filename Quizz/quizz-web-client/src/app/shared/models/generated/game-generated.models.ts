@@ -77,6 +77,7 @@ export enum QuestionType {
 }
 
 export interface QuestionViewModel {
+  id: string;
   text: string;
   type: QuestionType;
   index: number;

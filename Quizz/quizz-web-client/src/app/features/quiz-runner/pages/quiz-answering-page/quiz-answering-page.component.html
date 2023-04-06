@@ -6,13 +6,14 @@
     <ng-container *ngIf="question$ | async as question">
       <ng-container [ngSwitch]="question.type" *ngIf="!questionAnswered">
         <app-multiple-choice-answers *ngSwitchCase="QuestionType.MultipleChoice"
-          [answers]="question.answerPossibilities ?? []" mode="answering" class="answering-mode"
-          (answered)="onAnswered($event)"></app-multiple-choice-answers>
+          [answers]="question.answerPossibilities ?? []" [questionId]="question.id" mode="answering"
+          class="answering-mode" (answered)="onAnswered($event)"></app-multiple-choice-answers>
         <app-find-order-answers *ngSwitchCase="QuestionType.FindOrder" [answers]="question.answerPossibilities ?? []"
-          mode="answering" class="answering-mode" (answered)="onAnswered($event)"></app-find-order-answers>
-        <app-true-or-false-answers *ngSwitchCase="QuestionType.TrueOrFalse" mode="answering" class="answering-mode"
-          (answered)="onAnswered($event)"></app-true-or-false-answers>
-        <app-free-text-answers *ngSwitchCase="QuestionType.FreeText"
+          [questionId]="question.id" mode="answering" class="answering-mode"
+          (answered)="onAnswered($event)"></app-find-order-answers>
+        <app-true-or-false-answers *ngSwitchCase="QuestionType.TrueOrFalse" [questionId]="question.id" mode="answering"
+          class="answering-mode" (answered)="onAnswered($event)"></app-true-or-false-answers>
+        <app-free-text-answers *ngSwitchCase="QuestionType.FreeText" [questionId]="question.id"
           (answered)="onAnswered($event)"></app-free-text-answers>
       </ng-container>
     </ng-container>

@@ -10,6 +10,7 @@ import { QuizRunnerService } from '../../services/quiz-runner.service';
 })
 export class MultipleChoiceAnswersComponent {
   @Input() answers: AnswerViewModel[];
+  @Input() questionId: string;
   @Input() mode: OperationMode = 'control';
   @Output() answered = new EventEmitter<boolean>();
   selected = Array.from({ length: 4 }, () => false);
@@ -18,7 +19,9 @@ export class MultipleChoiceAnswersComponent {
 
   submit(): void {
     const answer = this.answers.filter((_, i) => this.selected[i]).map((answer) => answer.id);
-    this.quizRunner.answerQuestion(answer).then((result) => this.answered.emit(result));
+    this.quizRunner
+      .answerQuestion(this.questionId, answer)
+      .then((result) => this.answered.emit(result));
   }
 
   getAnswerBoxClasses(index: number): object {

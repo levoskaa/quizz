@@ -1,4 +1,5 @@
 ﻿using Quizz.GameService.Infrastructure.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using QuestionType = Quizz.Questions.Protos.QuestionType;
@@ -103,6 +104,7 @@ public class QuestionsGrpcConverter
         {
             throw new GameServiceDomainException("Question could not be mapped");
         }
+        mappedQuestion.Id = Guid.Parse(question.Id);
         mappedQuestion.ReplaceAnswerPossibilities(AnswerProtosToAnswers(question.Type, question.AnswerPossibilites));
         return mappedQuestion;
     }

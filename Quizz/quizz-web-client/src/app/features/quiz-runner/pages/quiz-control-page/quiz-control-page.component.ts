@@ -24,12 +24,12 @@ export class QuizControlPageComponent extends UnsubscribeOnDestroy implements On
     super();
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.currentQuestion$ = this.store.select(QuizRunnerState.currentQuestion).pipe(
       filterNullAndUndefined(),
       tap((question) => this.startCountDown(question.timeLimitInSeconds))
     );
-    this.getCurrentQuestion();
+    await this.progressAndGetNextQuestion();
   }
 
   private startCountDown(seconds: number): void {
@@ -37,15 +37,13 @@ export class QuizControlPageComponent extends UnsubscribeOnDestroy implements On
       map((timePassed) => seconds - timePassed),
       take(seconds + 1),
       tap({
-        complete: async () => {
-          await this.quizRunner.progressToNextQuestion();
-          await this.quizRunner.getCurrentQuestion();
-        },
+        complete: async () => await this.progressAndGetNextQuestion(),
       })
     );
   }
 
-  private getCurrentQuestion(): void {
-    this.quizRunner.getCurrentQuestion();
+  private async progressAndGetNextQuestion(): Promise<void> {
+    await this.quizRunner.progressToNextQuestion();
+    await this.quizRunner.getCurrentQuestion();
   }
 }
