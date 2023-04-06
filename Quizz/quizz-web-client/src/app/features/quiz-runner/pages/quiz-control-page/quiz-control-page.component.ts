@@ -27,19 +27,26 @@ export class QuizControlPageComponent extends UnsubscribeOnDestroy implements On
   async ngOnInit(): Promise<void> {
     this.currentQuestion$ = this.store.select(QuizRunnerState.currentQuestion).pipe(
       filterNullAndUndefined(),
-      tap((question) => this.startCountDown(question.timeLimitInSeconds))
+      tap((question) => this.startQuestionCountDown(question.timeLimitInSeconds))
     );
     await this.progressAndGetNextQuestion();
   }
 
-  private startCountDown(seconds: number): void {
+  private startQuestionCountDown(seconds: number): void {
     this.timeRemaining$ = timer(0, 1000).pipe(
       map((timePassed) => seconds - timePassed),
       take(seconds + 1),
       tap({
-        complete: async () => await this.progressAndGetNextQuestion(),
+        complete: () => {
+          this.quizRunner.displayResults();
+          this.startResultCountDown();
+        },
       })
     );
+  }
+
+  private startResultCountDown(): void {
+    setTimeout(() => this.progressAndGetNextQuestion(), 3000);
   }
 
   private async progressAndGetNextQuestion(): Promise<void> {

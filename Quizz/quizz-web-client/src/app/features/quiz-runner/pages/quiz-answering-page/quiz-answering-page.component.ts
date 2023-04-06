@@ -18,6 +18,7 @@ import { QuizRunnerState } from '../../states/quiz-runner.state';
 export class QuizAnsweringPageComponent extends UnsubscribeOnDestroy implements OnInit {
   gameStarted = false;
   questionAnswered = false;
+  resultVisible = false;
   answerCorrect: boolean;
   question$: Observable<QuestionViewModel>;
   QuestionType = QuestionType;
@@ -28,9 +29,22 @@ export class QuizAnsweringPageComponent extends UnsubscribeOnDestroy implements 
 
   ngOnInit(): void {
     this.subscribe(this.quizRunner.gameStarted$.pipe(tap(() => (this.gameStarted = true))));
+    this.subscribe(
+      this.quizRunner.displayResults$.pipe(
+        tap(() => {
+          if (!this.questionAnswered) {
+            this.answerCorrect = false;
+          }
+          this.resultVisible = true;
+        })
+      )
+    );
     this.question$ = this.store.select(QuizRunnerState.currentQuestion).pipe(
       filterNullAndUndefined(),
-      tap(() => (this.questionAnswered = false))
+      tap(() => {
+        this.questionAnswered = false;
+        this.resultVisible = false;
+      })
     );
   }
 

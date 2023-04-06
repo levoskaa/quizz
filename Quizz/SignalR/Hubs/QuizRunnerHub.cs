@@ -62,5 +62,10 @@ namespace Quizz.SignalR.Hubs
         {
             return quizRunner.SubmitAnswer(inviteCode, Guid.Parse(questionId), Context.ConnectionId, rawAnswer.GetProperty("value"));
         }
+
+        public async Task DisplayResults(string inviteCode)
+        {
+            await Clients.Group(inviteCode).SendAsync("DisplayResults");
+        }
     }
 }

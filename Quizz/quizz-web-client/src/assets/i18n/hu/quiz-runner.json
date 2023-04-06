@@ -6,6 +6,8 @@
       "title": "Megjelenítési név kiválasztása"
     },
     "gameWillBeginSoon": "A játék hamarosan indul...",
-    "waitingForQuestion": "Várakozás a következő kérdésre..."
+    "waitingForQuestion": "Várakozás a következő kérdésre...",
+    "correct": "Helyes",
+    "incorrect": "Helytelen"
   }
 }

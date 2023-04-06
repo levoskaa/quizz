@@ -1,4 +1,4 @@
-<div class="app-page ">
+<div class="app-page">
   <div class="app-page-content app-flex-box center">
     <p class="wait-text" *ngIf="!gameStarted" translate>quiz-runner.gameWillBeginSoon</p>
     <p class="wait-text" *ngIf="questionAnswered" translate>quiz-runner.waitingForQuestion</p>
@@ -18,4 +18,8 @@
       </ng-container>
     </ng-container>
   </div>
+</div>
+
+<div class="result" *ngIf="resultVisible" [ngClass]="answerCorrect ? 'correct' : 'incorrect'">
+  <span class="result-text" translate>{{answerCorrect ? 'quiz-runner.correct' : 'quiz-runner.incorrect'}}</span>
 </div>

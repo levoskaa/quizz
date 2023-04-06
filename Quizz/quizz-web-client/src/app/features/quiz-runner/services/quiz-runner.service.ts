@@ -21,6 +21,7 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
   inviteCode: string;
   playerJoined$ = new Subject<string>();
   gameStarted$ = new Subject<void>();
+  displayResults$ = new Subject<void>();
 
   private readonly apiUrl = '/signalr/runner';
   private connection: HubConnection;
@@ -74,6 +75,10 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
     return this.connection.invoke('AnswerQuestion', this.inviteCode, questionId, { value: answer });
   }
 
+  displayResults(): Promise<void> {
+    return this.connection.invoke('DisplayResults', this.inviteCode);
+  }
+
   private buildConnection(): HubConnection {
     const connectionBuilder = new HubConnectionBuilder();
     connectionBuilder.withUrl(`${Globals.apiRoot}/hubs/runner`).withAutomaticReconnect();
@@ -87,6 +92,7 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
     this.connection.on('PlayerJoined', (name: string) => this.playerJoined$.next(name));
     this.connection.on('GameStarted', () => this.gameStarted$.next());
     this.connection.on('QuestionReceived', this.onQuestionReceived);
+    this.connection.on('DisplayResults', () => this.displayResults$.next());
   }
 
   private onQuestionReceived = (question: QuestionViewModel): void => {
