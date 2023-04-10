@@ -10,6 +10,7 @@ import {
 } from '../../../../shared/models/generated/game-generated.models';
 import { QuizRunnerService } from '../../services/quiz-runner.service';
 import { QuizRunnerState } from '../../states/quiz-runner.state';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './quiz-answering-page.component.html',
@@ -23,7 +24,11 @@ export class QuizAnsweringPageComponent extends UnsubscribeOnDestroy implements 
   question$: Observable<QuestionViewModel>;
   QuestionType = QuestionType;
 
-  constructor(private readonly quizRunner: QuizRunnerService, private readonly store: Store) {
+  constructor(
+    private readonly quizRunner: QuizRunnerService,
+    private readonly store: Store,
+    private readonly router: Router
+  ) {
     super();
   }
 
@@ -45,6 +50,9 @@ export class QuizAnsweringPageComponent extends UnsubscribeOnDestroy implements 
         this.questionAnswered = false;
         this.resultVisible = false;
       })
+    );
+    this.subscribe(
+      this.quizRunner.quizOver$.pipe(tap(() => this.router.navigateByUrl('/answering/result')))
     );
   }
 

@@ -1,4 +1,5 @@
 ﻿using Quizz.Common.Models;
+using Quizz.SignalR.Infrastructure.Exceptions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -38,6 +39,10 @@ namespace Quizz.SignalR.Application.Models
         public void ProgressToNextQuestion()
         {
             CurrentQuestionIndex++;
+            if (CurrentQuestionIndex == questions.Count)
+            {
+                throw new NoQuestionsRemainingException();
+            }
             var deadline = DateTime.Now.AddSeconds(CurrentQuestion.TimeLimitInSeconds);
             answersDeadline.Add(CurrentQuestion.Id, deadline);
         }

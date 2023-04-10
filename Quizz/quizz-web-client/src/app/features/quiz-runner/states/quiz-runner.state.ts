@@ -1,23 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
 import { QuestionViewModel } from 'src/app/shared/models/generated/game-generated.models';
-import { QuestionReceived, UpdateInviteCode } from '../actions/quiz-runner.actions';
+import {
+  QuestionReceived,
+  UpdateInviteCode,
+  UpdateQuestionCount,
+} from '../actions/quiz-runner.actions';
 
 const QUIZ_RUNNER_STATE_TOKEN = new StateToken<QuizRunnerStateModel>('quizRunner');
 
 interface QuizRunnerStateModel {
   inviteCode?: string;
   question?: QuestionViewModel;
-  players: string[];
+  questionCount: number;
 }
+
+const defaults: QuizRunnerStateModel = {
+  inviteCode: undefined,
+  question: undefined,
+  questionCount: 0,
+};
 
 @State<QuizRunnerStateModel>({
   name: QUIZ_RUNNER_STATE_TOKEN,
-  defaults: {
-    inviteCode: undefined,
-    question: undefined,
-    players: [],
-  },
+  defaults,
 })
 @Injectable()
 export class QuizRunnerState {
@@ -31,8 +37,13 @@ export class QuizRunnerState {
     return state.question;
   }
 
+  @Selector()
+  static questionCount(state: QuizRunnerStateModel): number {
+    return state.questionCount;
+  }
+
   @Action(UpdateInviteCode)
-  inviteCodeReceived(ctx: StateContext<QuizRunnerStateModel>, action: UpdateInviteCode) {
+  updateInviteCode(ctx: StateContext<QuizRunnerStateModel>, action: UpdateInviteCode) {
     ctx.patchState({
       inviteCode: action.inviteCode,
     });
@@ -42,6 +53,13 @@ export class QuizRunnerState {
   questionReceived(ctx: StateContext<QuizRunnerStateModel>, action: QuestionReceived) {
     ctx.patchState({
       question: action.question,
+    });
+  }
+
+  @Action(UpdateQuestionCount)
+  updateQuestionCount(ctx: StateContext<QuizRunnerStateModel>, action: UpdateQuestionCount) {
+    ctx.patchState({
+      questionCount: action.count,
     });
   }
 }

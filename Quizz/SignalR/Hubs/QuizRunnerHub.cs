@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using Quizz.Common.ViewModels;
 using Quizz.SignalR.Application.Models;
+using Quizz.SignalR.Infrastructure.Exceptions;
 using Quizz.SignalR.Infrastructure.Services;
 using System;
 using System.Text.Json;
@@ -53,9 +54,16 @@ namespace Quizz.SignalR.Hubs
             await Clients.Group(inviteCode).SendAsync("QuestionReceived", questionViewModel);
         }
 
-        public void ProgressToNextQuestion(string inviteCode)
+        public async Task ProgressToNextQuestion(string inviteCode)
         {
-            quizRunner.ProgressToNextQuestion(inviteCode);
+            try
+            {
+                quizRunner.ProgressToNextQuestion(inviteCode);
+            }
+            catch (NoQuestionsRemainingException)
+            {
+                await Clients.Group(inviteCode).SendAsync("QuizOver");
+            }
         }
 
         public bool AnswerQuestion(string inviteCode, string questionId, JsonElement rawAnswer)

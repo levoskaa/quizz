@@ -10,6 +10,7 @@ import {
 } from '../../../../shared/models/generated/game-generated.models';
 import { QuizRunnerService } from '../../services/quiz-runner.service';
 import { QuizRunnerState } from '../../states/quiz-runner.state';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './quiz-control-page.component.html',
@@ -20,7 +21,11 @@ export class QuizControlPageComponent extends UnsubscribeOnDestroy implements On
   timeRemaining$: Observable<number>;
   QuestionType = QuestionType;
 
-  constructor(private readonly store: Store, private readonly quizRunner: QuizRunnerService) {
+  constructor(
+    private readonly store: Store,
+    private readonly quizRunner: QuizRunnerService,
+    private readonly router: Router
+  ) {
     super();
   }
 
@@ -28,6 +33,11 @@ export class QuizControlPageComponent extends UnsubscribeOnDestroy implements On
     this.currentQuestion$ = this.store.select(QuizRunnerState.currentQuestion).pipe(
       filterNullAndUndefined(),
       tap((question) => this.startQuestionCountDown(question.timeLimitInSeconds))
+    );
+    this.subscribe(
+      this.quizRunner.quizOver$.pipe(
+        tap(() => this.router.navigateByUrl('/runner/control/results'))
+      )
     );
     await this.progressAndGetNextQuestion();
   }

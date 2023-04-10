@@ -11,7 +11,11 @@ import { environment } from '../../../../environments/environment';
 import { AppHttpClient } from '../../../core/services/app-http-client';
 import { GameInitializedViewModel } from '../../../shared/models/generated/quiz-runner-generated.models';
 import { ParticipantType } from '../../game/models/game.models';
-import { QuestionReceived, UpdateInviteCode } from '../actions/quiz-runner.actions';
+import {
+  QuestionReceived,
+  UpdateInviteCode,
+  UpdateQuestionCount,
+} from '../actions/quiz-runner.actions';
 import { QuizRunnerState } from '../states/quiz-runner.state';
 
 @Injectable({
@@ -22,6 +26,7 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
   playerJoined$ = new Subject<string>();
   gameStarted$ = new Subject<void>();
   displayResults$ = new Subject<void>();
+  quizOver$ = new Subject<void>();
 
   private readonly apiUrl = '/signalr/runner';
   private connection: HubConnection;
@@ -41,12 +46,12 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
     return this.http.post<GameInitializedViewModel, any>(`${this.apiUrl}/init`, { gameId }).pipe(
       tap((response) => {
         this.store.dispatch(new UpdateInviteCode(response.inviteCode ?? ''));
+        this.store.dispatch(new UpdateQuestionCount(response.questions?.length ?? 0));
       })
     );
   }
 
   tryJoin(inviteCode: string, participantType: ParticipantType): Promise<boolean> {
-    this.store.reset(QuizRunnerState);
     return this.connection.invoke('TryJoin', inviteCode, participantType).then((successful) => {
       if (successful) {
         this.store.dispatch(new UpdateInviteCode(inviteCode));
@@ -93,6 +98,7 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
     this.connection.on('GameStarted', () => this.gameStarted$.next());
     this.connection.on('QuestionReceived', this.onQuestionReceived);
     this.connection.on('DisplayResults', () => this.displayResults$.next());
+    this.connection.on('QuizOver', () => this.quizOver$.next());
   }
 
   private onQuestionReceived = (question: QuestionViewModel): void => {

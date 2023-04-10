@@ -13,6 +13,8 @@ import { MultipleChoiceAnswersComponent } from './components/multiple-choice-ans
 import { TrueOrFalseAnswersComponent } from './components/true-or-false-answers/true-or-false-answers.component';
 import { FindOrderAnswersComponent } from './components/find-order-answers/find-order-answers.component';
 import { FreeTextAnswersComponent } from './components/free-text-answers/free-text-answers.component';
+import { PlayerResultPageComponent } from './pages/player-result-page/player-result-page.component';
+import { CombinedResultsPageComponent } from './pages/combined-results-page/combined-results-page.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { FreeTextAnswersComponent } from './components/free-text-answers/free-te
     TrueOrFalseAnswersComponent,
     FindOrderAnswersComponent,
     FreeTextAnswersComponent,
+    PlayerResultPageComponent,
+    CombinedResultsPageComponent,
   ],
   imports: [CommonModule, SharedModule, NgxsModule.forFeature([QuizRunnerState])],
 })

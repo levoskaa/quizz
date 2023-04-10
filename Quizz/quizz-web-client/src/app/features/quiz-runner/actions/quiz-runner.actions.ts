@@ -9,3 +9,8 @@ export class QuestionReceived {
   static readonly type = '[Quiz Runner] Question Received';
   constructor(public question: QuestionViewModel) {}
 }
+
+export class UpdateQuestionCount {
+  static readonly type = '[Quiz Runner] Update Question count';
+  constructor(public count: number) {}
+}

@@ -9,11 +9,18 @@ import { JoinGamePageComponent } from './features/quiz-runner/pages/join-game-pa
 import { QuizAnsweringPageComponent } from './features/quiz-runner/pages/quiz-answering-page/quiz-answering-page.component';
 import { QuizControlPageComponent } from './features/quiz-runner/pages/quiz-control-page/quiz-control-page.component';
 import { LayoutContainerComponent } from './shared/components/layout/layout-container/layout-container.component';
+import { PlayerResultPageComponent } from './features/quiz-runner/pages/player-result-page/player-result-page.component';
+import { CombinedResultsPageComponent } from './features/quiz-runner/pages/combined-results-page/combined-results-page.component';
 
 const routes: Routes = [
   {
     path: 'answering',
     component: QuizAnsweringPageComponent,
+  },
+  {
+    path: 'answering/result',
+    pathMatch: 'full',
+    component: PlayerResultPageComponent,
   },
   {
     path: '',
@@ -30,6 +37,11 @@ const routes: Routes = [
           {
             path: 'control',
             component: QuizControlPageComponent,
+          },
+          {
+            path: 'control/results',
+            pathMatch: 'full',
+            component: CombinedResultsPageComponent,
           },
           {
             path: ':id',
