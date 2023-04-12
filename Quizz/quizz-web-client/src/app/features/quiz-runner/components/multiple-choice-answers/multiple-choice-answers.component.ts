@@ -18,6 +18,9 @@ export class MultipleChoiceAnswersComponent {
   constructor(private readonly quizRunner: QuizRunnerService) {}
 
   submit(): void {
+    if (this.mode === 'control') {
+      return;
+    }
     const answer = this.answers.filter((_, i) => this.selected[i]).map((answer) => answer.id);
     this.quizRunner
       .answerQuestion(this.questionId, answer)
@@ -29,6 +32,9 @@ export class MultipleChoiceAnswersComponent {
   }
 
   toggleSelect(index: number): void {
+    if (this.mode === 'control') {
+      return;
+    }
     this.selected[index] = !this.selected[index];
   }
 }

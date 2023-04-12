@@ -3,7 +3,7 @@
     <p class="congratulations" translate>quiz-runner.greatJob</p>
   </div>
   <div class="app-page-content">
-    <div class="results">
+    <div class="results" *ngIf="results">
       <div class="result" *ngFor="let result of firstResults; index as i">
         <span class="ranking">{{i + 1}}.</span>
         <span class="name">{{result.name}}</span>

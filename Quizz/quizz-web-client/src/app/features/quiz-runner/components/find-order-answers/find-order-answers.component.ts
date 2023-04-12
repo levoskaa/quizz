@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AnswerViewModel } from '../../../../shared/models/generated/game-generated.models';
 import { OperationMode } from '../../models/quiz-runner.models';
 import { QuizRunnerService } from '../../services/quiz-runner.service';
+import { shuffle } from '../../../../core/utils/shuffle';
 
 @Component({
   selector: 'app-find-order-answers',
@@ -20,6 +21,7 @@ export class FindOrderAnswersComponent implements OnInit {
 
   ngOnInit(): void {
     this.answers.forEach((answer, i) => (this.colorMap[answer.id] = `color-${i + 1}`));
+    this.answers = shuffle(this.answers);
   }
 
   onAnswerDropped(event: CdkDragDrop<AnswerViewModel[]>): void {

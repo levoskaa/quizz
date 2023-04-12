@@ -1,7 +1,7 @@
 <div class="answers find-order" cdkDropList (cdkDropListDropped)="onAnswerDropped($event)">
   <ng-container *ngFor="let answer of answers; index as i">
     <div class="answer-index">{{i + 1}}.</div>
-    <div class="answer-box" [ngClass]="colorMap[answer.id]" cdkDrag>
+    <div class="answer-box" [ngClass]="colorMap[answer.id]" cdkDrag [cdkDragDisabled]="mode === 'control'">
       <p *ngIf="mode === 'control'">{{answer.text}}</p>
     </div>
   </ng-container>

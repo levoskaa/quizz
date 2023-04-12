@@ -15,6 +15,9 @@ export class TrueOrFalseAnswersComponent {
   constructor(private readonly quizRunner: QuizRunnerService) {}
 
   submit(answer: boolean): void {
+    if (this.mode === 'control') {
+      return;
+    }
     this.quizRunner
       .answerQuestion(this.questionId, answer)
       .then((result) => this.answered.emit(result));
