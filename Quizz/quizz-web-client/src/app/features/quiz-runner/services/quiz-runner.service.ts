@@ -93,6 +93,10 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
     return this.connection.invoke('GetQuizResults', this.inviteCode);
   }
 
+  endGame(): Promise<void> {
+    return this.connection.invoke('EndQuiz', this.inviteCode);
+  }
+
   private buildConnection(): HubConnection {
     const connectionBuilder = new HubConnectionBuilder();
     connectionBuilder.withUrl(`${Globals.apiRoot}/hubs/runner`).withAutomaticReconnect();

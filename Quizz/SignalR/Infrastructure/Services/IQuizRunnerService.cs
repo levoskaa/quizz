@@ -21,5 +21,7 @@ namespace Quizz.SignalR.Infrastructure.Services
         bool SubmitAnswer(string inviteCode, Guid questionId, string connectionId, JsonElement rawAnswer);
 
         QuizResultsViewModel GetQuizResults(string inviteCode);
+
+        void EndQuiz(string inviteCode);
     }
 }

@@ -108,5 +108,10 @@ namespace Quizz.SignalR.Infrastructure.Services
             }
             throw new QuizRunnerDomainException($"No quiz found with invite code {inviteCode}");
         }
+
+        public void EndQuiz(string inviteCode)
+        {
+            quizzes.TryRemove(inviteCode, out Quiz quiz);
+        }
     }
 }

@@ -81,5 +81,10 @@ namespace Quizz.SignalR.Hubs
         {
             return quizRunner.GetQuizResults(inviteCode);
         }
+
+        public void EndQuiz(string inviteCode)
+        {
+            quizRunner.EndQuiz(inviteCode);
+        }
     }
 }
