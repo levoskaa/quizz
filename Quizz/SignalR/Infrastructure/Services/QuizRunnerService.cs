@@ -1,9 +1,14 @@
-﻿using Quizz.Common.Models;
+﻿using AutoMapper;
+using Quizz.Common.Models;
 using Quizz.SignalR.Application.Models;
+using Quizz.SignalR.Application.ViewModels;
+using Quizz.SignalR.Infrastructure.Exceptions;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 
 namespace Quizz.SignalR.Infrastructure.Services
 {
@@ -11,8 +16,22 @@ namespace Quizz.SignalR.Infrastructure.Services
     {
         // Key: invite code
         // Value: quiz in progress
-        private static readonly ConcurrentDictionary<string, Quiz> quizzes =
-            new ConcurrentDictionary<string, Quiz>();
+        private static readonly ConcurrentDictionary<string, Quiz> quizzes = new();
+        private readonly IMapper mapper;
+
+        public QuizRunnerService(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
+
+        public bool SubmitAnswer(string inviteCode, Guid questionId, string connectionId, JsonElement rawAnswer)
+        {
+            if (quizzes.TryGetValue(inviteCode, out Quiz quiz))
+            {
+                return quiz.SubmitAnswer(questionId, connectionId, rawAnswer);
+            }
+            throw new QuizRunnerDomainException($"No quiz found with invite code {inviteCode}");
+        }
 
         public void AddParticipant(string inviteCode, string name, string connectionId)
         {
@@ -25,6 +44,16 @@ namespace Quizz.SignalR.Infrastructure.Services
             {
                 quiz.AddParticipant(participant);
             }
+        }
+
+        public Question GetCurrentQuestion(string inviteCode)
+        {
+            Question question = null;
+            if (quizzes.TryGetValue(inviteCode, out Quiz quiz))
+            {
+                question = quiz.CurrentQuestion;
+            }
+            return question;
         }
 
         public string InitQuiz(int quizId, IEnumerable<Question> questions)
@@ -44,6 +73,14 @@ namespace Quizz.SignalR.Infrastructure.Services
             return inviteCode;
         }
 
+        public void ProgressToNextQuestion(string inviteCode)
+        {
+            if (quizzes.TryGetValue(inviteCode, out Quiz quiz))
+            {
+                quiz.ProgressToNextQuestion();
+            }
+        }
+
         public bool QuizExists(string inviteCode)
         {
             return quizzes.ContainsKey(inviteCode);
@@ -60,6 +97,21 @@ namespace Quizz.SignalR.Infrastructure.Services
                 sb.Append(ch);
             }
             return sb.ToString();
+        }
+
+        public QuizResultsViewModel GetQuizResults(string inviteCode)
+        {
+            if (quizzes.TryGetValue(inviteCode, out Quiz quiz))
+            {
+                var results = quiz.GetResults();
+                return mapper.Map<QuizResultsViewModel>(results);
+            }
+            throw new QuizRunnerDomainException($"No quiz found with invite code {inviteCode}");
+        }
+
+        public void EndQuiz(string inviteCode)
+        {
+            quizzes.TryRemove(inviteCode, out Quiz quiz);
         }
     }
 }

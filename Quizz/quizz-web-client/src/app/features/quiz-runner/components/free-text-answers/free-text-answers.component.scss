@@ -1,0 +1,12 @@
+@import 'variables';
+
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.answer-form-field {
+  width: 100%;
+}

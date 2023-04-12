@@ -7,6 +7,8 @@ namespace Quizz.Common.ViewModels;
 public class QuestionViewModel
 {
     [Required]
+    public string Id { get; set; }
+    [Required]
     public string Text { get; init; }
 
     [Required]

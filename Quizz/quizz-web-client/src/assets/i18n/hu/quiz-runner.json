@@ -4,6 +4,12 @@
     "joinButton": "Csatlakozás",
     "playerNameDialog": {
       "title": "Megjelenítési név kiválasztása"
-    }
+    },
+    "gameWillBeginSoon": "A játék hamarosan indul...",
+    "waitingForQuestion": "Várakozás a következő kérdésre...",
+    "correct": "Helyes",
+    "incorrect": "Helytelen",
+    "greatJob": "Szép munka!",
+    "playerResultText": "{{name}}, te {{ranking}}. helyezett lettél {{score}} ponttal!"
   }
 }

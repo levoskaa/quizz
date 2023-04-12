@@ -1,4 +1,5 @@
 ﻿using Quizz.GameService.Infrastructure.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using QuestionType = Quizz.Questions.Protos.QuestionType;
@@ -103,6 +104,7 @@ public class QuestionsGrpcConverter
         {
             throw new GameServiceDomainException("Question could not be mapped");
         }
+        mappedQuestion.Id = Guid.Parse(question.Id);
         mappedQuestion.ReplaceAnswerPossibilities(AnswerProtosToAnswers(question.Type, question.AnswerPossibilites));
         return mappedQuestion;
     }
@@ -114,6 +116,7 @@ public class QuestionsGrpcConverter
         {
             var mappedAnswer = new Common.Models.MultipleChoiceAnswer
             {
+                Id = answerDto.Id,
                 Text = answerDto.Text,
                 DisplayIndex = answerDto.DisplayIndex,
                 IsCorrect = answerDto.IsCorrect,
@@ -130,6 +133,7 @@ public class QuestionsGrpcConverter
         {
             var mappedAnswer = new Common.Models.FindOrderAnswer
             {
+                Id = answerDto.Id,
                 Text = answerDto.Text,
                 DisplayIndex = answerDto.DisplayIndex,
                 CorrectIndex = answerDto.CorrectIndex,
@@ -146,6 +150,7 @@ public class QuestionsGrpcConverter
         {
             var mappedAnswer = new Common.Models.Answer
             {
+                Id = answerDto.Id,
                 Text = answerDto.Text,
             };
             mappedAnswers.Add(mappedAnswer);

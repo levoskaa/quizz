@@ -16,6 +16,7 @@ export interface AnswerDto {
 }
 
 export interface AnswerViewModel {
+  id: number;
   text: string;
   isCorrect?: boolean | undefined;
   correctIndex?: number | undefined;
@@ -76,6 +77,7 @@ export enum QuestionType {
 }
 
 export interface QuestionViewModel {
+  id: string;
   text: string;
   type: QuestionType;
   index: number;

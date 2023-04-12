@@ -1,22 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { tap } from 'rxjs/operators';
-import { successfulDialogCloseFilter } from 'src/app/core/utils/successfulDialogCloseFilter';
-import { ParticipantType } from 'src/app/features/game/models/game.models';
-import { DialogService } from 'src/app/shared/services/dialog.service';
-import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { successfulDialogCloseFilter } from '../../../../core/utils/successfulDialogCloseFilter';
+import { ParticipantType } from '../../../../features/game/models/game.models';
+import { UnsubscribeOnDestroy } from '../../../../shared/classes/unsubscribe-on-destroy';
+import { DialogService } from '../../../../shared/services/dialog.service';
+import { SnackbarService } from '../../../../shared/services/snackbar.service';
 import { PlayerNameDialogComponent } from '../../components/dialogs/player-name-dialog/player-name-dialog.component';
 import { InviteCodeForm } from '../../models/quiz-runner.models';
 import { QuizRunnerService } from '../../services/quiz-runner.service';
 
 @Component({
-  selector: 'app-join-game-page',
   templateUrl: './join-game-page.component.html',
   styleUrls: ['./join-game-page.component.scss'],
 })
-export class JoinGamePageComponent {
+export class JoinGamePageComponent extends UnsubscribeOnDestroy implements OnInit {
   formControls: Record<keyof InviteCodeForm, FormControl> = {
     inviteCode: new FormControl(null, [
       Validators.required,
@@ -32,7 +32,15 @@ export class JoinGamePageComponent {
     private readonly translate: TranslateService,
     private readonly dialogService: DialogService,
     private readonly router: Router
-  ) {}
+  ) {
+    super();
+  }
+
+  ngOnInit(): void {
+    this.subscribe(
+      this.quizRunner.gameStarted$.pipe(tap(() => this.router.navigateByUrl('/answering')))
+    );
+  }
 
   transformInput(): void {
     this.formControls.inviteCode.patchValue(this.formControls.inviteCode.value.toUpperCase());
@@ -60,10 +68,7 @@ export class JoinGamePageComponent {
       .afterClosed()
       .pipe(
         successfulDialogCloseFilter(),
-        tap(() => {
-          // TODO
-          console.log('routing...');
-        })
+        tap(() => this.router.navigateByUrl('/answering'))
       )
       .subscribe();
   }

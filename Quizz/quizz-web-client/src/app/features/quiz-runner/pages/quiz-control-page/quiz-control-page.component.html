@@ -1,0 +1,19 @@
+<ng-container *ngIf="currentQuestion$ | async as currentQuestion">
+  <div class="app-page">
+    <div class="app-page-header">
+      <p class="remaining-time mb-2" *ngIf="{value: timeRemaining$ | async} as timeRemaining">{{timeRemaining.value}}
+      </p>
+    </div>
+
+    <div class="app-page-content">
+      <p class="question-text mb-4">{{currentQuestion.text}}</p>
+      <ng-container [ngSwitch]="currentQuestion.type">
+        <app-multiple-choice-answers *ngSwitchCase="QuestionType.MultipleChoice"
+          [answers]="currentQuestion.answerPossibilities ?? []"></app-multiple-choice-answers>
+        <app-find-order-answers *ngSwitchCase="QuestionType.FindOrder"
+          [answers]="currentQuestion.answerPossibilities ?? []"></app-find-order-answers>
+        <app-true-or-false-answers *ngSwitchCase="QuestionType.TrueOrFalse"></app-true-or-false-answers>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

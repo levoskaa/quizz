@@ -1,8 +1,8 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, PartialObserver, Subscription } from 'rxjs';
 
-@Component({
-  template: '',
+@Injectable({
+  providedIn: 'root',
 })
 export abstract class UnsubscribeOnDestroy implements OnDestroy {
   protected subscriptions: Subscription[] = [];

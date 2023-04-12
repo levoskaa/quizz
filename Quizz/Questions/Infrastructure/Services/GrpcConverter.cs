@@ -51,6 +51,7 @@ public class GrpcConverter
         {
             var mappedQuestion = new Questions.Protos.Question
             {
+                Id = question.Id.ToString(),
                 Text = question.Text,
                 Type = (Questions.Protos.QuestionType)question.Type,
                 Index = question.Index,
@@ -85,6 +86,7 @@ public class GrpcConverter
         {
             var mappedAnswerDto = new Questions.Protos.Answer
             {
+                Id = answer.Id,
                 Text = answer.Text,
                 IsCorrect = answer.IsCorrect,
                 DisplayIndex = answer.DisplayIndex,
@@ -101,6 +103,7 @@ public class GrpcConverter
         {
             var mappedAnswerDto = new Questions.Protos.Answer
             {
+                Id = answer.Id,
                 Text = answer.Text,
                 DisplayIndex = answer.DisplayIndex,
                 CorrectIndex = answer.CorrectIndex,
@@ -117,6 +120,7 @@ public class GrpcConverter
         {
             var mappedAnswerDto = new Questions.Protos.Answer
             {
+                Id = answer.Id,
                 Text = answer.Text,
             };
             mappedAnswerDtos.Add(mappedAnswerDto);

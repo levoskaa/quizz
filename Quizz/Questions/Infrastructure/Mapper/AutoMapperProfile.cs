@@ -8,7 +8,6 @@ namespace Questions.Infrastructure.Mapper
     {
         public AutoMapperProfile()
         {
-            // TODO: implement mapping for descendant properties
             CreateMap<Quizz.Common.Models.Question, Quizz.Questions.Protos.Question>()
                 .ReverseMap();
 

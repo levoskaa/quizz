@@ -1,5 +1,6 @@
 ﻿using Quizz.GameService.Protos;
 using Quizz.SignalR.Infrastructure.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -67,6 +68,7 @@ namespace Quizz.SignalR.Infrastructure.Services
             {
                 throw new QuizRunnerDomainException("Question could not be mapped");
             }
+            mappedQuestion.Id = Guid.Parse(question.Id);
             mappedQuestion.ReplaceAnswerPossibilities(AnswerProtosToAnswers(question.Type, question.AnswerPossibilities));
             return mappedQuestion;
         }
@@ -78,6 +80,7 @@ namespace Quizz.SignalR.Infrastructure.Services
             {
                 var mappedAnswer = new Common.Models.MultipleChoiceAnswer
                 {
+                    Id = answerDto.Id,
                     Text = answerDto.Text,
                     DisplayIndex = answerDto.DisplayIndex,
                     IsCorrect = answerDto.IsCorrect,
@@ -94,6 +97,7 @@ namespace Quizz.SignalR.Infrastructure.Services
             {
                 var mappedAnswer = new Common.Models.FindOrderAnswer
                 {
+                    Id = answerDto.Id,
                     Text = answerDto.Text,
                     DisplayIndex = answerDto.DisplayIndex,
                     CorrectIndex = answerDto.CorrectIndex,
@@ -110,6 +114,7 @@ namespace Quizz.SignalR.Infrastructure.Services
             {
                 var mappedAnswer = new Common.Models.Answer
                 {
+                    Id = answerDto.Id,
                     Text = answerDto.Text,
                 };
                 mappedAnswers.Add(mappedAnswer);

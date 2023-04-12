@@ -13,6 +13,7 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   color: $font-color;
+  background-color: $grey-1;
 }
 
 p {
@@ -20,7 +21,7 @@ p {
 }
 
 .ng-scroll-content {
-  height: 100%;
+  min-height: 100%;
 }
 
 ng-scrollbar {
@@ -36,8 +37,8 @@ ng-scrollbar {
 }
 
 .cdk-drag-preview .drag-handle {
-  pointer-events: auto;
-  cursor: grabbing;
+  pointer-events: auto !important;
+  cursor: grabbing !important;
 }
 
 .form-error {

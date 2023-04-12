@@ -1,0 +1,14 @@
+:host.answering-mode {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .answers {
+    flex: 1;
+    grid-auto-rows: initial;
+  }
+
+  .answer-box {
+    cursor: pointer;
+  }
+}

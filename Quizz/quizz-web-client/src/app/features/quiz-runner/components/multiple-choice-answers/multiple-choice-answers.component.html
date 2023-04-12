@@ -1,0 +1,10 @@
+<div class="answers multiple-choice">
+  <div class="answer-box" *ngFor="let answer of answers; index as i" [ngClass]="getAnswerBoxClasses(i)"
+    (click)="toggleSelect(i)">
+    <p *ngIf="mode === 'control'">{{answer.text}}</p>
+    <i *ngIf="selected[i]" class="selected-icon fa-sharp fa-solid fa-circle-check"></i>
+  </div>
+</div>
+<button *ngIf="mode === 'answering'" class="mt-4" mat-flat-button (click)="submit()" color="accent">
+  <span translate>common.ok</span>
+</button>

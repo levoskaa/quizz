@@ -21,6 +21,9 @@
     },
     "true": "Igaz",
     "false": "Hamis",
-    "close": "Bezár"
+    "close": "Bezár",
+    "start": "Indítás",
+    "answer": "Válasz",
+    "toMainPage": "Főoldalra"
   }
 }

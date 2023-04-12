@@ -1,0 +1,25 @@
+<div class="app-page">
+  <div class="app-page-content app-flex-box center">
+    <p class="wait-text" *ngIf="!gameStarted" translate>quiz-runner.gameWillBeginSoon</p>
+    <p class="wait-text" *ngIf="questionAnswered" translate>quiz-runner.waitingForQuestion</p>
+
+    <ng-container *ngIf="question$ | async as question">
+      <ng-container [ngSwitch]="question.type" *ngIf="!questionAnswered">
+        <app-multiple-choice-answers *ngSwitchCase="QuestionType.MultipleChoice"
+          [answers]="question.answerPossibilities ?? []" [questionId]="question.id" mode="answering"
+          class="answering-mode" (answered)="onAnswered($event)"></app-multiple-choice-answers>
+        <app-find-order-answers *ngSwitchCase="QuestionType.FindOrder" [answers]="question.answerPossibilities ?? []"
+          [questionId]="question.id" mode="answering" class="answering-mode"
+          (answered)="onAnswered($event)"></app-find-order-answers>
+        <app-true-or-false-answers *ngSwitchCase="QuestionType.TrueOrFalse" [questionId]="question.id" mode="answering"
+          class="answering-mode" (answered)="onAnswered($event)"></app-true-or-false-answers>
+        <app-free-text-answers *ngSwitchCase="QuestionType.FreeText" [questionId]="question.id"
+          (answered)="onAnswered($event)"></app-free-text-answers>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<div class="result" *ngIf="resultVisible" [ngClass]="answerCorrect ? 'correct' : 'incorrect'">
+  <span class="result-text" translate>{{answerCorrect ? 'quiz-runner.correct' : 'quiz-runner.incorrect'}}</span>
+</div>
