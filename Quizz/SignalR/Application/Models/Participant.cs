@@ -6,7 +6,7 @@ namespace Quizz.SignalR.Application.Models
     public class Participant
     {
         public string Name { get; set; }
-        public int Score => AnswerSubmissions.Select(submission => submission.Correct).Count();
+        public int Score => answerSubmissions.FindAll(submission => submission.Correct).Count();
         public string SignalRConnectionId { get; set; }
         private readonly List<AnswerSubmission> answerSubmissions = new();
         public IEnumerable<AnswerSubmission> AnswerSubmissions => answerSubmissions;
