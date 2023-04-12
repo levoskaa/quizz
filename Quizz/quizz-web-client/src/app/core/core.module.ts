@@ -15,6 +15,7 @@ import { TRANSLATE_INITIALIZER } from './initializers/translate.initializer';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { AuthState } from './states/auth.state';
 import { AppTranslateHttpLoader } from './utils/app-translate-http-loader';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
 
 const appInitializers = [TRANSLATE_INITIALIZER];
 
@@ -26,6 +27,7 @@ function HttpLoaderFactory(http: HttpClient) {
   declarations: [SigninCallbackComponent, SignoutCallbackComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     DatePipe,
     ...appInitializers,
   ],

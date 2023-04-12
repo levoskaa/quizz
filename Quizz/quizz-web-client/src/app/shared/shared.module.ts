@@ -18,8 +18,15 @@ import { HeaderComponent } from './components/layout/header/header.component';
 import { LayoutContainerComponent } from './components/layout/layout-container/layout-container.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-const components = [LayoutContainerComponent, HeaderComponent, ConfirmDialogComponent];
+const components = [
+  LayoutContainerComponent,
+  HeaderComponent,
+  ConfirmDialogComponent,
+  SpinnerComponent,
+];
 
 const commonModules = [
   MatToolbarModule,
@@ -36,11 +43,12 @@ const commonModules = [
   MatButtonToggleModule,
   DragDropModule,
   MatSnackBarModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({
   declarations: [...components],
   imports: [CommonModule, RouterModule, ...commonModules],
-  exports: [...commonModules],
+  exports: [...commonModules, ...components],
 })
 export class SharedModule {}
