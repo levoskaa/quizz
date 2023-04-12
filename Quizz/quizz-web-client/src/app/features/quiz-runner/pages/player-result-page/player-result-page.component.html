@@ -1,6 +1,9 @@
 <div class="app-page app-flex-box column-direction center center-items">
-  <div class="app-page-content">
+  <div class="app-page-content app-flex-box center-items">
     <p class="result" translate [translateParams]="{name: result.name, ranking, score: result.score}">
       quiz-runner.playerResultText</p>
+    <button mat-flat-button color="primary" routerLink="/">
+      <span translate>common.toMainPage</span>
+    </button>
   </div>
 </div>

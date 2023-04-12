@@ -15,6 +15,7 @@ import { FindOrderAnswersComponent } from './components/find-order-answers/find-
 import { FreeTextAnswersComponent } from './components/free-text-answers/free-text-answers.component';
 import { PlayerResultPageComponent } from './pages/player-result-page/player-result-page.component';
 import { CombinedResultsPageComponent } from './pages/combined-results-page/combined-results-page.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,6 @@ import { CombinedResultsPageComponent } from './pages/combined-results-page/comb
     PlayerResultPageComponent,
     CombinedResultsPageComponent,
   ],
-  imports: [CommonModule, SharedModule, NgxsModule.forFeature([QuizRunnerState])],
+  imports: [CommonModule, RouterModule, SharedModule, NgxsModule.forFeature([QuizRunnerState])],
 })
 export class QuizRunnerModule {}
