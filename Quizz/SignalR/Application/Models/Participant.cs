@@ -13,10 +13,21 @@ namespace Quizz.SignalR.Application.Models
 
         public void AddAnswerSubmission(AnswerSubmission answerSubmission)
         {
-            if (!answerSubmissions.Exists(prevSubmission => answerSubmission.QuestionId.Equals(prevSubmission.QuestionId))) {
+            if (!answerSubmissions.Exists(prevSubmission => answerSubmission.QuestionId.Equals(prevSubmission.QuestionId)))
+            {
                 // Participant hasn't submitted an answer for this question yet
                 answerSubmissions.Add(answerSubmission);
             }
+        }
+
+        public ParticipantResult GetResult()
+        {
+            return new ParticipantResult
+            {
+                Name = Name,
+                ConnectionId = SignalRConnectionId,
+                Score = Score,
+            };
         }
     }
 }

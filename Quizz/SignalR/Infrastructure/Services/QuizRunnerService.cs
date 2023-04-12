@@ -1,10 +1,11 @@
-﻿using Quizz.Common.Models;
+﻿using AutoMapper;
+using Quizz.Common.Models;
 using Quizz.SignalR.Application.Models;
+using Quizz.SignalR.Application.ViewModels;
 using Quizz.SignalR.Infrastructure.Exceptions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -16,6 +17,12 @@ namespace Quizz.SignalR.Infrastructure.Services
         // Key: invite code
         // Value: quiz in progress
         private static readonly ConcurrentDictionary<string, Quiz> quizzes = new();
+        private readonly IMapper mapper;
+
+        public QuizRunnerService(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
 
         public bool SubmitAnswer(string inviteCode, Guid questionId, string connectionId, JsonElement rawAnswer)
         {
@@ -90,6 +97,16 @@ namespace Quizz.SignalR.Infrastructure.Services
                 sb.Append(ch);
             }
             return sb.ToString();
+        }
+
+        public QuizResultsViewModel GetQuizResults(string inviteCode)
+        {
+            if (quizzes.TryGetValue(inviteCode, out Quiz quiz))
+            {
+                var results = quiz.GetResults();
+                return mapper.Map<QuizResultsViewModel>(results);
+            }
+            throw new QuizRunnerDomainException($"No quiz found with invite code {inviteCode}");
         }
     }
 }

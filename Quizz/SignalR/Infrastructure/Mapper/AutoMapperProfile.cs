@@ -3,6 +3,9 @@ using Quizz.Common.Models;
 using Quizz.Common.ViewModels;
 using Quizz.SignalR.Application.Commands;
 using Quizz.SignalR.Application.Dtos;
+using Quizz.SignalR.Application.Models;
+using Quizz.SignalR.Application.ViewModels;
+using System.Collections.Generic;
 
 namespace Quizz.SignalR.Infrastructure.Mapper
 {
@@ -25,6 +28,11 @@ namespace Quizz.SignalR.Infrastructure.Mapper
                 .IncludeAllDerived();
             CreateMap<MultipleChoiceAnswer, AnswerViewModel>();
             CreateMap<FindOrderAnswer, AnswerViewModel>();
+
+            // Results
+            CreateMap<IEnumerable<ParticipantResult>, QuizResultsViewModel>()
+                .ForMember(dest => dest.ParticipantResults, options => options.MapFrom(src => src));
+            CreateMap<ParticipantResult, ParticipantResultViewModel>();
         }
     }
 }

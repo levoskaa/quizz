@@ -61,5 +61,11 @@ namespace Quizz.SignalR.Application.Models
             participant.AddAnswerSubmission(answerSubmission);
             return answerCorrect;
         }
+
+        public IEnumerable<ParticipantResult> GetResults()
+        {
+            return participants.Select(participant => participant.GetResult())
+                .OrderByDescending(participant => participant.Score);
+        }
     }
 }

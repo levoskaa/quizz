@@ -17,6 +17,7 @@ import {
   UpdateQuestionCount,
 } from '../actions/quiz-runner.actions';
 import { QuizRunnerState } from '../states/quiz-runner.state';
+import { QuizResultsViewModel } from '../../../shared/models/quiz-runner.models';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,10 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
 
   private readonly apiUrl = '/signalr/runner';
   private connection: HubConnection;
+
+  get connectionId(): string {
+    return this.connection.connectionId ?? '';
+  }
 
   constructor(private readonly http: AppHttpClient, private readonly store: Store) {
     super();
@@ -82,6 +87,10 @@ export class QuizRunnerService extends UnsubscribeOnDestroy {
 
   displayResults(): Promise<void> {
     return this.connection.invoke('DisplayResults', this.inviteCode);
+  }
+
+  getQuizResults(): Promise<QuizResultsViewModel> {
+    return this.connection.invoke('GetQuizResults', this.inviteCode);
   }
 
   private buildConnection(): HubConnection {

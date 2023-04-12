@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using Quizz.Common.ViewModels;
 using Quizz.SignalR.Application.Models;
+using Quizz.SignalR.Application.ViewModels;
 using Quizz.SignalR.Infrastructure.Exceptions;
 using Quizz.SignalR.Infrastructure.Services;
 using System;
@@ -74,6 +75,11 @@ namespace Quizz.SignalR.Hubs
         public async Task DisplayResults(string inviteCode)
         {
             await Clients.Group(inviteCode).SendAsync("DisplayResults");
+        }
+
+        public QuizResultsViewModel GetQuizResults(string inviteCode)
+        {
+            return quizRunner.GetQuizResults(inviteCode);
         }
     }
 }
