@@ -1,8 +1,10 @@
 ﻿using Autofac;
+using FluentValidation;
 using Quizz.Common.Services;
+using Quizz.SignalR.Application.Validators;
 using Quizz.SignalR.Infrastructure.Services;
 
-namespace Quizz.GameService.Infrastructure;
+namespace Quizz.SignalR.Infrastructure;
 
 public class SignalRModule : Module
 {
@@ -16,5 +18,11 @@ public class SignalRModule : Module
         builder.RegisterType<QuizRunnerService>()
             .As<IQuizRunnerService>()
             .InstancePerLifetimeScope();
+
+        // Validators
+        builder.RegisterAssemblyTypes(typeof(InitGameCommandValidator).Assembly)
+            .Where(type => type.IsClosedTypeOf(typeof(IValidator<>)))
+            .AsImplementedInterfaces()
+            .InstancePerDependency();
     }
 }

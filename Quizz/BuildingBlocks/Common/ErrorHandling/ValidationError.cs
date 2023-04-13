@@ -11,4 +11,9 @@ public static class ValidationError
 
     // User
     public static readonly string UserIdRequired = "user_id_required";
+
+    // Questions
+    public static readonly string QuestionIdsRequired = "question_ids_required";
+
+    public static readonly string NewQuestionsRequired = "new_questions_required";
 }

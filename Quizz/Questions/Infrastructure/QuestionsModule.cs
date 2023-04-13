@@ -6,6 +6,7 @@ using Quizz.Common.Services;
 using Quizz.Questions.Application.Behaviors;
 using Quizz.Questions.Data;
 using Quizz.Questions.Data.Repositories;
+using Quizz.Questions.Application.Validators;
 
 namespace Quizz.Questions.Infrastructure
 {
@@ -24,12 +25,11 @@ namespace Quizz.Questions.Infrastructure
                 .As<IIdentityService>()
                 .InstancePerLifetimeScope();
 
-            // TODO
             // Validators
-            //builder.RegisterAssemblyTypes(typeof(CreateQuestionsCommandValidator).Assembly)
-            //    .Where(type => type.IsClosedTypeOf(typeof(IValidator<>)))
-            //    .AsImplementedInterfaces()
-            //    .InstancePerDependency();
+            builder.RegisterAssemblyTypes(typeof(GetQuestionsCommandValidator).Assembly)
+                .Where(type => type.IsClosedTypeOf(typeof(IValidator<>)))
+                .AsImplementedInterfaces()
+                .InstancePerDependency();
 
             // Behaviors
             builder.RegisterGeneric(typeof(ValidatorBehavior<,>))
