@@ -43,7 +43,7 @@ public class QuestionsGrpcConverter
                 TimeLimitInSeconds = questionDto.TimeLimitInSeconds,
                 CorrectAnswer = questionDto.CorrectAnswer ?? false,
             };
-            mappedQuestionDto.AnswerPossibilites.AddRange(AnswerDtosToAnswerDtoProtos(questionDto.AnswerPossibilities));
+            mappedQuestionDto.AnswerPossibilities.AddRange(AnswerDtosToAnswerDtoProtos(questionDto.AnswerPossibilities));
             mappedQuestionDtos.Add(mappedQuestionDto);
         }
         return mappedQuestionDtos;
@@ -105,7 +105,7 @@ public class QuestionsGrpcConverter
             throw new GameServiceDomainException("Question could not be mapped");
         }
         mappedQuestion.Id = Guid.Parse(question.Id);
-        mappedQuestion.ReplaceAnswerPossibilities(AnswerProtosToAnswers(question.Type, question.AnswerPossibilites));
+        mappedQuestion.ReplaceAnswerPossibilities(AnswerProtosToAnswers(question.Type, question.AnswerPossibilities));
         return mappedQuestion;
     }
 

@@ -12,29 +12,29 @@ message Question {
     string text = 2;
     QuestionType type = 3;
     int32 index = 4;
-    int32 timeLimitInSeconds = 5;
-    repeated Answer answerPossibilites = 6;
-    bool correctAnswer = 7;
+    int32 time_limit_in_seconds = 5;
+    repeated Answer answer_possibilities = 6;
+    bool correct_answer = 7;
 }
 
 enum QuestionType {
-    TrueOrFalse = 0;
-    MultipleChoice = 1;
-    FindOrder = 2;
-    FreeText = 3;
+    TRUE_OR_FALSE = 0;
+    MULTIPLE_CHOICE = 1;
+    FIND_ORDER = 2;
+    FREE_TEXT = 3;
 }
 
 message Answer {
     int32 id = 1;
     string text = 2;
-    int32 displayIndex = 3;
-    int32 correctIndex = 4;
-    bool isCorrect = 5;
-    string questionId = 6;
+    int32 display_index = 3;
+    int32 correct_index = 4;
+    bool is_correct = 5;
+    string question_id = 6;
 }
 
 message GetQuestionsRequest {
-    repeated string questionIds = 1;
+    repeated string question_ids = 1;
 }
 
 message GetQuestionsReply {
@@ -45,24 +45,24 @@ message QuestionDto {
     string text = 1;
     QuestionType type = 2;
     int32 index = 3;
-    int32 timeLimitInSeconds = 4;
-    repeated AnswerDto answerPossibilites = 5;
-    bool correctAnswer = 6;
+    int32 time_limit_in_seconds = 4;
+    repeated AnswerDto answer_possibilities = 5;
+    bool correct_answer = 6;
 }
 
 message AnswerDto {
     string text = 1;
-    int32 displayIndex = 2;
-    int32 correctIndex = 3;
-    bool isCorrect = 4;
-    string questionId = 5;
+    int32 display_index = 2;
+    int32 correct_index = 3;
+    bool is_correct = 4;
+    string question_id = 5;
 }
 
 message ReplaceQuestionsRequest {
-    repeated string questionIds = 1;
-    repeated QuestionDto questionDtos = 2;
+    repeated string question_ids = 1;
+    repeated QuestionDto question_dtos = 2;
 }
 
 message ReplaceQuestionsReply {
-    repeated string newQuestionIds = 1;
+    repeated string new_question_ids = 1;
 }
