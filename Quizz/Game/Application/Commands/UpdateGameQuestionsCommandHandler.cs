@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Dapper;
 using MediatR;
+using Quizz.GameService.Application.DomainEvents;
 using Quizz.GameService.Data;
 using Quizz.GameService.Data.Repositories;
 using Quizz.GameService.Infrastructure.Services;
@@ -45,6 +46,7 @@ public class UpdateGameQuestionsCommandHandler : IRequestHandler<UpdateGameQuest
         var guidQuestionIds = grpcReply.NewQuestionIds.ToList()
             .Select(id => Guid.Parse(id));
         game.ReplaceQuesionIds(guidQuestionIds);
+        game.AddDomainEvent(new GameQuestionsUpdatedDomainEvent(game, DateTime.UtcNow));
         await gameRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         return Unit.Value;
     }

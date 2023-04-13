@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, Input, OnChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import {
@@ -17,6 +24,7 @@ import { GameService } from '../../services/game.service';
 export class QuestionsListComponent implements OnChanges {
   @Input() gameId: number;
   @Input() questions: QuestionViewModel[];
+  @Output() questionsUpdated = new EventEmitter<void>();
 
   formControls = {
     questions: new FormArray([]),
@@ -51,6 +59,7 @@ export class QuestionsListComponent implements OnChanges {
       .updateGameQuestions(this.gameId, dto)
       .pipe(
         tap(() => {
+          this.questionsUpdated.emit();
           this.form.markAsUntouched();
           this.form.markAsPristine();
         })

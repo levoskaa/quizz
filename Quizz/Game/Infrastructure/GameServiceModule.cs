@@ -4,6 +4,7 @@ using MediatR;
 using Quizz.Common.DataAccess;
 using Quizz.Common.Services;
 using Quizz.GameService.Application.Behaviors;
+using Quizz.GameService.Application.DomainEvents;
 using Quizz.GameService.Application.Validators;
 using Quizz.GameService.Data;
 using Quizz.GameService.Data.Repositories;
@@ -45,5 +46,10 @@ public class GameServiceModule : Module
         builder.RegisterType<DapperContext>()
             .AsSelf()
             .SingleInstance();
+
+        // Domain Event handlers
+        builder.RegisterAssemblyTypes(typeof(SetGameModificationTimeWhenGameQuestionsUpdatedDomainEventHandler).Assembly)
+            .AsClosedTypesOf(typeof(INotificationHandler<>))
+            .InstancePerDependency();
     }
 }

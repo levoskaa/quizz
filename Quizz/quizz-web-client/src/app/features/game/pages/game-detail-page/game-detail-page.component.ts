@@ -48,6 +48,10 @@ export class GameDetailPageComponent extends UnsubscribeOnDestroy implements OnI
     );
   }
 
+  onQuestionsUpdated(): void {
+    this.subscribe(this.getGame());
+  }
+
   private getGame(): Observable<GameViewModel> {
     const id = this.route.snapshot.params.id;
     return this.gameService.getGame(id).pipe(
