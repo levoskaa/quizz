@@ -8,10 +8,10 @@ namespace Quizz.Questions.Application.Validators
     {
         public ReplaceQuestionsCommandValidator()
         {
-            RuleFor(command => command.QuestionIds).NotEmpty()
+            RuleFor(command => command.QuestionIds).NotNull()
                 .WithMessage(ValidationError.QuestionIdsRequired);
 
-            RuleFor(command => command.QuestionDtos).NotEmpty()
+            RuleFor(command => command.QuestionDtos).NotNull()
                 .WithMessage(ValidationError.NewQuestionsRequired);
         }
     }

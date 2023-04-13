@@ -38,6 +38,6 @@ public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand>
     private void DoUpdate(Game game, UpdateGameCommand updateGameCommand)
     {
         game.Name = updateGameCommand.Name;
-        game.UpdatedAt = DateTime.Now;
+        game.UpdatedAt = DateTime.UtcNow;
     }
 }

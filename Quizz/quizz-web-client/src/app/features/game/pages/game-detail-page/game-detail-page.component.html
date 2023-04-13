@@ -11,6 +11,7 @@
   </div>
   <div class="app-page-content" *ngIf="game">
     <app-game-form [formControl]="form"></app-game-form>
-    <app-questions-list [gameId]="game.id" [questions]="questions"></app-questions-list>
+    <app-questions-list [gameId]="game.id" [questions]="questions"
+      (questionsUpdated)="onQuestionsUpdated()"></app-questions-list>
   </div>
 </div>

@@ -22,10 +22,13 @@ public class AutoMapperProfile : Profile
 
         CreateMap<CreateGameCommand, Game>()
             .ForMember(game => game.OwnerId, options => options.MapFrom(command => command.UserId))
-            .ForMember(game => game.UpdatedAt, options => options.MapFrom(_ => DateTime.Now));
+            .ForMember(game => game.UpdatedAt, options => options.MapFrom(_ => DateTime.UtcNow));
 
         // Get Games
-        CreateMap<Game, GameViewModel>();
+        CreateMap<Game, GameViewModel>()
+            .ForMember(
+                viewModel => viewModel.UpdatedAt,
+                options => options.MapFrom(game => game.UpdatedAt.ToLocalTime()));
 
         // Update Game
         CreateMap<UpdateGameDto, UpdateGameCommand>();
@@ -33,7 +36,7 @@ public class AutoMapperProfile : Profile
         CreateMap<UpdateGameCommand, Game>()
             .ForMember(game => game.Id, options => options.MapFrom(command => command.GameId))
             .ForMember(game => game.OwnerId, options => options.MapFrom(command => command.UserId))
-            .ForMember(game => game.UpdatedAt, options => options.MapFrom(_ => DateTime.Now));
+            .ForMember(game => game.UpdatedAt, options => options.MapFrom(_ => DateTime.UtcNow));
 
         // Error
         CreateMap<GameServiceDomainException, ErrorViewModel>()
