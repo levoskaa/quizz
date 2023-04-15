@@ -51,3 +51,11 @@
     }
   }
 }
+
+@media only screen and (max-width: 700px) {
+  .question-form {
+    .answer-container {
+      grid-template-columns: 1fr;
+    }
+  }
+}
