@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Dapper;
+﻿using Dapper;
 using MediatR;
 using Quizz.GameService.Application.DomainEvents;
 using Quizz.GameService.Data;
@@ -38,16 +37,11 @@ public class UpdateGameQuestionsCommandHandler : IRequestHandler<UpdateGameQuest
     {
         await gameValidatorService.CheckGameOwnershipAsync(request.GameId, request.UserId);
         var oldQuestionIds = await GetQuestionIdsAsync(request.GameId);
-        var grpcRequest = new ReplaceQuestionsRequest();
-        grpcRequest.QuestionIds.AddRange(oldQuestionIds.Select(x => x.ToString()));
-        grpcRequest.QuestionDtos.AddRange(QuestionsGrpcConverter.QuestionDtosToQuestionDtoProtos(request.Questions));
+        var grpcRequest = BuildGrpcRequest(oldQuestionIds, request.Questions);
         var grpcReply = await questionsClient.ReplaceQuestionsAsync(grpcRequest, cancellationToken: cancellationToken);
-        var game = await gameRepository.GetAsync(request.GameId);
-        var guidQuestionIds = grpcReply.NewQuestionIds.ToList()
+        var newQuestionIds = grpcReply.NewQuestionIds.ToList()
             .Select(id => Guid.Parse(id));
-        game.ReplaceQuesionIds(guidQuestionIds);
-        game.AddDomainEvent(new GameQuestionsUpdatedDomainEvent(game, DateTime.UtcNow));
-        await gameRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+        await UpdateGameQuestionIds(request.GameId, newQuestionIds, cancellationToken);
         return Unit.Value;
     }
 
@@ -61,5 +55,23 @@ public class UpdateGameQuestionsCommandHandler : IRequestHandler<UpdateGameQuest
             questionIds = await connection.QueryAsync<Guid>(query, new { gameId });
         }
         return questionIds;
+    }
+
+    private ReplaceQuestionsRequest BuildGrpcRequest(IEnumerable<Guid> oldQuestionIds, IEnumerable<Common.Dtos.QuestionDto> newQuestions)
+    {
+        var grpcRequest = new ReplaceQuestionsRequest();
+        grpcRequest.QuestionIds.AddRange(oldQuestionIds.Select(x => x.ToString()));
+        var questionProtos = QuestionsGrpcConverter.QuestionDtosToQuestionDtoProtos(newQuestions);
+        grpcRequest.QuestionDtos.AddRange(questionProtos);
+        return grpcRequest;
+    }
+
+    private async Task UpdateGameQuestionIds(int gameId, IEnumerable<Guid> questionIds, CancellationToken cancellationToken)
+    {
+        var game = await gameRepository.GetAsync(gameId);
+        game.ReplaceQuesionIds(questionIds);
+        var updateTime = DateTime.UtcNow;
+        game.AddDomainEvent(new GameQuestionsUpdatedDomainEvent(game, updateTime));
+        await gameRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
     }
 }
