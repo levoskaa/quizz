@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameService", "Game\GameSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Questions", "Questions\Questions.csproj", "{81D42090-C30D-4CCB-A7DB-69AEEF2D4F3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalR", "SignalR\SignalR.csproj", "{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizRunner", "QuizRunner\QuizRunner.csproj", "{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{AB6A4490-AC50-4F92-8305-CF486917A29A}"
 EndProject
@@ -29,9 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBusRabbitMQ", "Buildin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationEventLog", "BuildingBlocks\EventBus\IntegrationEventLog\IntegrationEventLog.csproj", "{811CD36C-0799-4427-A720-6A81BE0ECB4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameService.UnitTests", "GameService.UnitTests\GameService.UnitTests.csproj", "{AE66761B-D7FE-4C58-86B6-E4C27720C04A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameService.UnitTests", "GameService.UnitTests\GameService.UnitTests.csproj", "{AE66761B-D7FE-4C58-86B6-E4C27720C04A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Questions.UnitTests", "Questions.UnitTests\Questions.UnitTests.csproj", "{FA6FF7E8-114F-4D16-BA69-CA71E6A14DF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Questions.UnitTests", "Questions.UnitTests\Questions.UnitTests.csproj", "{FA6FF7E8-114F-4D16-BA69-CA71E6A14DF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

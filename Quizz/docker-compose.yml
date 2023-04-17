@@ -57,12 +57,12 @@ services:
     depends_on:
       - sql-server
 
-  signalr:
-    container_name: "quizz_signalr"
-    image: ${DOCKER_REGISTRY-}signalr
+  quiz-runner:
+    container_name: "quizz_quiz-runner"
+    image: ${DOCKER_REGISTRY-}quiz-runner
     build:
       context: .
-      dockerfile: SignalR/Dockerfile
+      dockerfile: QuizRunner/Dockerfile
     ports:
       - "32008:80"
       - "32009:443"
