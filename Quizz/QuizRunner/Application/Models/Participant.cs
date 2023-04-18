@@ -20,7 +20,7 @@ namespace Quizz.QuizRunner.Application.Models
             }
         }
 
-        public ParticipantResult GetResult()
+        public virtual ParticipantResult GetResult()
         {
             return new ParticipantResult
             {

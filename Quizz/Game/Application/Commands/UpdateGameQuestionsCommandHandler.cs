@@ -69,7 +69,7 @@ public class UpdateGameQuestionsCommandHandler : IRequestHandler<UpdateGameQuest
     private async Task UpdateGameQuestionIds(int gameId, IEnumerable<Guid> questionIds, CancellationToken cancellationToken)
     {
         var game = await gameRepository.GetAsync(gameId);
-        game.ReplaceQuesionIds(questionIds);
+        game.ReplaceQuestionIds(questionIds);
         var updateTime = DateTime.UtcNow;
         game.AddDomainEvent(new GameQuestionsUpdatedDomainEvent(game, updateTime));
         await gameRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
