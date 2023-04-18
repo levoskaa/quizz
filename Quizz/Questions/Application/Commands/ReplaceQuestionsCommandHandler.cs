@@ -28,12 +28,8 @@ public class ReplaceQuestionsCommandHandler
 
     public async Task<IEnumerable<string>> Handle(ReplaceQuestionsCommand request, CancellationToken cancellationToken)
     {
-        var questionsToRemove = await questionRepository
-            .FilterAsync(question => request.QuestionIds.Contains(question.Id.ToString()));
-        foreach (var question in questionsToRemove)
-        {
-            questionRepository.Remove(question);
-        }
+        // Remove old questions
+        await RemoveQuestions(request.QuestionIds);
         var newQuestionIds = new List<string>();
         foreach (var dto in request.QuestionDtos)
         {
@@ -43,6 +39,16 @@ public class ReplaceQuestionsCommandHandler
         }
         await questionRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         return newQuestionIds;
+    }
+
+    private async Task RemoveQuestions(IEnumerable<string> questionIds)
+    {
+        var questionsToRemove = await questionRepository
+            .FilterAsync(question => questionIds.Contains(question.Id.ToString()));
+        foreach (var question in questionsToRemove)
+        {
+            questionRepository.Remove(question);
+        }
     }
 
     private Question CreateNewQuestion(QuestionDto questionDto)

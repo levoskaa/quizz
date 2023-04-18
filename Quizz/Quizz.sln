@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameService", "Game\GameSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Questions", "Questions\Questions.csproj", "{81D42090-C30D-4CCB-A7DB-69AEEF2D4F3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalR", "SignalR\SignalR.csproj", "{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizRunner", "QuizRunner\QuizRunner.csproj", "{4D63B2F3-2FBC-4C1F-B967-645BB2B5A4B4}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{AB6A4490-AC50-4F92-8305-CF486917A29A}"
 EndProject
@@ -28,6 +28,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBusRabbitMQ", "BuildingBlocks\EventBus\EventBusRabbitMQ\EventBusRabbitMQ.csproj", "{9A3C89A5-D574-4A9F-9020-69F38CBF6084}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationEventLog", "BuildingBlocks\EventBus\IntegrationEventLog\IntegrationEventLog.csproj", "{811CD36C-0799-4427-A720-6A81BE0ECB4A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameService.UnitTests", "GameService.UnitTests\GameService.UnitTests.csproj", "{AE66761B-D7FE-4C58-86B6-E4C27720C04A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Questions.UnitTests", "Questions.UnitTests\Questions.UnitTests.csproj", "{FA6FF7E8-114F-4D16-BA69-CA71E6A14DF6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizRunner.UnitTests", "QuizRunner.UnitTests\QuizRunner.UnitTests.csproj", "{30CE3E0A-641E-4387-BC0E-03C68EE6223D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.UnitTests", "Common.UnitTests\Common.UnitTests.csproj", "{7D1DD11D-A77C-49CB-9633-B5CA65EA5CD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +87,22 @@ Global
 		{811CD36C-0799-4427-A720-6A81BE0ECB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{811CD36C-0799-4427-A720-6A81BE0ECB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{811CD36C-0799-4427-A720-6A81BE0ECB4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE66761B-D7FE-4C58-86B6-E4C27720C04A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE66761B-D7FE-4C58-86B6-E4C27720C04A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE66761B-D7FE-4C58-86B6-E4C27720C04A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE66761B-D7FE-4C58-86B6-E4C27720C04A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA6FF7E8-114F-4D16-BA69-CA71E6A14DF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA6FF7E8-114F-4D16-BA69-CA71E6A14DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA6FF7E8-114F-4D16-BA69-CA71E6A14DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA6FF7E8-114F-4D16-BA69-CA71E6A14DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30CE3E0A-641E-4387-BC0E-03C68EE6223D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30CE3E0A-641E-4387-BC0E-03C68EE6223D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30CE3E0A-641E-4387-BC0E-03C68EE6223D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30CE3E0A-641E-4387-BC0E-03C68EE6223D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D1DD11D-A77C-49CB-9633-B5CA65EA5CD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D1DD11D-A77C-49CB-9633-B5CA65EA5CD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D1DD11D-A77C-49CB-9633-B5CA65EA5CD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D1DD11D-A77C-49CB-9633-B5CA65EA5CD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

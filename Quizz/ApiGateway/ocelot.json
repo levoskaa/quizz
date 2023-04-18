@@ -42,7 +42,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "signalr",
+          "Host": "quiz-runner",
           "Port": 80
         }
       ],
@@ -54,7 +54,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "signalr",
+          "Host": "quiz-runner",
           "Port": 80
         }
       ],
@@ -66,7 +66,7 @@
       "DownstreamScheme": "ws",
       "DownstreamHostAndPorts": [
         {
-          "Host": "signalr",
+          "Host": "quiz-runner",
           "Port": 80
         }
       ],
