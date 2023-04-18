@@ -1,3 +1,4 @@
+using IdentityServer4;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -74,7 +75,7 @@ public class Startup
         services.AddAuthentication()
             .AddGoogle("Google", options =>
             {
-                options.SignInScheme = "Identity.External";
+                options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                 options.ClientId = "204975450703-tnos0oce0537bc8lcqfubbs4f3kt9d9a.apps.googleusercontent.com";
                 options.ClientSecret = "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";
             });
