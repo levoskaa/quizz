@@ -11,7 +11,9 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Questions.Infrastructure.Mapper;
+using Quizz.BuildingBlocks.EventBus.Abstractions;
 using Quizz.Questions.Application.Behaviors;
+using Quizz.Questions.Application.IntegrationEvents;
 using Quizz.Questions.Data;
 using Quizz.Questions.gRPC;
 using Quizz.Questions.Infrastructure;
@@ -106,6 +108,10 @@ public class Startup
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        var serviceProvider = app.ApplicationServices;
+        var eventBus = serviceProvider.GetRequiredService<IEventBus>();
+        eventBus.Subscribe<GameDeletedIntegrationEvent, GameDeletedIntegrationEventHandler>();
+
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();

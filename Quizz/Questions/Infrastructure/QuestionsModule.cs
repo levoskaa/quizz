@@ -1,12 +1,14 @@
 ﻿using Autofac;
 using FluentValidation;
 using MediatR;
+using Quizz.BuildingBlocks.EventBus.Abstractions;
 using Quizz.Common.DataAccess;
 using Quizz.Common.Services;
 using Quizz.Questions.Application.Behaviors;
+using Quizz.Questions.Application.IntegrationEvents;
+using Quizz.Questions.Application.Validators;
 using Quizz.Questions.Data;
 using Quizz.Questions.Data.Repositories;
-using Quizz.Questions.Application.Validators;
 
 namespace Quizz.Questions.Infrastructure
 {
@@ -34,6 +36,12 @@ namespace Quizz.Questions.Infrastructure
             // Behaviors
             builder.RegisterGeneric(typeof(ValidatorBehavior<,>))
                 .As(typeof(IPipelineBehavior<,>))
+                .InstancePerDependency();
+
+            // Integration event handlers
+            builder.RegisterAssemblyTypes(typeof(GameDeletedIntegrationEventHandler).Assembly)
+                .Where(type => type.IsClosedTypeOf(typeof(IIntegrationEventHandler<>)))
+                .AsSelf()
                 .InstancePerDependency();
 
             // Dapper
