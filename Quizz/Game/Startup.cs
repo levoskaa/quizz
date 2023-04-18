@@ -16,6 +16,7 @@ using Quizz.GameService.gRPC;
 using Quizz.GameService.Infrastructure;
 using Quizz.GameService.Infrastructure.Exceptions;
 using Quizz.GameService.Infrastructure.Mapper;
+using Quizz.Questions.Infrastructure.Extensions;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
@@ -113,6 +114,8 @@ public class Startup
         });
 
         services.AddRouting(options => options.LowercaseUrls = true);
+
+        services.AddEventBus(Configuration);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,9 @@
 ﻿using Autofac.Extras.Moq;
 using Moq;
+using Quizz.BuildingBlocks.EventBus.Abstractions;
 using Quizz.Common.ErrorHandling;
 using Quizz.GameService.Application.Commands;
+using Quizz.GameService.Application.IntegrationEvents;
 using Quizz.GameService.Application.Models;
 using Quizz.GameService.Data.Repositories;
 
@@ -23,6 +25,8 @@ namespace GameService.UnitTests.Application.Commands
                 .Returns(Task.FromResult(game));
             mockRepository.Setup(x => x.Remove(game));
             mockRepository.Setup(x => x.UnitOfWork.SaveEntitiesAsync(default));
+            var mockEventBus = mock.Mock<IEventBus>();
+            mockEventBus.Setup(x => x.Publish(It.IsAny<GameDeletedIntegrationEvent>()));
             var commandHandler = mock.Create<DeleteGameCommandHandler>();
 
             // Act
@@ -32,6 +36,7 @@ namespace GameService.UnitTests.Application.Commands
             mockRepository.Verify(x => x.GetAsync(gameId), Times.Exactly(1));
             mockRepository.Verify(x => x.Remove(game), Times.Exactly(1));
             mockRepository.Verify(x => x.UnitOfWork.SaveEntitiesAsync(default), Times.Exactly(1));
+            mockEventBus.Verify(x => x.Publish(It.IsAny<GameDeletedIntegrationEvent>()), Times.Exactly(1));
         }
 
         [Fact]
